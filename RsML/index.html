@@ -1,0 +1,2396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <meta charset="utf-8">
+  <meta name="creator" content="RsML1">
+  <meta name="author" content="Jing Huang">
+  <meta name="pubdate" content="2025-01-21">
+  <title>RsML Namespace -- RnEs Structured Markup Language</title>
+  <link href="/style/art.css" rel="stylesheet">
+</head>
+<body>
+  <div class="header">
+    <h1 class="title">RsML Namespace</h1>
+    <h2 class="subtitle"><em>RnE's Structured Markup Language</em></h2>
+    <div class="status">
+      <p>Published on 21 January 2025 by Jing Huang.</p>
+    </div>
+    <div class="abstract">
+      <p>This page describes the namespace for <span class="term">RsML</span>, an XML schema for writing technical or
+      non-technical documents. At the present time <span class="term">RsML</span> can be transformed into clean and
+      semantically rich HTML5, while TeX output support is on the roadmap<sup><a href="#f1">1</a></sup>.</p>
+    </div>
+    <nav id="lot">
+      <h2>Table of Contents</h2>
+      <div class="toc">
+        <ul>
+          <li>
+            <a href="#c1"><span class="chapno">1</span> <span class="content">RelaxNG Compact Schema</span></a>
+          </li>
+          <li>
+            <a href="#c2"><span class="chapno">2</span> <span class="content">XSLT 1.0 Style Sheet</span></a>
+            <ul class="toc">
+              <li>
+                <a href="#s2-1"><span class="secno">2.1</span> <span class="content">External Math Support</span></a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#c3"><span class="chapno">3</span> <span class="content">Cascading Style Sheet</span></a>
+          </li>
+          <li>
+            <a href="#c4"><span class="chapno">4</span> <span class="content">Other Resources</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <h2 id="c1">1. RelaxNG Compact Schema</h2>
+  <p>This is non-normative schema, and can be used for manuscript validating by <code>jing.jar</code> or Emacs
+  <code>nXML</code> mode. It can be converted to the XML syntax using <a href=
+  "https://relaxng.org/jclark/trang.html">Trang</a>.</p>
+  <div class="prewrap">
+    <pre><span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+    "ld"><code># RelaxNG Compact Schema Specification for RsML 1.0</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code># Copyright (C) 2025, Jing Huang &lt;RadioNoiseE@gmail.com&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>default namespace rsml = "https://kekkan.org/RsML"</code></span></span>
+<span class="line"><span class="ln">  5 <span class="nsep">|</span></span><span class=
+"ld"><code>namespace mml = "http://www.w3.org/1998/Math/MathML"</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>start = rsml.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>extern._any.attribute = attribute * - rsml:* { text }</code></span></span>
+<span class="line"><span class="ln"> 10 <span class="nsep">|</span></span><span class=
+"ld"><code>extern._any.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element * - rsml:* {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    ( extern._any.attribute | text | extern._any.element )*</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln"> 15 <span class="nsep">|</span></span><span class=
+"ld"><code>inline.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  ( inline.text.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    | inline.type.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    | inline.math.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    | inline.verbatim.element</code></span></span>
+<span class="line"><span class="ln"> 20 <span class="nsep">|</span></span><span class=
+"ld"><code>    | inline.semantic.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    | inline.reference.element )*</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>display.geometry.attribute =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  attribute size { xsd:string { pattern = "r\d+(\.\d+)?" } }</code></span></span>
+<span class="line"><span class="ln"> 25 <span class="nsep">|</span></span><span class=
+"ld"><code>display.align.attribute =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  attribute align { string "left" | string "center" | string "right" }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>display.xref.attribute =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  attribute label { text }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>display.element =</code></span></span>
+<span class="line"><span class="ln"> 30 <span class="nsep">|</span></span><span class=
+"ld"><code>  ( display.list.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    | display.figure.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    | display.table.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    | display.math.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    | display.verbatim.element</code></span></span>
+<span class="line"><span class="ln"> 35 <span class="nsep">|</span></span><span class=
+"ld"><code>    | display.quote.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    | display.message.element )*</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>rsml.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element rsml {</code></span></span>
+<span class="line"><span class="ln"> 40 <span class="nsep">|</span></span><span class=
+"ld"><code>    ( attribute version { string "1.0" }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      & attribute language { xsd:language }? ),</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    preamble.element,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    document.element,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    postamble.element</code></span></span>
+<span class="line"><span class="ln"> 45 <span class="nsep">|</span></span><span class=
+"ld"><code>  }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>preamble.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element meta {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    element title { inline.element },</code></span></span>
+<span class="line"><span class="ln"> 50 <span class="nsep">|</span></span><span class=
+"ld"><code>    element subtitle { inline.element }?,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    ( ( element author { text },</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        element affiliate { text }? )?</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      & element date {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          element year { xsd:gYear },</code></span></span>
+<span class="line"><span class="ln"> 55 <span class="nsep">|</span></span><span class=
+"ld"><code>          ( element month { xsd:gMonth },</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            element day { xsd:gDay } )?</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        }? ),</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    element abstract { inline.element }?</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  }</code></span></span>
+<span class="line"><span class="ln"> 60 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>document.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element unit {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    attribute role { string "chapter" | string "section" | string "subsection" },</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    element heading { inline.element },</code></span></span>
+<span class="line"><span class="ln"> 65 <span class="nsep">|</span></span><span class=
+"ld"><code>    ( element paragraph { inline.element }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      | display.element )*,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    document.element*</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  }+</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln"> 70 <span class="nsep">|</span></span><span class=
+"ld"><code>postamble.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element bibliography {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    element entry {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      element author { text },</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      element title { inline.element },</code></span></span>
+<span class="line"><span class="ln"> 75 <span class="nsep">|</span></span><span class=
+"ld"><code>      element year { xsd:gYear }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }+</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  }?</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>inline.text.element =</code></span></span>
+<span class="line"><span class="ln"> 80 <span class="nsep">|</span></span><span class=
+"ld"><code>  text</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  | element quotation { empty }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  | element apostrophe { empty }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  | element ampersand { empty }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  | element langle { empty }</code></span></span>
+<span class="line"><span class="ln"> 85 <span class="nsep">|</span></span><span class=
+"ld"><code>  | element rangle { empty }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  | element space { empty }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>inline.type.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element emphasize { inline.text.element+ }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  | element highlight { inline.text.element+ }</code></span></span>
+<span class="line"><span class="ln"> 90 <span class="nsep">|</span></span><span class=
+"ld"><code>inline.math.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element math {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    extern._any.attribute?,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    ( extern._any.element+</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      | inline.text.element+ )*</code></span></span>
+<span class="line"><span class="ln"> 95 <span class="nsep">|</span></span><span class=
+"ld"><code>  }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>inline.verbatim.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element verbatim {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    attribute lang { text }?,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    inline.text.element+</code></span></span>
+<span class="line"><span class="ln">100 <span class="nsep">|</span></span><span class=
+"ld"><code>  }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>inline.semantic.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element term { inline.text.element+ }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  | element abbreviation { inline.text.element+ }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  | element keyword { inline.text.element+ }</code></span></span>
+<span class="line"><span class="ln">105 <span class="nsep">|</span></span><span class=
+"ld"><code>  | element quote { inline.text.element+ }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>inline.reference.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element link { attribute literal { text }?, xsd:anyURI }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  | element label { text }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  | element refer {</code></span></span>
+<span class="line"><span class="ln">110 <span class="nsep">|</span></span><span class=
+"ld"><code>      attribute type {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        string "chapter" | string "section" | string "subsection" | string "label" |</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        string "figure" | string "table" | string "math" | string "verbatim"</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      }, attribute label { text }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln">115 <span class="nsep">|</span></span><span class=
+"ld"><code>  | element footnote {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      attribute symbol { text }?,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      inline.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">120 <span class="nsep">|</span></span><span class=
+"ld"><code>display.list.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element list {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    attribute type { string "enumerate" | string "itemize" | string "description" },</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    element item {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      attribute name { text }?,</code></span></span>
+<span class="line"><span class="ln">125 <span class="nsep">|</span></span><span class=
+"ld"><code>      ( inline.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        & display.list.element? )+</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }+</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>display.figure.element =</code></span></span>
+<span class="line"><span class="ln">130 <span class="nsep">|</span></span><span class=
+"ld"><code>  element figure {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    ( display.geometry.attribute?</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      & display.align.attribute?</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      & display.xref.attribute? ),</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    ( element image { xsd:anyURI }</code></span></span>
+<span class="line"><span class="ln">135 <span class="nsep">|</span></span><span class=
+"ld"><code>      & element caption { inline.element }? )</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>display.table.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element table {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    ( display.align.attribute?</code></span></span>
+<span class="line"><span class="ln">140 <span class="nsep">|</span></span><span class=
+"ld"><code>      & display.xref.attribute? ),</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    ( ( element head { display.table.column.element }?,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        element body { display.table.column.element },</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        element foot { display.table.column.element }? )</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      & element caption { inline.element }? )</code></span></span>
+<span class="line"><span class="ln">145 <span class="nsep">|</span></span><span class=
+"ld"><code>  }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>display.table.column.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element column {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    element cell {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      ( attribute rowspan { xsd:unsignedInt }?,</code></span></span>
+<span class="line"><span class="ln">150 <span class="nsep">|</span></span><span class=
+"ld"><code>        attribute colspan { xsd:unsignedInt }? ),</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      inline.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }+</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  }+</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>display.math.element =</code></span></span>
+<span class="line"><span class="ln">155 <span class="nsep">|</span></span><span class=
+"ld"><code>  element math {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    display.xref.attribute?,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    extern._any.attribute?,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    ( extern._any.element+</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      | inline.text.element+ )*</code></span></span>
+<span class="line"><span class="ln">160 <span class="nsep">|</span></span><span class=
+"ld"><code>  }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>display.verbatim.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element verbatim {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    ( display.xref.attribute?</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      & attribute lang { text }?</code></span></span>
+<span class="line"><span class="ln">165 <span class="nsep">|</span></span><span class=
+"ld"><code>      & attribute line { xsd:unsignedInt } ),</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    inline.text.element+</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>display.quote.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element quote {</code></span></span>
+<span class="line"><span class="ln">170 <span class="nsep">|</span></span><span class=
+"ld"><code>    attribute cite { text }?,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    inline.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>display.message.element =</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  element message {</code></span></span>
+<span class="line"><span class="ln">175 <span class="nsep">|</span></span><span class=
+"ld"><code>    attribute type { string "note" | string "tip" | string "warning" | string "caution" },</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    inline.element</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  }</code></span></span></pre>
+  </div>
+  <h2 id="c2">2. XSLT 1.0 Style Sheet</h2>
+  <p>This is the transformation sheet for <span class="term">RsML</span> written in XSLT 1.0 with compatibility in
+  mind. Thus most implementations for instance <code>libxslt</code> and most web browsers should be able to handle
+  it.</p>
+  <div class="note">
+    <p>The idea for the current implementation of program listings is <em>borrowed</em> from LdBeth which renders line
+    numbers correctly in text-based web browsers like <code>w3m</code>. However it has poor performance when processing
+    very large listings as regression is inevitably used.</p>
+  </div>
+  <div class="prewrap">
+    <pre><span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+    "ld"><code>&lt;xsl:stylesheet version="1.0"</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                xmlns:rsml="https://kekkan.org/RsML"</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                xmlns:mml="http://www.w3.org/1998/Math/MathML"</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"</code></span></span>
+<span class="line"><span class="ln">  5 <span class="nsep">|</span></span><span class=
+"ld"><code>                exclude-result-prefixes="rsml mml"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;!--</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    Copyright Jing Huang 2024, 2025.</code></span></span>
+<span class="line"><span class="ln"> 10 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    Use and distribution of this code are permitted under the terms of the</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    MIT License, compatible with Apache 2, GNU Generic Public License, etc.</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    2024-2025        RsML1 for WEB</code></span></span>
+<span class="line"><span class="ln"> 15 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  --&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:output method="xml" encoding="utf-8" indent="no"</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              omit-xml-declaration="yes"/&gt;</code></span></span>
+<span class="line"><span class="ln"> 20 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template name="space"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:param name="width"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:if test="$width&gt;0"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:text&gt; &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln"> 25 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:call-template name="space"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:with-param name="width" select="-1+$width"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:call-template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln"> 30 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template name="listing"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:param name="previous"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:param name="current"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:param name="capacity"/&gt;</code></span></span>
+<span class="line"><span class="ln"> 35 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:param name="pointer"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:if test="string-length($current)&gt;0"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:variable name="before" select="substring-before($current,'&amp;#10;')"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:variable name="after" select="substring-after($current,'&amp;#10;')"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:variable name="offset"&gt;</code></span></span>
+<span class="line"><span class="ln"> 40 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:when test="string-length(normalize-space($before))&gt;0 or</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                          string-length(normalize-space($after))&gt;0 and</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                          string-length(normalize-space($previous))&gt;0"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:value-of select="number(1)"/&gt;</code></span></span>
+<span class="line"><span class="ln"> 45 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:value-of select="number(0)"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;/xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln"> 50 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="$offset=1"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;span class="line"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;span class="ln"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln"> 55 <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:when test="($pointer mod 5)=0"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:call-template name="space"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                  &lt;xsl:with-param name="width" select="-(string-length($pointer))+$capacity"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;/xsl:call-template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:value-of select="$pointer"/&gt;</code></span></span>
+<span class="line"><span class="ln"> 60 <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:text&gt; &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:call-template name="space"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                  &lt;xsl:with-param name="width" select="$capacity+1"/&gt;</code></span></span>
+<span class="line"><span class="ln"> 65 <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;/xsl:call-template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;/xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;span class="nsep"&gt;|&lt;/span&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;/span&gt;</code></span></span>
+<span class="line"><span class="ln"> 70 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;span class="ld"&gt;&lt;code&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:when test="normalize-space($before)=''"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:text&gt; &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln"> 75 <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:value-of select="$before"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;/xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;/code&gt;&lt;/span&gt;</code></span></span>
+<span class="line"><span class="ln"> 80 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/span&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:if test="string-length(normalize-space($after))&gt;0"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:text&gt;&amp;#10;&lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln"> 85 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:call-template name="listing"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:with-param name="previous" select="$before"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:with-param name="current" select="$after"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:with-param name="capacity" select="$capacity"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:with-param name="pointer" select="$pointer+$offset"/&gt;</code></span></span>
+<span class="line"><span class="ln"> 90 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:call-template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template name="basename"&gt;</code></span></span>
+<span class="line"><span class="ln"> 95 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:param name="uri"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="contains($uri,'/')"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:call-template name="basename"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:with-param name="uri" select="substring-after($uri,'/')"/&gt;</code></span></span>
+<span class="line"><span class="ln">100 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:call-template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:value-of select="$uri"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">105 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template match="/"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:if test="rsml:rsml/@version&gt;1.0"&gt;</code></span></span>
+<span class="line"><span class="ln">110 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:message terminate="yes"&gt;This stylesheet supports only RsML1, terminating...&lt;/xsl:message&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:apply-templates mode="virgin"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">115 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="virgin" match="*"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:copy&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:copy-of select="@*"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:apply-templates mode="virgin"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:copy&gt;</code></span></span>
+<span class="line"><span class="ln">120 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="virgin" match="rsml:rsml"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:text disable-output-escaping="yes"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;html&gt;</code></span></span>
+<span class="line"><span class="ln">125 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="@language"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:attribute name="lang"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="string(@language)"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">130 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;head&gt;&lt;xsl:apply-templates mode="preface" select="rsml:meta"/&gt;&lt;/head&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;body&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:apply-templates mode="initial"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;footer&gt;&lt;xsl:apply-templates mode="appendix" select="."/&gt;&lt;/footer&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/body&gt;</code></span></span>
+<span class="line"><span class="ln">135 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/html&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="preface" match="rsml:meta"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;meta charset="utf-8"/&gt;</code></span></span>
+<span class="line"><span class="ln">140 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;meta name="creator" content="RsML1"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:if test="rsml:author"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:element name="meta"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:attribute name="name"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="string('author')"/&gt;</code></span></span>
+<span class="line"><span class="ln">145 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:attribute name="content"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="rsml:author"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:element&gt;</code></span></span>
+<span class="line"><span class="ln">150 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:if test="rsml:date"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:element name="meta"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:attribute name="name"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="string('pubdate')"/&gt;</code></span></span>
+<span class="line"><span class="ln">155 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:attribute name="content"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="descendant::rsml:year"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:if test="descendant::rsml:month and descendant::rsml:day"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:value-of select="substring-after(descendant::rsml:month,'-')"/&gt;</code></span></span>
+<span class="line"><span class="ln">160 <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:value-of select="substring-after(descendant::rsml:day,'--')"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:element&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">165 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;title&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:value-of select="rsml:title"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="rsml:subtitle"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:text&gt; -- &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:value-of select="rsml:subtitle"/&gt;</code></span></span>
+<span class="line"><span class="ln">170 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/title&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;link href="/style/art.css" rel="stylesheet"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">175 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="initial" match="rsml:meta"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;div class="header"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;h1 class="title"&gt;&lt;xsl:apply-templates mode="horizontal" select="rsml:title"/&gt;&lt;/h1&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="rsml:subtitle"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;h2 class="subtitle"&gt;&lt;xsl:apply-templates mode="horizontal" select="rsml:subtitle"/&gt;&lt;/h2&gt;</code></span></span>
+<span class="line"><span class="ln">180 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="rsml:author or rsml:date"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;div class="status"&gt;&lt;p&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:text&gt;Published&lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:if test="rsml:date"&gt;</code></span></span>
+<span class="line"><span class="ln">185 <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:text&gt; on &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:if test="descendant::rsml:month and descendant::rsml:day"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:value-of select="translate(descendant::rsml:day,'-','')"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:text&gt; &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:variable name="month" select="translate(descendant::rsml:month,'-','')"/&gt;</code></span></span>
+<span class="line"><span class="ln">190 <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:when test="$month=1"&gt;January&lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:when test="$month=2"&gt;February&lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:when test="$month=3"&gt;March&lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:when test="$month=4"&gt;April&lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">195 <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:when test="$month=5"&gt;May&lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:when test="$month=6"&gt;June&lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:when test="$month=7"&gt;July&lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:when test="$month=8"&gt;August&lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:when test="$month=9"&gt;September&lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">200 <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:when test="$month=10"&gt;October&lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:when test="$month=11"&gt;November&lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:when test="$month=12"&gt;December&lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:text&gt; &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">205 <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:value-of select="descendant::rsml:year"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:if test="rsml:author"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:text&gt; by &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">210 <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:value-of select="rsml:author"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:if test="rsml:affiliate"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:text&gt; &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:value-of select="concat('(',rsml:affiliate,')')"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">215 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:text&gt;.&lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/p&gt;&lt;/div&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="rsml:abstract"&gt;</code></span></span>
+<span class="line"><span class="ln">220 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;div class="abstract"&gt;&lt;p&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:apply-templates mode="horizontal" select="rsml:abstract"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/p&gt;&lt;/div&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;nav id="lot"&gt;</code></span></span>
+<span class="line"><span class="ln">225 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;h2&gt;Table of Contents&lt;/h2&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;div class="toc"&gt;&lt;ul&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:for-each select="//rsml:unit[@role='chapter']"&gt;&lt;li&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:variable name="chapter"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:number count="rsml:unit[@role='chapter']" format="1"/&gt;</code></span></span>
+<span class="line"><span class="ln">230 <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;a href="#c{$chapter}"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;span class="chapno"&gt;&lt;xsl:value-of select="$chapter"/&gt;&lt;/span&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:text&gt; &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;span class="content"&gt;&lt;xsl:value-of select="rsml:heading"/&gt;&lt;/span&gt;</code></span></span>
+<span class="line"><span class="ln">235 <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;/a&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:if test="rsml:unit[@role='section']"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;ul class="toc"&gt;&lt;xsl:for-each select="rsml:unit[@role='section']"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:variable name="section"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                  &lt;xsl:number count="rsml:unit[@role='section']" from="rsml:unit[@role='chapter' and position()=$chapter]" format="1"/&gt;</code></span></span>
+<span class="line"><span class="ln">240 <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;li&gt;&lt;a href="#s{$chapter}-{$section}"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                  &lt;span class="secno"&gt;&lt;xsl:value-of select="concat($chapter,'.',$section)"/&gt;&lt;/span&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                  &lt;xsl:text&gt; &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                  &lt;span class="content"&gt;&lt;xsl:value-of select="rsml:heading"/&gt;&lt;/span&gt;</code></span></span>
+<span class="line"><span class="ln">245 <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;/a&gt;&lt;/li&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;/xsl:for-each&gt;&lt;/ul&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;/li&gt;&lt;/xsl:for-each&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/ul&gt;&lt;/div&gt;</code></span></span>
+<span class="line"><span class="ln">250 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/nav&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/div&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="initial" match="rsml:unit"&gt;</code></span></span>
+<span class="line"><span class="ln">255 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:apply-templates mode="vertical"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="initial" match="rsml:bibliography"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;h2&gt;Bibliography&lt;/h2&gt;</code></span></span>
+<span class="line"><span class="ln">260 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:for-each select="rsml:entry"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;p class="bibentry"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;cite class="title"&gt;&lt;xsl:apply-templates mode="horizontal" select="rsml:title"/&gt;&lt;/cite&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:text&gt;. &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;cite class="author"&gt;&lt;xsl:value-of select="rsml:author"/&gt;&lt;/cite&gt;</code></span></span>
+<span class="line"><span class="ln">265 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:text&gt;. &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;cite class="year"&gt;&lt;xsl:value-of select="rsml:year"/&gt;&lt;/cite&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:text&gt;.&lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/p&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:for-each&gt;</code></span></span>
+<span class="line"><span class="ln">270 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="appendix" match="rsml:rsml"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:if test="//rsml:footnote"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;div class="footnotes"&gt;</code></span></span>
+<span class="line"><span class="ln">275 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;hr/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:for-each select="//rsml:footnote"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;div class="footnote"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:variable name="symbol" select="@symbol"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:variable name="label"&gt;</code></span></span>
+<span class="line"><span class="ln">280 <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:number level="any" count="rsml:footnote" format="1"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;div class="footno"&gt;&lt;sup&gt;&lt;a id="f{$label}"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:when test="$symbol"&gt;</code></span></span>
+<span class="line"><span class="ln">285 <span class="nsep">|</span></span><span class=
+"ld"><code>                  &lt;xsl:value-of select="$symbol"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                  &lt;xsl:value-of select="$label"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;/xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">290 <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;/a&gt;&lt;/sup&gt;&lt;/div&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;div class="footbody"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:apply-templates mode="horizontal"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;/div&gt;</code></span></span>
+<span class="line"><span class="ln">295 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;/div&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:for-each&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/div&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">300 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="horizontal" match="rsml:quotation|rsml:apostrophe|rsml:ampersand|</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>                                         rsml:langle|rsml:rangle|rsml:space"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:variable name="type"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:value-of select="local-name()"/&gt;</code></span></span>
+<span class="line"><span class="ln">305 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='quotation'"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:text&gt;&amp;quot;&lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">310 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='apostrophe'"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:text&gt;&amp;apos;&lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='ampersand'"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:text&gt;&amp;amp;&lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">315 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='langle'"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:text&gt;&amp;lt;&lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='rangle'"&gt;</code></span></span>
+<span class="line"><span class="ln">320 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:text&gt;&amp;gt;&lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='space'"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:text&gt;&amp;#160;&lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">325 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="horizontal" match="rsml:emphasize"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;em&gt;&lt;xsl:apply-templates mode="horizontal"/&gt;&lt;/em&gt;</code></span></span>
+<span class="line"><span class="ln">330 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="horizontal" match="rsml:highlight"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;mark&gt;&lt;xsl:apply-templates mode="horizontal"/&gt;&lt;/mark&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">335 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="horizontal" match="rsml:math"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;math display="inline"&gt;&lt;xsl:apply-templates mode="restricted"/&gt;&lt;/math&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">340 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="horizontal" match="rsml:verbatim"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;code&gt;&lt;xsl:apply-templates mode="horizontal"/&gt;&lt;/code&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="horizontal" match="rsml:term"&gt;</code></span></span>
+<span class="line"><span class="ln">345 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;span class="term"&gt;&lt;xsl:apply-templates mode="horizontal"/&gt;&lt;/span&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="horizontal" match="rsml:abbreviation"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;abbr&gt;&lt;xsl:apply-templates mode="horizontal"/&gt;&lt;/abbr&gt;</code></span></span>
+<span class="line"><span class="ln">350 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="horizontal" match="rsml:keyword"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;span class="keyword"&gt;&lt;xsl:apply-templates mode="horizontal"/&gt;&lt;/span&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">355 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="horizontal" match="rsml:quote"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;q&gt;&lt;xsl:apply-templates mode="horizontal"/&gt;&lt;/q&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">360 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="horizontal" match="rsml:link"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;a href="{text()}"&gt;&lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="@literal"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:value-of select="string(@literal)"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">365 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:value-of select="text()"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:choose&gt;&lt;/a&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">370 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="horizontal" match="rsml:label"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:variable name="xref"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:number count="rsml:label" format="1"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">375 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:value-of select="text()"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;a id="l{$xref}"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="horizontal" match="rsml:refer"&gt;</code></span></span>
+<span class="line"><span class="ln">380 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:variable name="type" select="@type"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:variable name="label" select="@label"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='chapter'"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;a href="#c{$label}"&gt;</code></span></span>
+<span class="line"><span class="ln">385 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:text&gt;Chapter &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="$label"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/a&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='section'"&gt;</code></span></span>
+<span class="line"><span class="ln">390 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;a href="#s{translate($label,'.','-')}"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:text&gt;Section &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="$label"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/a&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">395 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='subsection'"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;a href="#z{translate($label,'.','-')}"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:text&gt;Subsection &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="$label"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/a&gt;</code></span></span>
+<span class="line"><span class="ln">400 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='label'"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:variable name="xref"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:apply-templates mode="crossref" select="//rsml:label[@label=$label]"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">405 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;a href="#l{$xref}"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:text&gt;Label &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="$xref"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/a&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">410 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='figure'"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:variable name="xref"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:apply-templates mode="crossref" select="//rsml:figure[@label=$label]"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;a href="#f{translate($xref,'.','-')}"&gt;</code></span></span>
+<span class="line"><span class="ln">415 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:text&gt;Figure &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="$xref"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/a&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='table'"&gt;</code></span></span>
+<span class="line"><span class="ln">420 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:variable name="xref"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:apply-templates mode="crossref" select="//rsml:table[@label=$label]"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;a href="#t{translate($xref,'.','-')}"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:text&gt;Table &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">425 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="$xref"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/a&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='math'"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:variable name="xref"&gt;</code></span></span>
+<span class="line"><span class="ln">430 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:apply-templates mode="crossref" select="//rsml:math[@label=$label]"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;a href="#m{translate($xref,'.','-')}"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:text&gt;Math &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="$xref"/&gt;</code></span></span>
+<span class="line"><span class="ln">435 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/a&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='verbatim'"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:variable name="xref"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:apply-templates mode="crossref" select="//rsml:verbatim[@label=$label]"/&gt;</code></span></span>
+<span class="line"><span class="ln">440 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;a href="#v{translate($xref,'.','-')}"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:text&gt;Verbatim &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="$xref"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/a&gt;</code></span></span>
+<span class="line"><span class="ln">445 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="horizontal" match="rsml:footnote"&gt;</code></span></span>
+<span class="line"><span class="ln">450 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:variable name="symbol" select="@symbol"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:variable name="label"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:number level="any" count="rsml:footnote" format="1"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;sup&gt;&lt;a href="#f{$label}"&gt;</code></span></span>
+<span class="line"><span class="ln">455 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:when test="$symbol"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="$symbol"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">460 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="$label"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/a&gt;&lt;/sup&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">465 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="vertical" match="rsml:heading"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:variable name="type" select="parent::rsml:unit/@role"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='chapter'"&gt;</code></span></span>
+<span class="line"><span class="ln">470 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:variable name="xref"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:number count="rsml:unit[@role='chapter']" format="1"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;h2 id="c{$xref}"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="$xref"/&gt;</code></span></span>
+<span class="line"><span class="ln">475 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:text&gt;. &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:apply-templates mode="horizontal"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/h2&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='section'"&gt;</code></span></span>
+<span class="line"><span class="ln">480 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:variable name="xref"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:number level="multiple" count="rsml:unit[@role='chapter' or @role='section']" format="1-1"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;h3 id="s{$xref}"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="translate($xref,'-','.')"/&gt;</code></span></span>
+<span class="line"><span class="ln">485 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:text&gt;. &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:apply-templates mode="horizontal"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/h3&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">490 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:variable name="xref"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:number level="multiple" count="rsml:unit[@role='chapter' or @role='section' or @role='subsection']" format="1-1-1"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;h4 id="z{$xref}"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="translate($xref,'-','.')"/&gt;</code></span></span>
+<span class="line"><span class="ln">495 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:text&gt;. &lt;/xsl:text&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:apply-templates mode="horizontal"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/h4&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">500 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="vertical" match="rsml:paragraph"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;p&gt;&lt;xsl:apply-templates mode="horizontal"/&gt;&lt;/p&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">505 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="vertical" match="rsml:list"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:variable name="type" select="@type"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='enumerate'"&gt;</code></span></span>
+<span class="line"><span class="ln">510 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;ol&gt;&lt;xsl:apply-templates mode="restricted" select="."&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:with-param name="type" select="$type"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:apply-templates&gt;&lt;/ol&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='itemize'"&gt;</code></span></span>
+<span class="line"><span class="ln">515 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;ul&gt;&lt;xsl:apply-templates mode="restricted" select="."&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:with-param name="type" select="$type"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:apply-templates&gt;&lt;/ul&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">520 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;dl&gt;&lt;xsl:apply-templates mode="restricted" select="."&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:with-param name="type" select="$type"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:apply-templates&gt;&lt;/dl&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">525 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="vertical" match="rsml:figure"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;figure&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:attribute name="class"&gt;</code></span></span>
+<span class="line"><span class="ln">530 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:when test="@align"&gt;&lt;xsl:value-of select="@align"/&gt;&lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:value-of select="string('center')"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;/xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">535 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="@size"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:attribute name="style"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="concat('width:',substring-after(@size,'r'),'%;')"/&gt;</code></span></span>
+<span class="line"><span class="ln">540 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="@label"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:variable name="xref"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:number level="multiple" count="rsml:unit[@role='chapter']|rsml:figure" format="1-1"/&gt;</code></span></span>
+<span class="line"><span class="ln">545 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:attribute name="id"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="concat('f',$xref)"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">550 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:variable name="image"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:call-template name="basename"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:with-param name="uri" select="rsml:image"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:call-template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">555 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;img src="{rsml:image}" alt="{$image}"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="rsml:caption"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;figcaption&gt;&lt;xsl:apply-templates mode="horizontal" select="rsml:caption"/&gt;&lt;/figcaption&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/figure&gt;</code></span></span>
+<span class="line"><span class="ln">560 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="vertical" match="rsml:table"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;table&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:attribute name="class"&gt;</code></span></span>
+<span class="line"><span class="ln">565 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:when test="@align"&gt;&lt;xsl:value-of select="@align"/&gt;&lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:value-of select="string('center')"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;/xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">570 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="@label"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:variable name="xref"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:number level="multiple" count="rsml:unit[@role='chapter']|rsml:table" format="1-1"/&gt;</code></span></span>
+<span class="line"><span class="ln">575 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:attribute name="id"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="concat('t',$xref)"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">580 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="rsml:caption"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;caption&gt;&lt;xsl:apply-templates mode="horizontal" select="rsml:caption"/&gt;&lt;/caption&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="rsml:head"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;thead&gt;&lt;xsl:apply-templates mode="restricted" select="."&gt;</code></span></span>
+<span class="line"><span class="ln">585 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:with-param name="type" select="rsml:head"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:apply-templates&gt;&lt;/thead&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;tbody&gt;&lt;xsl:apply-templates mode="restricted" select="."&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:with-param name="type" select="rsml:body"/&gt;</code></span></span>
+<span class="line"><span class="ln">590 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:apply-templates&gt;&lt;/tbody&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="rsml:foot"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;tfoot&gt;&lt;xsl:apply-templates mode="restricted" select="."&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:with-param name="type" select="rsml:foot"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:apply-templates&gt;&lt;/tfoot&gt;</code></span></span>
+<span class="line"><span class="ln">595 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/table&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="vertical" match="rsml:math"&gt;</code></span></span>
+<span class="line"><span class="ln">600 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;math display="block"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="@label"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:variable name="xref"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:number level="multiple" count="rsml:unit[@role='chapter']|rsml:math" format="1-1"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">605 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:attribute name="id"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="concat('m',$xref)"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:apply-templates mode="restricted"/&gt;</code></span></span>
+<span class="line"><span class="ln">610 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/math&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="vertical" match="rsml:verbatim"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;div class="prewrap"&gt;&lt;pre&gt;</code></span></span>
+<span class="line"><span class="ln">615 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="@label"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:variable name="xref"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:number level="multiple" count="rsml:unit[@role='chapter']|rsml:verbatim" format="1-1"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:attribute name="id"&gt;</code></span></span>
+<span class="line"><span class="ln">620 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="concat('v',$xref)"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:call-template name="listing"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:with-param name="current" select="text()"/&gt;</code></span></span>
+<span class="line"><span class="ln">625 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:with-param name="capacity" select="string-length(@line)"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:with-param name="pointer" select="1"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:call-template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/pre&gt;&lt;/div&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">630 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="vertical" match="rsml:quote"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;blockquote&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:if test="@cite"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:attribute name="cite"&gt;</code></span></span>
+<span class="line"><span class="ln">635 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:value-of select="@cite"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:apply-templates mode="horizontal"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/blockquote&gt;</code></span></span>
+<span class="line"><span class="ln">640 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="vertical" match="rsml:message"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;div class="{@type}"&gt;&lt;p&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:apply-templates mode="horizontal"/&gt;</code></span></span>
+<span class="line"><span class="ln">645 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/p&gt;&lt;/div&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="restricted" match="*"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:element name="{local-name()}"&gt;</code></span></span>
+<span class="line"><span class="ln">650 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:copy-of select="@*"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:apply-templates mode="restricted"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:element&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">655 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="restricted" match="rsml:list"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:param name="type"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='description'"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:for-each select="rsml:item"&gt;</code></span></span>
+<span class="line"><span class="ln">660 <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;dt&gt;&lt;xsl:value-of select="@name"/&gt;&lt;/dt&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;dd&gt;&lt;xsl:apply-templates mode="horizontal"/&gt;&lt;/dd&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:for-each&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">665 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:for-each select="rsml:item"&gt;&lt;li&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;xsl:apply-templates mode="unbound"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/li&gt;&lt;/xsl:for-each&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">670 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="restricted" match="rsml:table"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:param name="type"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:for-each select="$type/rsml:column"&gt;</code></span></span>
+<span class="line"><span class="ln">675 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;tr&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:for-each select="rsml:cell"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;th&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:if test="@rowspan"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:attribute name="rowspan"&gt;</code></span></span>
+<span class="line"><span class="ln">680 <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:value-of select="@rowspan"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:if test="@colspan"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;xsl:attribute name="colspan"&gt;</code></span></span>
+<span class="line"><span class="ln">685 <span class="nsep">|</span></span><span class=
+"ld"><code>                &lt;xsl:value-of select="@colspan"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>              &lt;/xsl:attribute&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;/xsl:if&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>            &lt;xsl:apply-templates mode="horizontal"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>          &lt;/th&gt;</code></span></span>
+<span class="line"><span class="ln">690 <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;/xsl:for-each&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/tr&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:for-each&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">695 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="unbound" match="*"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:variable name="type"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:value-of select="local-name()"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:variable&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">700 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:when test="$type='list'"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:apply-templates mode="vertical" select="."/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:when&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        &lt;xsl:apply-templates mode="horizontal" select="."/&gt;</code></span></span>
+<span class="line"><span class="ln">705 <span class="nsep">|</span></span><span class=
+"ld"><code>      &lt;/xsl:otherwise&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;/xsl:choose&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="crossref" match="rsml:label"&gt;</code></span></span>
+<span class="line"><span class="ln">710 <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:number count="rsml:label" format="1"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="crossref" match="rsml:figure"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:number level="multiple" count="rsml:unit[@role='chapter']|rsml:figure" format="1.1"/&gt;</code></span></span>
+<span class="line"><span class="ln">715 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="crossref" match="rsml:table"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:number level="multiple" count="rsml:unit[@role='chapter']|rsml:table" format="1.1"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">720 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="crossref" match="rsml:math"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:number level="multiple" count="rsml:unit[@role='chapter']|rsml:math" format="1.1"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">725 <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;xsl:template mode="crossref" match="rsml:verbatim"&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    &lt;xsl:number level="multiple" count="rsml:unit[@role='chapter']|rsml:verbatim" format="1.1"/&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>  &lt;/xsl:template&gt;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>&lt;/xsl:stylesheet&gt;</code></span></span></pre>
+  </div>
+  <h3 id="s2-1">2.1. External Math Support</h3>
+  <p><span class="term">RsML</span> supports inline and display equations. You can express any equations in TeX or
+  Content MathML, and use BlahTeXML or the modified version of David Carlisle's <code>c2p.xsl</code> to convert it to
+  Presentational MathML.</p>
+  <p>The <code>web.xsl</code> style sheet processes <code>math</code> elements by simply stripping any XML namespaces
+  and extracting their <code>local-name()</code>. This allows equations to be written in theoretically any form, and
+  they will still work with an appropriate preprocesser.</p>
+  <h2 id="c3">3. Cascading Style Sheet</h2>
+  <p>This CSS style sheet is suitable for online presentation and for producing print output. This contains vendor
+  specific CSS attributes. The web browser I used for testing is Safari.</p>
+  <div class="prewrap">
+    <pre><span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+    "ld"><code>/* Cascading Style Sheet for RsML 1.0</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>   Copyright (C) 2025, Jing Huang &lt;RadioNoiseE@gmail.com&gt; */</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>@import "font.css";</code></span></span>
+<span class="line"><span class="ln">  5 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>::selection {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    background-color: #bdbdbd;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    color: white;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln"> 10 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>body {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-family: LAT-SF, serif;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    line-height: 1.4;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin: auto;</code></span></span>
+<span class="line"><span class="ln"> 15 <span class="nsep">|</span></span><span class=
+"ld"><code>    max-width: 56em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.title {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    text-align: center;</code></span></span>
+<span class="line"><span class="ln"> 20 <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.subtitle {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin-left: 0;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin-top: -.67em;</code></span></span>
+<span class="line"><span class="ln"> 25 <span class="nsep">|</span></span><span class=
+"ld"><code>    text-align: center;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.status {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-family: LAT-MS, monospace;</code></span></span>
+<span class="line"><span class="ln"> 30 <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.status,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.abstract {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin: 0 2.4em;</code></span></span>
+<span class="line"><span class="ln"> 35 <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>@media only screen and (min-width: 84em) {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    body {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        margin-left: calc(50vw - 24em);</code></span></span>
+<span class="line"><span class="ln"> 40 <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    #lot {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        font-size: 14px;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        left: 1.6vw;</code></span></span>
+<span class="line"><span class="ln"> 45 <span class="nsep">|</span></span><span class=
+"ld"><code>        max-height: 100vh;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        overflow-y: auto;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        position: fixed;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        top: 6vh;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        user-select: none;</code></span></span>
+<span class="line"><span class="ln"> 50 <span class="nsep">|</span></span><span class=
+"ld"><code>        -webkit-user-select: none;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        width: 16em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    #lot h2 {</code></span></span>
+<span class="line"><span class="ln"> 55 <span class="nsep">|</span></span><span class=
+"ld"><code>        display: none;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    .toc a {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        text-decoration: none;</code></span></span>
+<span class="line"><span class="ln"> 60 <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    .toc ul,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    .toc tl {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        list-style: none;</code></span></span>
+<span class="line"><span class="ln"> 65 <span class="nsep">|</span></span><span class=
+"ld"><code>        margin: 0;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        padding: 0;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    :not(li) &gt; .toc {</code></span></span>
+<span class="line"><span class="ln"> 70 <span class="nsep">|</span></span><span class=
+"ld"><code>        margin-left: 2em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    .toc li {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        font-weight: bold;</code></span></span>
+<span class="line"><span class="ln"> 75 <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    .toc li:not(:first-child) {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        margin-top: .2em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln"> 80 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    .toc &gt; li {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        font-weight: normal;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        margin-left: 1em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln"> 85 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    .toc &gt; li:not(:first-child) {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        margin-top: 0;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln"> 90 <span class="nsep">|</span></span><span class=
+"ld"><code>    .toc .chapno,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    .toc .secno {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        float: left;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        margin-left: -2em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        white-space: nowrap;</code></span></span>
+<span class="line"><span class="ln"> 95 <span class="nsep">|</span></span><span class=
+"ld"><code>        width: 2em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    .toc &gt; li .secno {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        margin-left: -3em;</code></span></span>
+<span class="line"><span class="ln">100 <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>h2 {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin-left: -1.1em;</code></span></span>
+<span class="line"><span class="ln">105 <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>h3 {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin-left: -.9em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">110 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>mark {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    background: #eeeeee;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">115 <span class="nsep">|</span></span><span class=
+"ld"><code>math {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-family: LAT-MT;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>code {</code></span></span>
+<span class="line"><span class="ln">120 <span class="nsep">|</span></span><span class=
+"ld"><code>    background: #eeeeee;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    border-radius: .25em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-family: LAT-MS, monospace;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    padding: .125rem .25rem;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">125 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.term {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-weight: bold;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">130 <span class="nsep">|</span></span><span class=
+"ld"><code>.keyword {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-style: italic;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>a {</code></span></span>
+<span class="line"><span class="ln">135 <span class="nsep">|</span></span><span class=
+"ld"><code>    color: #000000;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>sup a {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    text-decoration: none;</code></span></span>
+<span class="line"><span class="ln">140 <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.left {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin-right: auto;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">145 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.center {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin: 0 auto;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">150 <span class="nsep">|</span></span><span class=
+"ld"><code>.right {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin-left: auto;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>dl dt {</code></span></span>
+<span class="line"><span class="ln">155 <span class="nsep">|</span></span><span class=
+"ld"><code>    font-style: italic;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-weight: bold;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>figure img {</code></span></span>
+<span class="line"><span class="ln">160 <span class="nsep">|</span></span><span class=
+"ld"><code>    max-width: 100%;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>figure figcaption {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-size: 90%;</code></span></span>
+<span class="line"><span class="ln">165 <span class="nsep">|</span></span><span class=
+"ld"><code>    font-style: italic;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>table {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    border-collapse: collapse;</code></span></span>
+<span class="line"><span class="ln">170 <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>table caption {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin-bottom: 6px;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">175 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>table td,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>table th {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    border: 1px solid;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    padding: 4px 8px;</code></span></span>
+<span class="line"><span class="ln">180 <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>table thead td,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>table thead th {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-weight: bold;</code></span></span>
+<span class="line"><span class="ln">185 <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>table tbody td,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>table tbody th {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-weight: normal;</code></span></span>
+<span class="line"><span class="ln">190 <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>table tfoot td,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>table tfoot th {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-style: italic;</code></span></span>
+<span class="line"><span class="ln">195 <span class="nsep">|</span></span><span class=
+"ld"><code>    font-weight: normal;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.prewrap {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    overflow-x: auto;</code></span></span>
+<span class="line"><span class="ln">200 <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>pre {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    display: table;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-family: LAT-MS, monospace;</code></span></span>
+<span class="line"><span class="ln">205 <span class="nsep">|</span></span><span class=
+"ld"><code>    line-height: .9;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    table-layout: fixed;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    white-space: pre;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    width: 90%;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    word-wrap: break-word;</code></span></span>
+<span class="line"><span class="ln">210 <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>pre .line {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    display: table-row;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">215 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>pre .ln {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    display: table-cell;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-size: 13px;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    text-align: right;</code></span></span>
+<span class="line"><span class="ln">220 <span class="nsep">|</span></span><span class=
+"ld"><code>    user-select: none;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    -webkit-user-select: none;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    width: 1.6rem;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">225 <span class="nsep">|</span></span><span class=
+"ld"><code>pre .nsep {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    display: none;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>pre .ld {</code></span></span>
+<span class="line"><span class="ln">230 <span class="nsep">|</span></span><span class=
+"ld"><code>    border-left: 1.6px solid;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    display: table-cell;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    padding-bottom: 4px;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    padding-left: .4rem;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    padding-top: 4px;</code></span></span>
+<span class="line"><span class="ln">235 <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>pre code {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    background: inherit;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    border: none;</code></span></span>
+<span class="line"><span class="ln">240 <span class="nsep">|</span></span><span class=
+"ld"><code>    padding: initial;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    word-wrap: break-word;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>blockquote {</code></span></span>
+<span class="line"><span class="ln">245 <span class="nsep">|</span></span><span class=
+"ld"><code>    border-left: 1.6px solid;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin-left: 1.6em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    padding-left: .4em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">250 <span class="nsep">|</span></span><span class=
+"ld"><code>.note,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.tip,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.warning,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.caution {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    border: 1.6px solid;</code></span></span>
+<span class="line"><span class="ln">255 <span class="nsep">|</span></span><span class=
+"ld"><code>    margin: 1.6em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    padding: .4em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.note::before,</code></span></span>
+<span class="line"><span class="ln">260 <span class="nsep">|</span></span><span class=
+"ld"><code>.tip::before,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.warning::before,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.caution::before {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-style: italic;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-weight: bold;</code></span></span>
+<span class="line"><span class="ln">265 <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.note::before {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    content: 'Note:';</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">270 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.tip::before {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    content: 'Tip:';</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">275 <span class="nsep">|</span></span><span class=
+"ld"><code>.warning::before {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    content: 'Warning:';</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.caution::before {</code></span></span>
+<span class="line"><span class="ln">280 <span class="nsep">|</span></span><span class=
+"ld"><code>    content: 'Caution:';</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.note p,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.tip p,</code></span></span>
+<span class="line"><span class="ln">285 <span class="nsep">|</span></span><span class=
+"ld"><code>.warning p,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.caution p {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin: 0;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">290 <span class="nsep">|</span></span><span class=
+"ld"><code>cite.author,</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>cite.year {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    font-style: normal;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">295 <span class="nsep">|</span></span><span class=
+"ld"><code>.footnotes {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin-top: 1.6em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.footnotes hr {</code></span></span>
+<span class="line"><span class="ln">300 <span class="nsep">|</span></span><span class=
+"ld"><code>    border: none;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    border-top: medium double;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    color: #000000;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin: 0;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    max-width: 2in;</code></span></span>
+<span class="line"><span class="ln">305 <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.footnote {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    margin: .4em 0;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">310 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.footno {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    display: inline-block;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    width: .65em;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">315 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>.footbody {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    display: inline-block;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code>}</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">320 <span class="nsep">|</span></span><span class=
+"ld"><code>@media only screen and (max-width: 60em) {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    body {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        margin: 16px;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        width: auto;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln">325 <span class="nsep">|</span></span><span class="ld"><code> </code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    h1, h2, h3, h4 {</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>        margin-left: -6px;</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>    }</code></span></span>
+<span class="line"><span class="ln">    <span class="nsep">|</span></span><span class=
+"ld"><code>}</code></span></span></pre>
+  </div>
+  <h2 id="c4">4. Other Resources</h2>
+  <p><span class="term">RsML</span> is continuously maintained and developed at <a href=
+  "https://github.com/RadioNoiseE/rsml">https://github.com/RadioNoiseE/rsml</a>. You can download the latest source
+  there.</p>
+  <p>This page is generated using <span class="term">RsML</span>, with <code>web.xsl</code> style sheet applied on the
+  <a href="https://kekkan.org/RsML/index.xml">source</a> using <code>xsltproc</code>.</p>
+  <footer>
+    <div class="footnotes">
+      <hr>
+      <div class="footnote">
+        <div class="footno">
+          <sup><a id="f1">1</a></sup>
+        </div>
+        <div class="footbody">
+          Which involves converting Content MathML into TeX.
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
