@@ -957,7 +957,7 @@ display.message.element =
     <heading>Cascading Style Sheet</heading>
     <paragraph>This CSS style sheet is suitable for online presentation and for producing print output. This contains
     vendor specific CSS attributes. The web browser I used for testing is Safari.</paragraph>
-    <verbatim lang="css" line="329"><![CDATA[
+    <verbatim lang="css" line="332"><![CDATA[
 /* Cascading Style Sheet for RsML 1.0
    Copyright (C) 2025, Jing Huang <RadioNoiseE@gmail.com> */
 
@@ -975,14 +975,14 @@ body {
     max-width: 56em;
 }
 
-.title {
-    text-align: center;
+.title,
+.subtitle {
+    text-align: right;
 }
 
 .subtitle {
     margin-left: 0;
     margin-top: -.67em;
-    text-align: center;
 }
 
 .status {
@@ -991,7 +991,7 @@ body {
 
 .status,
 .abstract {
-    margin: 0 2.4em;
+    margin: 0 1.6em;
 }
 
 @media only screen and (min-width: 84em) {
@@ -1253,6 +1253,8 @@ cite.year {
 }
 
 .footnotes {
+    font-size: 90%;
+    margin-left: -.85em;
     margin-top: 1.6em;
 }
 
@@ -1261,11 +1263,12 @@ cite.year {
     border-top: medium double;
     color: #000000;
     margin: 0;
-    max-width: 2in;
+    margin-bottom: .4em;
+    max-width: 1.6in;
 }
 
 .footnote {
-    margin: .4em 0;
+    margin: .2em 0;
 }
 
 .footno {
@@ -1277,7 +1280,7 @@ cite.year {
     display: inline-block;
 }
 
-@media only screen and (max-width: 60em) {
+@media (max-width: 60em), print {
     body {
         margin: 16px;
         width: auto;
