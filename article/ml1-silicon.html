@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="generator" content="HTML Tidy for HTML5 for Apple macOS version 5.8.0">
+  <meta charset="utf-8">
+  <meta name="creator" content="RsML1">
+  <meta name="author" content="Jing Huang">
+  <meta name="pubdate" content="2025-12-02">
+  <title>Install ML/I on Apple Silicon from LOWL Source -- Assembled ML/I Using LLVM</title>
+  <link href="/style/art.css" rel="stylesheet">
+</head>
+<body>
+  <div class="header">
+    <h1 class="title">Install ML/I on Apple Silicon from LOWL Source</h1>
+    <h2 class="subtitle"><em>Assembled ML/I Using LLVM</em></h2>
+    <div class="status">
+      <p>Published on 02 December 2025 by Jing Huang.</p>
+    </div>
+    <nav id="lot">
+      <h2>Table of Contents</h2>
+      <div class="toc">
+        <ul>
+          <li>
+            <a href="#c1"><span class="chapno">1</span> <span class="content">Background</span></a>
+          </li>
+          <li>
+            <a href="#c2"><span class="chapno">2</span> <span class="content">Get LLVM Installed</span></a>
+          </li>
+          <li>
+            <a href="#c3"><span class="chapno">3</span> <span class="content">Make ML/I</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <h2 id="c1">1. Background</h2>
+  <p>ML/I is a general purpose macro processor, which is good at processing any kind of text. There is an Intel Mac
+  implementation available on the official website, and I guess the C-map process will also work on my Silicon machine,
+  but it might not be as efficient as an LOWL-map could be.</p>
+  <p>Fortunately there is a <a href="https://github.com/glguida/ml1-llvm">LOWL-to-LLVM</a> available, so that we can
+  install an assembled one rather than the compiled one.</p>
+  <h2 id="c2">2. Get LLVM Installed</h2>
+  <p><code>ml1-llvm</code> requires LLVM to be installed on your system, as it utilizes <code>llc</code>,
+  <code>opt</code> and <code>llvm-as</code>. To build LLVM without other subprojects, these commands will do:</p>
+  <div class="prewrap">
+    <pre><span class="line"><span class="ln">  <span class="nsep">|</span></span><span class=
+    "ld"><code>git clone --depth 1 https://github.com/llvm/llvm-project.git</code></span></span>
+<span class="line"><span class="ln">  <span class="nsep">|</span></span><span class=
+"ld"><code>cd llvm-project</code></span></span>
+<span class="line"><span class="ln">  <span class="nsep">|</span></span><span class=
+"ld"><code>cmake -S llvm -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release</code></span></span>
+<span class="line"><span class="ln">  <span class="nsep">|</span></span><span class=
+"ld"><code>cd build</code></span></span>
+<span class="line"><span class="ln">5 <span class="nsep">|</span></span><span class=
+"ld"><code>sudo make install -j</code></span></span></pre>
+  </div>
+  <p>You can also build a standalone version, so that you don't have to install LLVM on your system.</p>
+  <h2 id="c3">3. Make ML/I</h2>
+  <p>Fetch the LOWL sources and extract <code>ml1ajb.lwl</code>:</p>
+  <div class="prewrap">
+    <pre><span class="line"><span class="ln">  <span class="nsep">|</span></span><span class=
+    "ld"><code>curl -O "http://www.ml1.org.uk/tgz/lowlml1.tar.gz"</code></span></span>
+<span class="line"><span class="ln">  <span class="nsep">|</span></span><span class=
+"ld"><code>unar lowlml1.tar.gz</code></span></span></pre>
+  </div>
+  <p>Then clone the <code>ml1-llvm</code> and make the executable.</p>
+  <div class="prewrap">
+    <pre><span class="line"><span class="ln">  <span class="nsep">|</span></span><span class=
+    "ld"><code>git clone git@github.com:glguida/ml1-llvm.git</code></span></span>
+<span class="line"><span class="ln">  <span class="nsep">|</span></span><span class=
+"ld"><code>cd ml1-llvm</code></span></span>
+<span class="line"><span class="ln">  <span class="nsep">|</span></span><span class=
+"ld"><code>make ML1SRC=../lowlml1/ml1ajb.lwl</code></span></span>
+<span class="line"><span class="ln">  <span class="nsep">|</span></span><span class=
+"ld"><code>sudo install -s -m 755 ml1 /usr/local/bin/ml1</code></span></span></pre>
+  </div>
+  <p>Enjoy.</p>
+</body>
+</html>
