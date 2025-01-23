@@ -1,0 +1,175 @@
+<rsml version="1.0" language="en"
+      xmlns="https://kekkan.org/RsML"
+      xmlns:b="http://gva.noekeon.org/blahtexml">
+  <meta>
+    <title>Type Theory and Formal Proof</title>
+    <subtitle><emphasize>Some Notes Taken While Reading</emphasize></subtitle>
+    <author>Jing Huang</author>
+    <date>
+      <year>2024</year>
+      <month>--08</month>
+      <day>---18</day>
+    </date>
+    <abstract>There notes are based on the book <emphasize>Type Theory and Formal Proof</emphasize>
+    by Rob Nederpelt and Herman Geuvers.</abstract>
+  </meta>
+
+  <unit role="chapter">
+    <heading>Untyped Lambda Calculus</heading>
+    <paragraph><emphasize>Lambda-calculus</emphasize> encapsulates a formation of the basic aspects of functions.
+    Untyped lambda-calculus means we do not consider the types in this chapter.</paragraph>
+
+    <unit role="section">
+      <heading>Constriction Principles</heading>
+      <list type="itemize">
+        <item><emphasize>Abstraction</emphasize>: From an expression <math b:m="M"/> and a variable <math b:m="x"/>
+        we can construct a new expression <math b:m="\lambda x.M"/>. We call this the abstraction of <math b:m="x"/>
+        over <math b:m="M"/>.</item>
+        <item><emphasize>Application</emphasize>: From expressions <math b:m="M"/> and <math b:m="N"/> we can construct
+        expression <math b:m="MN"/>. We call this application of <math b:m="M"/> to <math b:m="N"/>.</item>
+      </list>
+    </unit>
+
+    <unit role="section">
+      <heading>Lambda Terms</heading>
+      <paragraph>Expressions in the lambda calculus are called <emphasize>lambda-terms</emphasize>. We assume the
+      existence of an infinite set <math b:m="V=\{x,y,z,\ldots\}"/> of so-called <emphasize>variables</emphasize>
+      while the below inductive definition establishes how the set <math b:m="\Lambda"/> of all lambda-terms are
+      constructed:</paragraph>
+      <list type="enumerate">
+        <item><emphasize>Variable</emphasize>: If <math b:m="u\in V"/>, then <math b:m="u\in\Lambda"/>.</item>
+        <item><emphasize>Application</emphasize>: If <math b:m="M\ \text{and}\ N\in\Lambda"/>, then
+        <math b:m="(MN)\in\Lambda"/>.</item>
+        <item><emphasize>Abstraction</emphasize>: If <math b:m="u\in V"/> and <math b:m="M\in\Lambda"/>, then
+        <math b:m="(\lambda u.M)\in\Lambda"/>.</item>
+      </list>
+      <paragraph>An <emphasize>inductive definition</emphasize> of <math b:m="\Lambda"/> means that the above definitions
+      are the only ways to construct elements of <math b:m="\Lambda"/>. An alternative and shorter way is to define
+      <math b:m="\Lambda"/> via <emphasize>abstract syntax</emphasize>:</paragraph>
+      <math b:m="\Lambda=V|(\Lambda\Lambda)|(\lambda V.\Lambda)."/>
+      <paragraph>The <emphasize>syntactical identity</emphasize> of two lambda-terms can be denoted with the symbol
+      <math b:m="\equiv"/></paragraph>
+      <paragraph>The <emphasize>subterms</emphasize> of a given lambda-term form a
+      <emphasize>multiset</emphasize>:</paragraph>
+      <list type="enumerate">
+        <item><emphasize>Basis</emphasize>: <math b:m="\text{Sub}(x)=x"/>, for each <math b:m="x\in V"/>.</item>
+        <item><emphasize>Application</emphasize>: <math b:m="\text{Sub}((MN))=\text{Sub}(M)\cup\text{Sub}(N)\cup\{(MN)\}"/>.</item>
+        <item><emphasize>Abstraction</emphasize>: <math b:m="\text{Sub}((\lambda x.M))=\text{Sub}(M)\cup\{(\lambda x.M)\}"/>.</item>
+      </list>
+      <paragraph>They follow <emphasize>reflexivity</emphasize> and <emphasize>transitivity</emphasize>. A proper
+      subterm of <math b:m="M"/> is <math b:m="L"/> if <math b:m="L\not\equiv M"/>.</paragraph>
+      <paragraph>The expression have the following precedence and associativity:</paragraph>
+      <list type="itemize">
+        <item>Parentheses in an outermost position may be omitted.</item>
+        <item>Application is <emphasize>left-associative</emphasize>.</item>
+        <item>Application takes precedence over abstraction.</item>
+        <item>Successive abstractions may be combined in a <emphasize>right-associative</emphasize> way under one
+        <math b:m="\lambda"/>.</item>
+      </list>
+    </unit>
+
+    <unit role="section">
+      <heading>Free and Bound Variables</heading>
+      <paragraph>Variable occurrences in a lambda-term can be divided into three categories: <emphasize>free</emphasize>
+      occurrences, <emphasize>bound</emphasize> occurrences and <emphasize>binding</emphasize> occurrences.</paragraph>
+      <paragraph>Binding variables are those occurred immediately after a <math b:m="\lambda"/>. In the construction of
+      a lambda-term, the single variable and the variables that aren<apostrophe/>t bound by the binding variables are
+      free variables. However, during the process of abstraction, an occurrence of <math b:m="x"/> which is free in
+      <math b:m="M"/> becomes bound in <math b:m="\lambda x.M"/>; that is, abstraction of <math b:m="x"/> over <math b:m="M"/>
+      binds all free occurrences of <math b:m="X"/> in <math b:m="M"/>.</paragraph>
+      <paragraph>Then we have the following recursive rule, in which <math b:m="FV(L)"/> denotes the set of free variables
+      in the lambda-term <math b:m="L"/>.</paragraph>
+      <list type="enumerate">
+        <item><emphasize>Variable</emphasize>: <math b:m="FV(x)=\{x\}"/>.</item>
+        <item><emphasize>Application</emphasize>: <math b:m="FV(MN)=FV(M)\cup FV(N)"/>.</item>
+        <item><emphasize>Abstract</emphasize>: <math b:m="FV(\lambda x.M)=FV(M)\backslash\{x\}"/>.</item>
+      </list>
+      <paragraph>The lambda-term is <emphasize>closed</emphasize> if <math b:m="FV(M)=\emptyset"/>. A closed set is also called
+      a <emphasize>combinator</emphasize>. The set of all closed lambda-terms is denoted by <math b:m="\Lambda^0"/>.</paragraph>
+    </unit>
+
+    <unit role="section">
+      <heading>Alpha Conversation</heading>
+      <paragraph>Functions in the lambda-notation have the property that the <emphasize>name</emphasize> of the binding variable
+      is not essential; the name is only used to express the transformation or procedure from input to output. Thus the relation
+      <emphasize>alpha-conversation</emphasize> or <emphasize>alpha-equivalence</emphasize> is defined to describe this process
+      formally. It<apostrophe/>s based on the possibility of renaming binding (and bound) variables.</paragraph>
+      <paragraph><math b:m="M^{x\rightarrow y}"/> denote the result of replacing every free occurrence of <math b:m="x"/> in
+      <math b:m="M"/> by <math b:m="y"/>. The relation <math b:m="\lambda x.M=_\alpha\lambda y.M^{x\rightarrow y}"/> is called
+      <emphasize>renaming</emphasize>.</paragraph>
+      <paragraph>In the renaming of <math b:m="\lambda x.M"/> to <math b:m="\lambda y.M^{x\rightarrow y}"/>, it is prevented that
+      the <emphasize>new</emphasize> binding variable <math b:m="y"/> binds <emphasize>old</emphasize> free <math b:m="y"/>s;
+      and that any <emphasize>old</emphasize> binding <math b:m="y"/> binds a <emphasize>new</emphasize> <math b:m="y"/>.</paragraph>
+      <paragraph>Alpha-conversation follows <emphasize>compatibility</emphasize>, <emphasize>reflectivity</emphasize>,
+      <emphasize>symmetry</emphasize> and <emphasize>transitivity</emphasize>. If <math b:m="M"/> and <math b:m="N"/> are said to be
+      <emphasize>alpha-convertible</emphasize> or <emphasize>alpha-equivalent</emphasize>, then <math b:m="M"/> is called an
+      <emphasize>alpha-variant</emphasize> of <math b:m="N"/>.</paragraph>
+      <paragraph>We can abstract from the names of the bound (and binding) variables, by considering lambda-terms <emphasize>modulo
+      alpha-equivalence</emphasize>.</paragraph>
+    </unit>
+
+    <unit role="section">
+      <heading>Beta Reduction</heading>
+      <list type="enumerate">
+        <item><emphasize>Basis</emphasize>: <math b:m="(\lambda x.M)N\rightarrow_\beta M[x:=N]"/>.</item>
+        <item><emphasize>Compatibility</emphasize>: If <math b:m="M\rightarrow_\beta N"/>, then <math b:m="ML\rightarrow_\beta NL"/>,
+        <math b:m="LM\rightarrow_\beta NL"/> and <math b:m="\lambda x.M\rightarrow_\beta \lambda x.N"/>.</item>
+      </list>
+      <paragraph>The suffix <math b:m="[x:=N]"/> not in lambda-terms, are meant to be <emphasize>meta-notation</emphasize> called
+      substitution, which follow:</paragraph>
+      <list type="itemize">
+        <item><math b:m="x[x:=N]\equiv N"/>, <math b:m="y[x:=N]\equiv y"/> if <math b:m="x\not\equiv y"/>.</item>
+        <item><math b:m="(PQ)[x:=N]\equiv(P[x:=N])(Q[x:=N])"/>.</item>
+        <item><math b:m="(\lambda y.P)[x:=N]\equiv\lambda z.(P^{y\rightarrow z}[x:=N])"/>, if <math b:m="\lambda z.P^{y\rightarrow z}"/>
+        is an alpha-variant of <math b:m="\lambda y.P"/> such that <math b:m="z\notin FV(N)"/>.</item>
+      </list>
+      <paragraph>The subterm of the form <math b:m="(\lambda x.M)N"/> is called a <emphasize>redex</emphasize> (from reducible
+      expression) and subterm <math b:m="M[x:=N]"/> is called the <emphasize>contractum</emphasize> (of the redex).</paragraph>
+      <paragraph>Note that in general, the substitutions <math b:m="M[x:=N][y:=L]"/> does not describe the same lambda-term as
+      <math b:m="M[y:=L][x:=N]"/> because of the left associativity
+      (<math b:m="M[x:=N][y:=L]\equiv M[y:=L][x:=N[y:=L]]\land x\notin FV(L)"/>).</paragraph>
+      <paragraph>We define the relation <math b:m="\rightarrow_\beta"/> to be one-step beta-reduction since one redex is replaced
+      by its contractum. The further beta-reduction performed after the one-step reduction can be defined using
+      <math b:m="\twoheadrightarrow_\beta"/> which generally take zero or more step. We can prove that
+      <math b:m="\twoheadrightarrow_\beta"/> is <emphasize>reflective</emphasize> and <emphasize>transitive</emphasize>.</paragraph>
+      <paragraph>Similar to alpha-conversation, we can define <emphasize>beta-conversation</emphasize> or
+      <emphasize>beta-equivalence</emphasize>. If <math b:m="M=_\beta N"/> and there is an <math b:m="n\geq 0"/> and there are
+      terms <math b:m="M_0"/> or <math b:m="M_n"/> such that <math b:m="M_0\equiv M"/>, <math b:m="M_n\equiv N"/> for all
+      <math b:m="i"/> such that <math b:m="0\leq i&lt;n"/>:</paragraph>
+      <math b:m="M_i\rightarrow_\beta M_{i+1}\lor M_{i+1}\rightarrow_\beta M_i."/>
+      <paragraph><math b:m="\twoheadrightarrow_\beta"/> extends <math b:m="\rightarrow_\beta"/> to multi-steps, while
+      <math b:m="=_\beta"/> further extends <math b:m="\twoheadrightarrow_\beta"/> in both directions. Thus <math b:m="=_\beta"/> is
+      <emphasize>reflective</emphasize>, <emphasize>symmetric</emphasize> and <emphasize>transitive</emphasize>.</paragraph>
+      <list type="itemize">
+        <item><math b:m="M"/> is in <emphasize>beta-normal</emphasize> form if <math b:m="M"/> does not contain any redex.</item>
+        <item><math b:m="M"/> is <emphasize>beta-normalizing</emphasize> if there is an <math b:m="N"/> in beta-normal form
+        such that <math b:m="M=_\beta N"/>.</item>
+      </list>
+      <paragraph>A <emphasize>reduction path</emphasize> from <math b:m="M"/> is an infinite or finite sequence <math b:m="N_0,N_1,N_2,\ldots"/>
+      that is connected using one-step beta-reduction that starts from <math b:m="M"/>.</paragraph>
+      <list type="itemize">
+        <item><math b:m="M"/> is <emphasize>weakly normalizing</emphasize> if there is an <math b:m="N"/> in the beta-normal form such that
+        <math b:m="M\twoheadrightarrow_\beta N"/>. (<emphasize>One of</emphasize> the reduction path leads to an outcome.)</item>
+        <item><math b:m="M"/> is <emphasize>strongly normalizing</emphasize> if there are no infinite reduction paths starting from <math b:m="M"/>.
+        (<emphasize>Each</emphasize> reduction path leads to an outcome.)</item>
+      </list>
+      <paragraph>Suppose that for a given lambda-term <math b:m="M"/>, we have <math b:m="M\twoheadrightarrow_\beta N_i"/> and
+      <math b:m="M\twoheadrightarrow_\beta N_2"/>, then there is a lambda-term <math b:m="N_3"/> such that <math b:m="N_1\twoheadrightarrow_\beta N_3"/>
+      and <math b:m="N_2\twoheadrightarrow_\beta N_3"/>. This is the <emphasize>Church-Rosser Theorem</emphasize>.</paragraph>
+    </unit>
+
+    <unit role="section">
+      <heading>Fixed Point Theorem</heading>
+      <paragraph>Every lambda-term <math b:m="L"/> has a <emphasize>fixed point</emphasize>, which can be constructed using a <emphasize>fixed point
+      combinator</emphasize>. One instance is:</paragraph>
+      <math b:m="Y\equiv\lambda y.(\lambda x.y(xx))(\lambda x.y(xx))."/>
+      <paragraph>Then we have <math b:m="YL"/> which is a fixed point of <math b:m="L"/>, since <math b:m="L(YL)=_\beta YL"/>, which can be shown as
+      follows:</paragraph>
+      <math b:m="\begin{aligned}
+                   YL&amp;\rightarrow_\beta&amp;(\lambda x.L(xx))(\lambda x.L(xx))\\
+                     &amp;\rightarrow_\beta&amp;L((\lambda x.L(xx))(\lambda x.L(xx)))\\
+                     &amp;=_\beta&amp;L(YL).
+                 \end{aligned}"/>
+    </unit>
+  </unit>
+</rsml>
