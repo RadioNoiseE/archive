@@ -209,7 +209,7 @@ display.message.element =
     <message type="note">The idea for the current implementation of program listings is
     <emphasize>borrowed</emphasize> from LdBeth which renders line numbers correctly in text-based
     web browsers like <verbatim>w3m</verbatim>. However it has poor performance when processing very
-    large listings as regression is inevitably used.</message>
+    large listings as recursive templates are inevitably used.</message>
     <verbatim lang="xslt" line="729"><![CDATA[
 <xsl:stylesheet version="1.0"
                 xmlns:rsml="https://kekkan.org/RsML"
