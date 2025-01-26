@@ -1,0 +1,116 @@
+@import "font.css";
+
+::selection {
+    background-color: #bdbdbd;
+    color: white;
+}
+
+body {
+    font-family: LAT-SF, serif;
+    line-height: 1.4;
+}
+
+h1 {
+    text-align: center;
+}
+
+h3 {
+    text-align: right;
+}
+
+h1, h2, h3 {
+    margin: 0;
+}
+
+p {
+    margin-block-end: .6em;
+    margin-block-start: .6em;
+}
+
+code {
+    background: #eeeeee;
+    border-radius: .25em;
+    font-family: LAT-MS, monospace;
+    padding: .125rem .25rem;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.content {
+    margin: auto;
+    max-width: 57em;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.nav a {
+    margin: 0 10px;
+    position: relative;
+}
+
+.nav a::after {
+    content: '-';
+    position: absolute;
+    width: 20px;
+}
+
+.nav a:last-child::after {
+    content: normal;
+}
+
+.article {
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+}
+
+.column {
+    width: 46%;
+}
+
+.banner {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.icon {
+    border: 0;
+    height: 30px;
+}
+
+.css {
+    padding: 0 2px;
+}
+
+.math {
+    padding: 0 1px;
+}
+
+.atom {
+    padding: 0 3px;
+}
+
+.ccby {
+    padding: 0 4px;
+}
+
+.copyright {
+    text-align: center;
+}
