@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <author>
+    <name>Jing Huang</name>
+  </author>
+  <id>https://kekkan.org/</id>
+  <generator>RnE</generator>
+  <link type="application/atom+xml" rel="self" href="https://kekkan.org/atom.xml"/>
+  <link rel="alternate" href="https://kekkan.org"/>
+  <title>Archive RnE</title>
+  <updated>2025-01-01T00:01:00Z</updated>
+  <entry>
+    <id>https://kekkan.org/article/apltex-dist.html</id>
+    <link rel="alternate" href="https://kekkan.org/article/apltex-dist.html"/>
+    <title>Tiny TeX Distribution Based on Web2C and LuaTeX</title>
+    <updated>2024-12-20T00:01:00Z</updated>
+    <summary>An Attempt on Minifying TeX</summary>
+  </entry>
+  <entry>
+    <id>https://kekkan.org/article/ml1-silicon.html</id>
+    <link rel="alternate" href="https://kekkan.org/article/ml1-silicon.html"/>
+    <title>Install ML/I on Apple Silicon from LOWL Source</title>
+    <updated>2024-12-02T00:01:00Z</updated>
+    <summary>Assembled ML/I Using LLVM</summary>
+  </entry>
+  <entry>
+    <id>https://kekkan.org/article/gentoo-efi.html</id>
+    <link rel="alternate" href="https://kekkan.org/article/gentoo-efi.html"/>
+    <title>Boot Gentoo Using EFI Stub</title>
+    <updated>2024-11-02T00:01:00Z</updated>
+    <summary>Fast and Clean System Boot</summary>
+  </entry>
+  <entry>
+    <id>https://kekkan.org/article/ttapf-note.html</id>
+    <link rel="alternate" href="https://kekkan.org/article/ttapf-note.html"/>
+    <title>Type Theory and Formal Proof</title>
+    <updated>2024-08-18T00:01:00Z</updated>
+    <summary>Some Notes Taken While Reading</summary>
+  </entry>
+</feed>
