@@ -100,15 +100,16 @@ a:hover {
 }
 
 .math {
-    padding: 0 1px;
+    padding: 0 2px;
 }
 
 .atom {
-    padding: 0 3px;
+    padding-left: 2px;
+    padding-right: 7px;
 }
 
 .ccby {
-    padding: 0 4px;
+    padding: 0 2px;
 }
 
 .copyright {
