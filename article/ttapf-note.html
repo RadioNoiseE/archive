@@ -48,6 +48,37 @@
               </li>
             </ul>
           </li>
+          <li>
+            <a href="#c2"><span class="chapno">2</span> <span class="content">Simply Typed Lambda Calculus</span></a>
+            <ul class="toc">
+              <li>
+                <a href="#s2-1"><span class="secno">2.1</span> <span class="content">Simple Types</span></a>
+              </li>
+              <li>
+                <a href="#s2-2"><span class="secno">2.2</span> <span class="content">Church and Curry Typing</span></a>
+              </li>
+              <li>
+                <a href="#s2-3"><span class="secno">2.3</span> <span class="content">Derivation Rules for Churchs
+                λ→</span></a>
+              </li>
+              <li>
+                <a href="#s2-4"><span class="secno">2.4</span> <span class="content">Well-Typedness in λ→</span></a>
+              </li>
+              <li>
+                <a href="#s2-5"><span class="secno">2.5</span> <span class="content">Type Checking in λ→</span></a>
+              </li>
+              <li>
+                <a href="#s2-6"><span class="secno">2.6</span> <span class="content">Term Finding in λ→</span></a>
+              </li>
+              <li>
+                <a href="#s2-7"><span class="secno">2.7</span> <span class="content">General Properties of
+                λ→</span></a>
+              </li>
+              <li>
+                <a href="#s2-8"><span class="secno">2.8</span> <span class="content">Reduction and λ→</span></a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
     </nav>
@@ -324,9 +355,9 @@
   <ol>
     <li>
       <em>Basis</em>: <math display="inline">
-      <mtext>
-        Sub
-      </mtext>
+      <mi mathvariant="script">
+        S
+      </mi>
       <mo lspace="0" rspace="0" stretchy="false">
         (
       </mo>
@@ -354,9 +385,9 @@
     </li>
     <li>
       <em>Application</em>: <math display="inline">
-      <mtext>
-        Sub
-      </mtext>
+      <mi mathvariant="script">
+        S
+      </mi>
       <mo lspace="0" rspace="0" stretchy="false">
         (
       </mo>
@@ -379,9 +410,9 @@
       <mo lspace="0" rspace="0.278em">
         =
       </mo>
-      <mtext>
-        Sub
-      </mtext>
+      <mi mathvariant="script">
+        S
+      </mi>
       <mo lspace="0" rspace="0" stretchy="false">
         (
       </mo>
@@ -394,9 +425,9 @@
       <mo lspace="0" rspace="0.222em">
         ∪
       </mo>
-      <mtext>
-        Sub
-      </mtext>
+      <mi mathvariant="script">
+        S
+      </mi>
       <mo lspace="0" rspace="0" stretchy="false">
         (
       </mo>
@@ -431,9 +462,9 @@
     </li>
     <li>
       <em>Abstraction</em>: <math display="inline">
-      <mtext>
-        Sub
-      </mtext>
+      <mi mathvariant="script">
+        S
+      </mi>
       <mo lspace="0" rspace="0" stretchy="false">
         (
       </mo>
@@ -462,9 +493,9 @@
       <mo lspace="0" rspace="0.278em">
         =
       </mo>
-      <mtext>
-        Sub
-      </mtext>
+      <mi mathvariant="script">
+        S
+      </mi>
       <mo lspace="0" rspace="0" stretchy="false">
         (
       </mo>
@@ -572,12 +603,8 @@
     M
   </mi></math>.</p>
   <p>Then we have the following recursive rule, in which <math display="inline">
-  <mi>
+  <mi mathvariant="script">
     F
-  </mi>
-  <mspace width="0"></mspace>
-  <mi>
-    V
   </mi>
   <mo lspace="0" rspace="0" stretchy="false">
     (
@@ -594,12 +621,8 @@
   <ol>
     <li>
       <em>Variable</em>: <math display="inline">
-      <mi>
+      <mi mathvariant="script">
         F
-      </mi>
-      <mspace width="0"></mspace>
-      <mi>
-        V
       </mi>
       <mo lspace="0" rspace="0" stretchy="false">
         (
@@ -625,12 +648,8 @@
     </li>
     <li>
       <em>Application</em>: <math display="inline">
-      <mi>
+      <mi mathvariant="script">
         F
-      </mi>
-      <mspace width="0"></mspace>
-      <mi>
-        V
       </mi>
       <mo lspace="0" rspace="0" stretchy="false">
         (
@@ -648,12 +667,8 @@
       <mo lspace="0" rspace="0.278em">
         =
       </mo>
-      <mi>
+      <mi mathvariant="script">
         F
-      </mi>
-      <mspace width="0"></mspace>
-      <mi>
-        V
       </mi>
       <mo lspace="0" rspace="0" stretchy="false">
         (
@@ -667,12 +682,8 @@
       <mo lspace="0" rspace="0.222em">
         ∪
       </mo>
-      <mi>
+      <mi mathvariant="script">
         F
-      </mi>
-      <mspace width="0"></mspace>
-      <mi>
-        V
       </mi>
       <mo lspace="0" rspace="0" stretchy="false">
         (
@@ -686,12 +697,8 @@
     </li>
     <li>
       <em>Abstract</em>: <math display="inline">
-      <mi>
+      <mi mathvariant="script">
         F
-      </mi>
-      <mspace width="0"></mspace>
-      <mi>
-        V
       </mi>
       <mo lspace="0" rspace="0" stretchy="false">
         (
@@ -715,12 +722,8 @@
       <mo lspace="0" rspace="0.278em">
         =
       </mo>
-      <mi>
+      <mi mathvariant="script">
         F
-      </mi>
-      <mspace width="0"></mspace>
-      <mi>
-        V
       </mi>
       <mo lspace="0" rspace="0" stretchy="false">
         (
@@ -746,12 +749,8 @@
     </li>
   </ol>
   <p>The lambda-term is <em>closed</em> if <math display="inline">
-  <mi>
+  <mi mathvariant="script">
     F
-  </mi>
-  <mspace width="0"></mspace>
-  <mi>
-    V
   </mi>
   <mo lspace="0" rspace="0" stretchy="false">
     (
@@ -1389,12 +1388,8 @@
       <mo lspace="0.278em" rspace="0.278em">
         ∉
       </mo>
-      <mi>
+      <mi mathvariant="script">
         F
-      </mi>
-      <mspace width="0"></mspace>
-      <mi>
-        V
       </mi>
       <mo lspace="0" rspace="0" stretchy="false">
         (
@@ -1638,12 +1633,8 @@
   <mo lspace="0.278em" rspace="0.278em">
     ∉
   </mo>
-  <mi>
+  <mi mathvariant="script">
     F
-  </mi>
-  <mspace width="0"></mspace>
-  <mi>
-    V
   </mi>
   <mo lspace="0" rspace="0" stretchy="false">
     (
@@ -2432,5 +2423,3443 @@
       </mtr>
     </mtable>
   </mstyle></math>
+  <h2 id="c2">2. Simply Typed Lambda Calculus</h2>
+  <p>In order to get a firmer hold on the desired behavior of functions, we introduce <em>types</em>. Functions are
+  been classified to a certain collection, and certain restrictions on the input values are given.</p>
+  <p>The <em>simple types</em> introduced in this chapter prevents the anomalies but are also in several senses too
+  restrictive. We will enlarge the expressivity of the system in subsequent chapters.</p>
+  <h3 id="s2-1">2.1. Simple Types</h3>
+  <p>We first define an infinite set of type <em>variables</em> <math display="inline">
+  <mi mathvariant="double-struck">
+    V
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    =
+  </mo>
+  <mo lspace="0" rspace="0" stretchy="false">
+    {
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0" rspace="0.167em">
+    ,
+  </mo>
+  <mi>
+    β
+  </mi>
+  <mo lspace="0" rspace="0.167em">
+    ,
+  </mo>
+  <mi>
+    γ
+  </mi>
+  <mo lspace="0" rspace="0.167em">
+    ,
+  </mo>
+  <mo lspace="0" rspace="0">
+    …
+  </mo>
+  <mo lspace="0" rspace="0" stretchy="false">
+    }
+  </mo>
+  <mo lspace="0" rspace="0">
+    .
+  </mo></math> and then define the set of simple types <math display="inline">
+  <mi mathvariant="double-struck">
+    T
+  </mi></math>:</p>
+  <ol>
+    <li>
+      <em>Type variable</em>: If <math display="inline">
+      <mi>
+        α
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ∈
+      </mo>
+      <mi mathvariant="double-struck">
+        V
+      </mi></math>, then <math display="inline">
+      <mi>
+        α
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ∈
+      </mo>
+      <mi mathvariant="double-struck">
+        T
+      </mi></math>.
+    </li>
+    <li>
+      <em>Arrow type</em>: If <math display="inline">
+      <mi>
+        σ
+      </mi>
+      <mo lspace="0" rspace="0.167em">
+        ,
+      </mo>
+      <mi>
+        τ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ∈
+      </mo>
+      <mi mathvariant="double-struck">
+        T
+      </mi></math>, then <math display="inline">
+      <mo lspace="0" rspace="0" stretchy="false">
+        (
+      </mo>
+      <mi>
+        σ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        →
+      </mo>
+      <mi>
+        τ
+      </mi>
+      <mo lspace="0" rspace="0.278em" stretchy="false">
+        )
+      </mo>
+      <mo lspace="0" rspace="0.278em">
+        ∈
+      </mo>
+      <mi mathvariant="double-struck">
+        T
+      </mi></math>.
+    </li>
+  </ol>
+  <p>It can be expressed using abstract syntax as <math display="inline">
+  <mi mathvariant="double-struck">
+    T
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    =
+  </mo>
+  <mi mathvariant="double-struck">
+    V
+  </mi>
+  <mo lspace="0" rspace="0" stretchy="false">
+    |
+  </mo>
+  <mi mathvariant="double-struck">
+    T
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi mathvariant="double-struck">
+    T
+  </mi></math>.</p>
+  <p>The Greek letters <math display="inline">
+  <mi>
+    α
+  </mi>
+  <mo lspace="0" rspace="0.167em">
+    ,
+  </mo>
+  <mi>
+    β
+  </mi>
+  <mo lspace="0" rspace="0.167em">
+    ,
+  </mo>
+  <mi>
+    γ
+  </mi>
+  <mo lspace="0" rspace="0.167em">
+    ,
+  </mo>
+  <mo lspace="0" rspace="0">
+    …
+  </mo></math> and variants are used for type variables belonging to <math display="inline">
+  <mi mathvariant="double-struck">
+    V
+  </mi></math>. Arbitrary simple types are denoted using <math display="inline">
+  <mi>
+    σ
+  </mi>
+  <mo lspace="0" rspace="0.167em">
+    ,
+  </mo>
+  <mi>
+    τ
+  </mi>
+  <mo lspace="0" rspace="0.167em">
+    ,
+  </mo>
+  <mo lspace="0" rspace="0">
+    …
+  </mo></math>. Their outermost parentheses may be <em>omitted</em> and for arrow-types, they are
+  <em>right-associative</em>.</p>
+  <p>Type variables are abstract representations of <em>basic types</em>, such as <math display="inline">
+  <mi>
+    n
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    a
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    t
+  </mi></math> for natural numbers or <math display="inline">
+  <mi>
+    l
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    i
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    s
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    t
+  </mi></math> for lists. Arrow types represent <em>function types</em>, such as <math display="inline">
+  <mi>
+    n
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    a
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    t
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    r
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    e
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    a
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    l
+  </mi></math> which abstracts a function which input is a natural number and the returned result is a real number.</p>
+  <p>We also have <em>statements</em> which allow us to express something like <q>term <math display="inline">
+  <mi>
+    M
+  </mi></math> has type <math display="inline">
+  <mi>
+    σ
+  </mi></math></q> in the form <math display="inline">
+  <mi>
+    M
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    σ
+  </mi></math>. We assume we have infinitude of variables available for each type <math display="inline">
+  <mi>
+    σ
+  </mi></math>, thus we assume that each variable <math display="inline">
+  <mi>
+    x
+  </mi></math> has a unique type: if <math display="inline">
+  <mi>
+    x
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    σ
+  </mi></math> and <math display="inline">
+  <mi>
+    x
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    τ
+  </mi></math>, then <math display="inline">
+  <mi>
+    σ
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    ≡
+  </mo>
+  <mi>
+    τ
+  </mi></math>.</p>
+  <p>By adding typing to the basic construction principles of lambda calculus, we have:</p>
+  <ol>
+    <li>
+      <em>Application</em>: If <math display="inline">
+      <mi>
+        M
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        →
+      </mo>
+      <mi>
+        τ
+      </mi></math> and <math display="inline">
+      <mi>
+        N
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi></math>, then <math display="inline">
+      <mi>
+        M
+      </mi>
+      <mspace width="0"></mspace>
+      <mi>
+        N
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        τ
+      </mi></math>.
+    </li>
+    <li>
+      <em>Abstraction</em>: If <math display="inline">
+      <mi>
+        x
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi></math> and <math display="inline">
+      <mi>
+        M
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        τ
+      </mi></math>, then <math display="inline">
+      <mi>
+        λ
+      </mi>
+      <mspace width="0"></mspace>
+      <mi>
+        x
+      </mi>
+      <mo lspace="0" rspace="0">
+        .
+      </mo>
+      <mi>
+        M
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        →
+      </mo>
+      <mi>
+        τ
+      </mi></math>.
+    </li>
+  </ol>
+  <p>There are two <em>side conditions</em> which have to be satisfied in the typing of an application <math display=
+  "inline">
+  <mi>
+    M
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    N
+  </mi></math>: the left-hand side <math display="inline">
+  <mi>
+    M
+  </mi></math> of the application must have a function type <math display="inline">
+  <mi>
+    σ
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    τ
+  </mi></math> while the right-hand side <math display="inline">
+  <mi>
+    N
+  </mi></math> of the application must match with the input type <math display="inline">
+  <mi>
+    σ
+  </mi></math>; the output type will then be <math display="inline">
+  <mi>
+    τ
+  </mi></math>. For abstraction <math display="inline">
+  <mi>
+    λ
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    x
+  </mi>
+  <mo lspace="0" rspace="0">
+    .
+  </mo>
+  <mi>
+    M
+  </mi></math>, we just need the types of <math display="inline">
+  <mi>
+    x
+  </mi></math> and <math display="inline">
+  <mi>
+    M
+  </mi></math>.</p>
+  <p>A term <math display="inline">
+  <mi>
+    M
+  </mi></math> is called <em>typable</em> if there is a type <math display="inline">
+  <mi>
+    σ
+  </mi></math> such that <math display="inline">
+  <mi>
+    M
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    σ
+  </mi></math>.</p>
+  <h3 id="s2-2">2.2. Church and Curry Typing</h3>
+  <p>To type a lambda term, we should first type its variables. We can give types to variables in two ways:</p>
+  <ol>
+    <li><em>Typing à la Church</em>: also called <em>explicit typing</em>, that we prescribe a (unique) type for each
+    variable upon its introduction.</li>
+    <li><em>Typing à la Curry</em>: also called <em>implicit typing</em>, which type is left open to some extent. We
+    find typable terms by a search process, which may involve guesses for the types of the variables.</li>
+  </ol>
+  <p>We denote the types of bound variables immediately after their introduction following a <math display="inline">
+  <mi>
+    λ
+  </mi></math> while the types of free variables are given in a so-called <em>context</em>
+  (<em>basis</em>):</p><math display="block">
+  <mi>
+    x
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0" rspace="0.167em">
+    ,
+  </mo>
+  <mi>
+    y
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mo lspace="0" rspace="0" stretchy="false">
+    (
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0" rspace="0.278em" stretchy="false">
+    )
+  </mo>
+  <mo lspace="0" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    β
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    ⊢
+  </mo>
+  <mo lspace="0" rspace="0" stretchy="false">
+    (
+  </mo>
+  <mi>
+    λ
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    z
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    β
+  </mi>
+  <mo lspace="0" rspace="0">
+    .
+  </mo>
+  <mi>
+    λ
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    u
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    γ
+  </mi>
+  <mo lspace="0" rspace="0">
+    .
+  </mo>
+  <mi>
+    z
+  </mi>
+  <mo lspace="0" rspace="0" stretchy="false">
+    )
+  </mo>
+  <mo lspace="0" rspace="0" stretchy="false">
+    (
+  </mo>
+  <mi>
+    y
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    x
+  </mi>
+  <mo lspace="0" rspace="0.278em" stretchy="false">
+    )
+  </mo>
+  <mo lspace="0" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    γ
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    β
+  </mi>
+  <mo lspace="0" rspace="0">
+    .
+  </mo></math>
+  <h3 id="s2-3">2.3. Derivation Rules for Church's <math display="inline">
+  <mi>
+    λ
+  </mi>
+  <mo lspace="0.111em" rspace="0">
+    →
+  </mo></math></h3>
+  <p>The definition of lambda terms have to be modified to incorporate type information. This new set of pre-typed
+  <math display="inline">
+  <msub>
+    <mi mathvariant="normal">
+      Λ
+    </mi>
+    <mi mathvariant="double-struck">
+      T
+    </mi>
+  </msub></math> is defined by <math display="inline">
+  <msub>
+    <mi mathvariant="normal">
+      Λ
+    </mi>
+    <mi mathvariant="double-struck">
+      T
+    </mi>
+  </msub>
+  <mo lspace="0.278em" rspace="0.278em">
+    =
+  </mo>
+  <mi>
+    V
+  </mi>
+  <mo lspace="0" rspace="0" stretchy="false">
+    |
+  </mo>
+  <mo lspace="0" rspace="0" stretchy="false">
+    (
+  </mo>
+  <msub>
+    <mi mathvariant="normal">
+      Λ
+    </mi>
+    <mi mathvariant="double-struck">
+      T
+    </mi>
+  </msub>
+  <mspace width="0"></mspace>
+  <msub>
+    <mi mathvariant="normal">
+      Λ
+    </mi>
+    <mi mathvariant="double-struck">
+      T
+    </mi>
+  </msub>
+  <mo lspace="0" rspace="0" stretchy="false">
+    )
+  </mo>
+  <mo lspace="0" rspace="0" stretchy="false">
+    |
+  </mo>
+  <mo lspace="0" rspace="0" stretchy="false">
+    (
+  </mo>
+  <mi>
+    λ
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    V
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi mathvariant="double-struck">
+    T
+  </mi>
+  <mo lspace="0" rspace="0">
+    .
+  </mo>
+  <msub>
+    <mi mathvariant="normal">
+      Λ
+    </mi>
+    <mi mathvariant="double-struck">
+      T
+    </mi>
+  </msub>
+  <mo lspace="0" rspace="0" stretchy="false">
+    )
+  </mo></math>.</p>
+  <p>A <em>judgment</em> has the form <math display="inline">
+  <mi mathvariant="normal">
+    Γ
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    ⊢
+  </mo>
+  <mi>
+    M
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    σ
+  </mi></math>, with <math display="inline">
+  <mi mathvariant="normal">
+    Γ
+  </mi></math> a context and <math display="inline">
+  <mi>
+    M
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    σ
+  </mi></math> a statement.</p>
+  <ol>
+    <li>
+      <em>Statement</em>: <math display="inline">
+      <mi>
+        M
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi></math>, where <math display="inline">
+      <mi>
+        M
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ∈
+      </mo>
+      <msub>
+        <mi mathvariant="normal">
+          Λ
+        </mi>
+        <mi mathvariant="double-struck">
+          T
+        </mi>
+      </msub></math> and <math display="inline">
+      <mi>
+        σ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ∈
+      </mo>
+      <mi mathvariant="double-struck">
+        T
+      </mi></math>.
+    </li>
+    <li><em>Declaration</em>: a statement with a variable as subject.</li>
+    <li><em>Context</em>: a list of declarations with different subjects.</li>
+  </ol>
+  <p>Below we give three <em>derivation rules</em> to form a so-called <em>derivation system</em> for Church's
+  <math display="inline">
+  <mi>
+    λ
+  </mi>
+  <mo lspace="0.111em" rspace="0">
+    →
+  </mo></math> in the <em>premiss-conclusion</em> format.</p><math display="block">
+  <mstyle scriptlevel="0">
+    <mtable displaystyle="true" columnalign="right left" columnspacing="0.2em">
+      <mtr>
+        <mtd>
+          <mo lspace="0" rspace="0" stretchy="false">
+            (
+          </mo>
+          <mi>
+            v
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            a
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            r
+          </mi>
+          <mo lspace="0" rspace="0" stretchy="false">
+            )
+          </mo>
+        </mtd>
+        <mtd>
+          <mi>
+            γ
+          </mi>
+          <mo lspace="0.278em" rspace="0.278em">
+            ⊢
+          </mo>
+          <mi>
+            x
+          </mi>
+          <mo lspace="0.278em" rspace="0.278em">
+            :
+          </mo>
+          <mi>
+            σ
+          </mi>
+          <mspace width="0.333em"></mspace>
+          <mtext>
+            if
+          </mtext>
+          <mspace width="0.333em"></mspace>
+          <mi>
+            x
+          </mi>
+          <mo lspace="0.278em" rspace="0.278em">
+            :
+          </mo>
+          <mi>
+            σ
+          </mi>
+          <mo lspace="0.278em" rspace="0.278em">
+            ∈
+          </mo>
+          <mi mathvariant="normal">
+            Γ
+          </mi>
+          <mo lspace="0" rspace="0">
+            .
+          </mo>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mo lspace="0" rspace="0" stretchy="false">
+            (
+          </mo>
+          <mi>
+            a
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            p
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            p
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            l
+          </mi>
+          <mo lspace="0" rspace="0" stretchy="false">
+            )
+          </mo>
+        </mtd>
+        <mtd>
+          <mfrac>
+            <mrow>
+              <mi mathvariant="normal">
+                Γ
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                ⊢
+              </mo>
+              <mi>
+                M
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                σ
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                τ
+              </mi>
+              <mspace width="1.000em"></mspace>
+              <mi>
+                γ
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                ⊢
+              </mo>
+              <mi>
+                N
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                σ
+              </mi>
+            </mrow>
+            <mrow>
+              <mi mathvariant="normal">
+                Γ
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                ⊢
+              </mo>
+              <mi>
+                M
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                N
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                τ
+              </mi>
+            </mrow>
+          </mfrac>
+          <mo lspace="0" rspace="0">
+            .
+          </mo>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mo lspace="0" rspace="0" stretchy="false">
+            (
+          </mo>
+          <mi>
+            a
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            b
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            s
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            t
+          </mi>
+          <mo lspace="0" rspace="0" stretchy="false">
+            )
+          </mo>
+        </mtd>
+        <mtd>
+          <mfrac>
+            <mrow>
+              <mi>
+                γ
+              </mi>
+              <mo lspace="0" rspace="0.167em">
+                ,
+              </mo>
+              <mi>
+                x
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                σ
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                ⊢
+              </mo>
+              <mi>
+                M
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                τ
+              </mi>
+            </mrow>
+            <mrow>
+              <mi mathvariant="normal">
+                Γ
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                ⊢
+              </mo>
+              <mi>
+                λ
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                x
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                σ
+              </mi>
+              <mo lspace="0" rspace="0.167em">
+                ,
+              </mo>
+              <mi>
+                M
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                σ
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                τ
+              </mi>
+            </mrow>
+          </mfrac>
+          <mo lspace="0" rspace="0">
+            .
+          </mo>
+        </mtd>
+      </mtr>
+    </mtable>
+  </mstyle></math>
+  <p>A pre-typed term <math display="inline">
+  <mi>
+    λ
+  </mi>
+  <mo lspace="0.111em" rspace="0">
+    →
+  </mo></math> is called <em>legal</em> if there exist context <math display="inline">
+  <mi mathvariant="normal">
+    Γ
+  </mi></math> and type <math display="inline">
+  <mi>
+    ρ
+  </mi></math> such that <math display="inline">
+  <mi mathvariant="normal">
+    Γ
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    ⊢
+  </mo>
+  <mi>
+    M
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    ρ
+  </mi></math>.</p>
+  <h3 id="s2-4">2.4. Well-Typedness in <math display="inline">
+  <mi>
+    λ
+  </mi>
+  <mo lspace="0.111em" rspace="0">
+    →
+  </mo></math></h3>
+  <p>This is one of the three problems connected with judgments in type theory: to find an appropriate context and type
+  if the term is indeed legal.</p>
+  <p>For example, we want to show <math display="inline">
+  <mi>
+    M
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    ≡
+  </mo>
+  <mi>
+    λ
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    y
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    β
+  </mi>
+  <mo lspace="0" rspace="0">
+    .
+  </mo>
+  <mi>
+    λ
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    z
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0" rspace="0">
+    .
+  </mo>
+  <mi>
+    y
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    z
+  </mi></math> is valid. Hence, our task is to find a type <math display="inline">
+  <mi>
+    ρ
+  </mi></math> such that <math display="inline">
+  <mi mathvariant="normal">
+    Γ
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    ⊢
+  </mo>
+  <mi>
+    M
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    ρ
+  </mi></math>. First we determine the context <math display="inline">
+  <mi mathvariant="normal">
+    Γ
+  </mi></math> which <math display="inline">
+  <mi mathvariant="normal">
+    Γ
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    ≡
+  </mo>
+  <mi mathvariant="normal">
+    ∅
+  </mi></math> suffices since there are no free variables in <math display="inline">
+  <mi>
+    M
+  </mi></math>. Then we need to find <math display="inline">
+  <mi>
+    ρ
+  </mi></math>.</p><math display="block">
+  <mstyle scriptlevel="0">
+    <mtable displaystyle="true" columnalign="right left" columnspacing="0.2em">
+      <mtr>
+        <mtd>
+          <mfrac>
+            <mrow>
+              <mi>
+                y
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mspace width="1.000em"></mspace>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+            </mrow>
+            <mrow>
+              <mi>
+                y
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0" rspace="0.167em">
+                ,
+              </mo>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                ⊢
+              </mo>
+              <mi>
+                y
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                β
+              </mi>
+            </mrow>
+          </mfrac>
+        </mtd>
+        <mtd>
+          <mo lspace="0" rspace="0" stretchy="false">
+            (
+          </mo>
+          <mi>
+            a
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            p
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            p
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            l
+          </mi>
+          <mo lspace="0" rspace="0" stretchy="false">
+            )
+          </mo>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mfrac>
+            <mrow>
+              <mi>
+                y
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0" rspace="0.167em">
+                ,
+              </mo>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                ⊢
+              </mo>
+              <mi>
+                y
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                β
+              </mi>
+            </mrow>
+            <mrow>
+              <mi>
+                y
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                ⊢
+              </mo>
+              <mi>
+                λ
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0" rspace="0">
+                .
+              </mo>
+              <mi>
+                y
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+            </mrow>
+          </mfrac>
+        </mtd>
+        <mtd>
+          <mo lspace="0" rspace="0" stretchy="false">
+            (
+          </mo>
+          <mi>
+            a
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            b
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            s
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            t
+          </mi>
+          <mo lspace="0" rspace="0" stretchy="false">
+            )
+          </mo>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mfrac>
+            <mrow>
+              <mi>
+                y
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                ⊢
+              </mo>
+              <mi>
+                λ
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0" rspace="0">
+                .
+              </mo>
+              <mi>
+                y
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+            </mrow>
+            <mrow>
+              <mi>
+                λ
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                y
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0" rspace="0">
+                .
+              </mo>
+              <mi>
+                λ
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0" rspace="0">
+                .
+              </mo>
+              <mi>
+                y
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mo lspace="0" rspace="0" stretchy="false">
+                (
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0" rspace="0.278em" stretchy="false">
+                )
+              </mo>
+              <mo lspace="0" rspace="0.278em">
+                →
+              </mo>
+              <mo lspace="0" rspace="0" stretchy="false">
+                (
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0" rspace="0" stretchy="false">
+                )
+              </mo>
+            </mrow>
+          </mfrac>
+        </mtd>
+        <mtd>
+          <mo lspace="0" rspace="0" stretchy="false">
+            (
+          </mo>
+          <mi>
+            a
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            b
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            s
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            t
+          </mi>
+          <mo lspace="0" rspace="0" stretchy="false">
+            )
+          </mo>
+        </mtd>
+      </mtr>
+    </mtable>
+  </mstyle></math>
+  <p>Thus we can conclude that <math display="inline">
+  <mi>
+    λ
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    y
+  </mi>
+  <mo lspace="0" rspace="0">
+    .
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    β
+  </mi>
+  <mo lspace="0" rspace="0">
+    .
+  </mo>
+  <mi>
+    λ
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    z
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0" rspace="0">
+    .
+  </mo>
+  <mi>
+    y
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    z
+  </mi></math> is valid since we find <math display="inline">
+  <mi>
+    ρ
+  </mi></math> which is <math display="inline">
+  <mo lspace="0" rspace="0" stretchy="false">
+    (
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    β
+  </mi>
+  <mo lspace="0" rspace="0.278em" stretchy="false">
+    )
+  </mo>
+  <mo lspace="0" rspace="0.278em">
+    →
+  </mo>
+  <mo lspace="0" rspace="0" stretchy="false">
+    (
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    β
+  </mi>
+  <mo lspace="0" rspace="0" stretchy="false">
+    )
+  </mo></math>.</p>
+  <h3 id="s2-5">2.5. Type Checking in <math display="inline">
+  <mi>
+    λ
+  </mi>
+  <mo lspace="0.111em" rspace="0">
+    →
+  </mo></math></h3>
+  <p>The name type checking is straightforward, it means to check the validity of a full judgment.</p>
+  <p>In order to illustrate this matter, we construct a derivation for <math display="inline">
+  <mi>
+    x
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0" rspace="0.167em">
+    ,
+  </mo>
+  <mi>
+    y
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mo lspace="0" rspace="0" stretchy="false">
+    (
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    α
+  </mi>
+  <mo lspace="0" rspace="0.278em" stretchy="false">
+    )
+  </mo>
+  <mo lspace="0" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    β
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    ⊢
+  </mo>
+  <mo lspace="0" rspace="0" stretchy="false">
+    (
+  </mo>
+  <mi>
+    λ
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    z
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    β
+  </mi>
+  <mo lspace="0" rspace="0">
+    .
+  </mo>
+  <mi>
+    λ
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    u
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    γ
+  </mi>
+  <mo lspace="0" rspace="0">
+    .
+  </mo>
+  <mi>
+    z
+  </mi>
+  <mo lspace="0" rspace="0" stretchy="false">
+    )
+  </mo>
+  <mo lspace="0" rspace="0" stretchy="false">
+    (
+  </mo>
+  <mi>
+    y
+  </mi>
+  <mspace width="0"></mspace>
+  <mi>
+    z
+  </mi>
+  <mo lspace="0" rspace="0.278em" stretchy="false">
+    )
+  </mo>
+  <mo lspace="0" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    γ
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    β
+  </mi></math>:</p><math display="block">
+  <mstyle scriptlevel="0">
+    <mtable displaystyle="true" columnalign="right left" columnspacing="0.2em">
+      <mtr>
+        <mtd>
+          <mfrac>
+            <mrow>
+              <mi>
+                x
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mspace width="1.000em"></mspace>
+              <mi>
+                y
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mo lspace="0" rspace="0" stretchy="false">
+                (
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0" rspace="0.278em" stretchy="false">
+                )
+              </mo>
+              <mo lspace="0" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+            </mrow>
+            <mrow>
+              <mi>
+                x
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0" rspace="0.167em">
+                ,
+              </mo>
+              <mi>
+                y
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mo lspace="0" rspace="0" stretchy="false">
+                (
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0" rspace="0.278em" stretchy="false">
+                )
+              </mo>
+              <mo lspace="0" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                ⊢
+              </mo>
+              <mi>
+                y
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                x
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                β
+              </mi>
+            </mrow>
+          </mfrac>
+          <mspace width="1.000em"></mspace>
+          <mfrac>
+            <mrow>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mspace width="1.000em"></mspace>
+              <mi>
+                u
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                γ
+              </mi>
+            </mrow>
+            <mrow>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0" rspace="0.167em">
+                ,
+              </mo>
+              <mi>
+                u
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                γ
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                ⊢
+              </mo>
+              <mi>
+                λ
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0" rspace="0">
+                .
+              </mo>
+              <mi>
+                λ
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                u
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                γ
+              </mi>
+              <mo lspace="0" rspace="0">
+                .
+              </mo>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                γ
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+            </mrow>
+          </mfrac>
+        </mtd>
+        <mtd>
+          <mo lspace="0" rspace="0" stretchy="false">
+            (
+          </mo>
+          <mi>
+            a
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            p
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            p
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            l
+          </mi>
+          <mo lspace="0" rspace="0.167em">
+            ,
+          </mo>
+          <mi>
+            a
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            b
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            s
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            t
+          </mi>
+          <mo lspace="0" rspace="0" stretchy="false">
+            )
+          </mo>
+        </mtd>
+      </mtr>
+      <mtr>
+        <mtd>
+          <mfrac>
+            <mrow>
+              <mi>
+                x
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0" rspace="0.167em">
+                ,
+              </mo>
+              <mi>
+                y
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mo lspace="0" rspace="0" stretchy="false">
+                (
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                α
+              </mi>
+              <mo lspace="0" rspace="0.278em" stretchy="false">
+                )
+              </mo>
+              <mo lspace="0" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                ⊢
+              </mo>
+              <mi>
+                y
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                x
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mspace width="1.000em"></mspace>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0" rspace="0.167em">
+                ,
+              </mo>
+              <mi>
+                u
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                γ
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                ⊢
+              </mo>
+              <mi>
+                λ
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0" rspace="0">
+                .
+              </mo>
+              <mi>
+                λ
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                u
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                γ
+              </mi>
+              <mo lspace="0" rspace="0">
+                .
+              </mo>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                γ
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+            </mrow>
+            <mrow>
+              <mo lspace="0" rspace="0" stretchy="false">
+                (
+              </mo>
+              <mi>
+                λ
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                β
+              </mi>
+              <mo lspace="0" rspace="0">
+                .
+              </mo>
+              <mi>
+                λ
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                u
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                γ
+              </mi>
+              <mo lspace="0" rspace="0">
+                .
+              </mo>
+              <mi>
+                z
+              </mi>
+              <mo lspace="0" rspace="0" stretchy="false">
+                )
+              </mo>
+              <mo lspace="0" rspace="0" stretchy="false">
+                (
+              </mo>
+              <mi>
+                y
+              </mi>
+              <mspace width="0"></mspace>
+              <mi>
+                x
+              </mi>
+              <mo lspace="0" rspace="0.278em" stretchy="false">
+                )
+              </mo>
+              <mo lspace="0" rspace="0.278em">
+                :
+              </mo>
+              <mi>
+                γ
+              </mi>
+              <mo lspace="0.278em" rspace="0.278em">
+                →
+              </mo>
+              <mi>
+                β
+              </mi>
+            </mrow>
+          </mfrac>
+        </mtd>
+        <mtd>
+          <mo lspace="0" rspace="0" stretchy="false">
+            (
+          </mo>
+          <mi>
+            a
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            p
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            p
+          </mi>
+          <mspace width="0"></mspace>
+          <mi>
+            l
+          </mi>
+          <mo lspace="0" rspace="0" stretchy="false">
+            )
+          </mo>
+        </mtd>
+      </mtr>
+    </mtable>
+  </mstyle></math>
+  <p>Hence we have succeeded in giving a proper deviation of the judgment.</p>
+  <h3 id="s2-6">2.6. Term Finding in <math display="inline">
+  <mi>
+    λ
+  </mi>
+  <mo lspace="0.111em" rspace="0">
+    →
+  </mo></math></h3>
+  <p>This section presents the third of the general problem in type theory, namely to find an appropriate term of a
+  certain type, in a certain context. A term which belongs to a certain type is called an <em>inhabitant</em> of that
+  type.</p>
+  <p>To find an inhabitant of a certain type, we can think of the type as <em>proposition</em>, while each inhabitant
+  codes a <em>proof</em> of this proposition.</p>
+  <p>For instance, to find the term of <math display="inline">
+  <mi>
+    A
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    B
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    →
+  </mo>
+  <mi>
+    A
+  </mi></math>, we can follow:</p>
+  <ol>
+    <li>Assume that <math display="inline">
+      <mi>
+        x
+      </mi></math> is a proof of proposition <math display="inline">
+      <mi>
+        A
+      </mi></math>.
+    </li>
+    <li>Also assume that <math display="inline">
+      <mi>
+        y
+      </mi></math> is a proof of proposition <math display="inline">
+      <mi>
+        B
+      </mi></math>.
+    </li>
+    <li>Then <math display="inline">
+      <mi>
+        x
+      </mi></math> is still a proof of <math display="inline">
+      <mi>
+        A
+      </mi></math>.
+    </li>
+    <li>So the function mapping <math display="inline">
+      <mi>
+        y
+      </mi></math> to <math display="inline">
+      <mi>
+        x
+      </mi></math> sends a proof of <math display="inline">
+      <mi>
+        B
+      </mi></math> to a proof of <math display="inline">
+      <mi>
+        A
+      </mi></math>, i.e., <math display="inline">
+      <mi>
+        λ
+      </mi>
+      <mspace width="0"></mspace>
+      <mi>
+        y
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        B
+      </mi>
+      <mo lspace="0" rspace="0">
+        .
+      </mo>
+      <mi>
+        x
+      </mi></math> proves the implication <math display="inline">
+      <mi>
+        B
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        →
+      </mo>
+      <mi>
+        A
+      </mi></math>.
+    </li>
+    <li>Consequently, <math display="inline">
+      <mi>
+        λ
+      </mi>
+      <mspace width="0"></mspace>
+      <mi>
+        z
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        A
+      </mi>
+      <mo lspace="0" rspace="0">
+        .
+      </mo>
+      <mi>
+        λ
+      </mi>
+      <mspace width="0"></mspace>
+      <mi>
+        y
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        B
+      </mi>
+      <mo lspace="0" rspace="0">
+        .
+      </mo>
+      <mi>
+        x
+      </mi></math> proves <math display="inline">
+      <mi>
+        A
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        →
+      </mo>
+      <mi>
+        B
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        →
+      </mo>
+      <mi>
+        A
+      </mi></math>.
+    </li>
+  </ol>
+  <p>The above process is generally called the <em>PAT-interpretation</em>, where PAT means both
+  <q>propositions-as-types</q> and <q>proofs-as-terms</q>.</p>
+  <h3 id="s2-7">2.7. General Properties of <math display="inline">
+  <mi>
+    λ
+  </mi>
+  <mo lspace="0.111em" rspace="0">
+    →
+  </mo></math></h3>
+  <p>We give a number of definitions about context below:</p>
+  <ol>
+    <li>If <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ≡
+      </mo>
+      <msub>
+        <mi>
+          x
+        </mi>
+        <mn>
+          1
+        </mn>
+      </msub>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <msub>
+        <mi>
+          σ
+        </mi>
+        <mn>
+          1
+        </mn>
+      </msub>
+      <mo lspace="0" rspace="0.167em">
+        ,
+      </mo>
+      <mo lspace="0" rspace="0.167em">
+        …
+      </mo>
+      <mo lspace="0" rspace="0.167em">
+        ,
+      </mo>
+      <msub>
+        <mi>
+          x
+        </mi>
+        <mi>
+          n
+        </mi>
+      </msub>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <msub>
+        <mi>
+          σ
+        </mi>
+        <mi>
+          n
+        </mi>
+      </msub></math>, then the <em>domain</em> of <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi></math> or <math display="inline">
+      <mi mathvariant="script">
+        D
+      </mi>
+      <mo lspace="0" rspace="0" stretchy="false">
+        (
+      </mo>
+      <mi mathvariant="normal">
+        Γ
+      </mi>
+      <mo lspace="0" rspace="0" stretchy="false">
+        )
+      </mo></math> is the list <math display="inline">
+      <mo lspace="0" rspace="0" stretchy="false">
+        (
+      </mo>
+      <msub>
+        <mi>
+          x
+        </mi>
+        <mn>
+          1
+        </mn>
+      </msub>
+      <mo lspace="0" rspace="0.167em">
+        ,
+      </mo>
+      <mo lspace="0" rspace="0.167em">
+        …
+      </mo>
+      <mo lspace="0" rspace="0.167em">
+        ,
+      </mo>
+      <msub>
+        <mi>
+          x
+        </mi>
+        <mi>
+          n
+        </mi>
+      </msub>
+      <mo lspace="0" rspace="0" stretchy="false">
+        )
+      </mo></math>.
+    </li>
+    <li>Context <math display="inline">
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mo lspace="0" rspace="0">
+          ′
+        </mo>
+      </msup></math> is a <em>subcontext</em> of context <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi></math>, or <math display="inline">
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mo lspace="0" rspace="0">
+          ′
+        </mo>
+      </msup>
+      <mo lspace="0.278em" rspace="0.278em">
+        ⊆
+      </mo>
+      <mi mathvariant="normal">
+        Γ
+      </mi></math>, if all declarations occurring in <math display="inline">
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mo lspace="0" rspace="0">
+          ′
+        </mo>
+      </msup></math> also occur in <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi></math>, in the same order.
+    </li>
+    <li>Context <math display="inline">
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mo lspace="0" rspace="0">
+          ′
+        </mo>
+      </msup></math> is a <em>permutation</em> of context <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi></math>, if all declarations in <math display="inline">
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mo lspace="0" rspace="0">
+          ′
+        </mo>
+      </msup></math> also occur in <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi></math>, and vice versa.
+    </li>
+    <li>If <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi></math> is a context and <math display="inline">
+      <mi mathvariant="normal">
+        Φ
+      </mi></math> is a set of variables, then the <em>projection</em> of <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi></math> on <math display="inline">
+      <mi mathvariant="normal">
+        Φ
+      </mi></math>, or <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ↾
+      </mo>
+      <mi mathvariant="normal">
+        Φ
+      </mi></math>, is the subcontext <math display="inline">
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mo lspace="0" rspace="0">
+          ′
+        </mo>
+      </msup></math> of <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi></math> with <math display="inline">
+      <mi mathvariant="script">
+        D
+      </mi>
+      <mo lspace="0" rspace="0" stretchy="false">
+        (
+      </mo>
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mo lspace="0" rspace="0">
+          ′
+        </mo>
+      </msup>
+      <mo lspace="0" rspace="0.278em" stretchy="false">
+        )
+      </mo>
+      <mo lspace="0" rspace="0.278em">
+        =
+      </mo>
+      <mi mathvariant="script">
+        D
+      </mi>
+      <mo lspace="0" rspace="0" stretchy="false">
+        (
+      </mo>
+      <mi mathvariant="normal">
+        Γ
+      </mi>
+      <mo lspace="0" rspace="0.222em" stretchy="false">
+        )
+      </mo>
+      <mo lspace="0" rspace="0.222em">
+        ∩
+      </mo>
+      <mi mathvariant="normal">
+        Φ
+      </mi></math>.
+    </li>
+  </ol>
+  <p>An important property concerning the free variables occurring in a judgment is that if <math display="inline">
+  <mi mathvariant="normal">
+    Γ
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    ⊢
+  </mo>
+  <mi>
+    L
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    σ
+  </mi></math>, then <math display="inline">
+  <mi mathvariant="script">
+    F
+  </mi>
+  <mo lspace="0" rspace="0" stretchy="false">
+    (
+  </mo>
+  <mi>
+    L
+  </mi>
+  <mo lspace="0" rspace="0.278em" stretchy="false">
+    )
+  </mo>
+  <mo lspace="0" rspace="0.278em">
+    ⊆
+  </mo>
+  <mi mathvariant="script">
+    D
+  </mi>
+  <mo lspace="0" rspace="0" stretchy="false">
+    (
+  </mo>
+  <mi mathvariant="normal">
+    Γ
+  </mi>
+  <mo lspace="0" rspace="0" stretchy="false">
+    )
+  </mo></math>. This can be proved by induction on the deviation of the judgment <math display="inline">
+  <mi mathvariant="script">
+    J
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    ≡
+  </mo>
+  <mi mathvariant="normal">
+    Γ
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    ⊢
+  </mo>
+  <mi>
+    L
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    σ
+  </mi></math>.</p>
+  <p>We continue with three other properties which are trivial and can also be proved by induction.</p>
+  <ol>
+    <li>
+      <em>Thinning</em>: Let <math display="inline">
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mo lspace="0" rspace="0">
+          ′
+        </mo>
+      </msup></math> and <math display="inline">
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mrow>
+          <mo lspace="0" rspace="0">
+            ′
+          </mo>
+          <mo lspace="0" rspace="0">
+            ′
+          </mo>
+        </mrow>
+      </msup></math> be contexts such that <math display="inline">
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mo lspace="0" rspace="0">
+          ′
+        </mo>
+      </msup>
+      <mo lspace="0.278em" rspace="0.278em">
+        ⊆
+      </mo>
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mrow>
+          <mo lspace="0" rspace="0">
+            ′
+          </mo>
+          <mo lspace="0" rspace="0">
+            ′
+          </mo>
+        </mrow>
+      </msup></math>. If <math display="inline">
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mo lspace="0" rspace="0">
+          ′
+        </mo>
+      </msup>
+      <mo lspace="0.278em" rspace="0.278em">
+        ⊢
+      </mo>
+      <mi>
+        M
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi></math>, then also <math display="inline">
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mrow>
+          <mo lspace="0" rspace="0">
+            ′
+          </mo>
+          <mo lspace="0" rspace="0">
+            ′
+          </mo>
+        </mrow>
+      </msup>
+      <mo lspace="0.278em" rspace="0.278em">
+        ⊢
+      </mo>
+      <mi>
+        M
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi></math>.
+    </li>
+    <li>
+      <em>Condensing</em>: If <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ⊢
+      </mo>
+      <mi>
+        M
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi></math>, then also <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ↾
+      </mo>
+      <mi mathvariant="script">
+        F
+      </mi>
+      <mo lspace="0" rspace="0" stretchy="false">
+        (
+      </mo>
+      <mi>
+        M
+      </mi>
+      <mo lspace="0" rspace="0.278em" stretchy="false">
+        )
+      </mo>
+      <mo lspace="0" rspace="0.278em">
+        ⊢
+      </mo>
+      <mi>
+        M
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi></math>.
+    </li>
+    <li>
+      <em>Permutation</em>: If <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ⊢
+      </mo>
+      <mi>
+        M
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi></math>, and <math display="inline">
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mo lspace="0" rspace="0">
+          ′
+        </mo>
+      </msup></math> is a permutation of <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi></math>, then <math display="inline">
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mo lspace="0" rspace="0">
+          ′
+        </mo>
+      </msup></math> is also a context and moreover, <math display="inline">
+      <msup>
+        <mi mathvariant="normal">
+          Γ
+        </mi>
+        <mo lspace="0" rspace="0">
+          ′
+        </mo>
+      </msup>
+      <mo lspace="0.278em" rspace="0.278em">
+        ⊢
+      </mo>
+      <mi>
+        M
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi></math>.
+    </li>
+  </ol>
+  <p>The <em>Generation Lemma</em>, which says precisely how a certain judgment can be generated, is shown below:</p>
+  <ol>
+    <li>If <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ⊢
+      </mo>
+      <mi>
+        x
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi></math>, then <math display="inline">
+      <mi>
+        x
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ∈
+      </mo>
+      <mi mathvariant="normal">
+        Γ
+      </mi></math>.
+    </li>
+    <li>If <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ⊢
+      </mo>
+      <mi>
+        M
+      </mi>
+      <mspace width="0"></mspace>
+      <mi>
+        N
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        τ
+      </mi></math>, then there is a type <math display="inline">
+      <mi>
+        σ
+      </mi></math> such that <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ⊢
+      </mo>
+      <mi>
+        M
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        →
+      </mo>
+      <mi>
+        τ
+      </mi></math> and <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ⊢
+      </mo>
+      <mi>
+        N
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi></math>.
+    </li>
+    <li>If <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ⊢
+      </mo>
+      <mi>
+        λ
+      </mi>
+      <mspace width="0"></mspace>
+      <mi>
+        x
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi>
+      <mo lspace="0" rspace="0">
+        .
+      </mo>
+      <mi>
+        M
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        ρ
+      </mi></math>, then there is <math display="inline">
+      <mi>
+        τ
+      </mi></math> such that <math display="inline">
+      <mi mathvariant="normal">
+        Γ
+      </mi>
+      <mo lspace="0" rspace="0.167em">
+        ,
+      </mo>
+      <mi>
+        x
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ⊢
+      </mo>
+      <mi>
+        M
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        τ
+      </mi></math> and <math display="inline">
+      <mi>
+        ρ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        ≡
+      </mo>
+      <mi>
+        σ
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        →
+      </mo>
+      <mi>
+        τ
+      </mi></math>.
+    </li>
+  </ol>
+  <p>It's obvious that, in order to build a legal term, its subterms should be legal too. This is the <em>Subterm
+  Lemma</em>.</p>
+  <p>Another important property which applies for Church's <math display="inline">
+  <mi>
+    λ
+  </mi>
+  <mo lspace="0.111em" rspace="0">
+    →
+  </mo></math> is that, a term may have <em>at most one</em> type. This ensures that the type, if exists, must be
+  unique. Therefore we also have the <em>uniqueness of types</em>.</p>
+  <h3 id="s2-8">2.8. Reduction and <math display="inline">
+  <mi>
+    λ
+  </mi>
+  <mo lspace="0.111em" rspace="0">
+    →
+  </mo></math></h3>
+  <p>In order to be able to treat substitution, an operation at the heart of beta-reduction, in <math display="inline">
+  <mi>
+    λ
+  </mi>
+  <mo lspace="0.111em" rspace="0">
+    →
+  </mo></math>, we have to append type information. We then have the <em>Substitution Lemma</em>: assume <math display=
+  "inline">
+  <msup>
+    <mi mathvariant="normal">
+      Γ
+    </mi>
+    <mo lspace="0" rspace="0">
+      ′
+    </mo>
+  </msup>
+  <mo lspace="0" rspace="0.167em">
+    ,
+  </mo>
+  <mi>
+    x
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    σ
+  </mi>
+  <mo lspace="0" rspace="0.167em">
+    ,
+  </mo>
+  <msup>
+    <mi mathvariant="normal">
+      Γ
+    </mi>
+    <mrow>
+      <mo lspace="0" rspace="0">
+        ′
+      </mo>
+      <mo lspace="0" rspace="0">
+        ′
+      </mo>
+    </mrow>
+  </msup>
+  <mo lspace="0.278em" rspace="0.278em">
+    ⊢
+  </mo>
+  <mi>
+    M
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    τ
+  </mi></math> and <math display="inline">
+  <msup>
+    <mi mathvariant="normal">
+      Γ
+    </mi>
+    <mo lspace="0" rspace="0">
+      ′
+    </mo>
+  </msup>
+  <mo lspace="0.278em" rspace="0.278em">
+    ⊢
+  </mo>
+  <mi>
+    N
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    σ
+  </mi></math>; then <math display="inline">
+  <msup>
+    <mi mathvariant="normal">
+      Γ
+    </mi>
+    <mo lspace="0" rspace="0">
+      ′
+    </mo>
+  </msup>
+  <mo lspace="0" rspace="0.167em">
+    ,
+  </mo>
+  <msup>
+    <mi mathvariant="normal">
+      Γ
+    </mi>
+    <mrow>
+      <mo lspace="0" rspace="0">
+        ′
+      </mo>
+      <mo lspace="0" rspace="0">
+        ′
+      </mo>
+    </mrow>
+  </msup>
+  <mo lspace="0.278em" rspace="0.278em">
+    ⊢
+  </mo>
+  <mi>
+    M
+  </mi>
+  <mo lspace="0" rspace="0" stretchy="false">
+    [
+  </mo>
+  <mi>
+    x
+  </mi>
+  <mo lspace="0.278em" rspace="0">
+    :
+  </mo>
+  <mo lspace="0" rspace="0.278em">
+    =
+  </mo>
+  <mi>
+    N
+  </mi>
+  <mo lspace="0" rspace="0.278em" stretchy="false">
+    ]
+  </mo>
+  <mo lspace="0" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    τ
+  </mi></math>. This means that if we substitute all occurrences of context variable by a term of the same type, the
+  result type is unchanged which is intuitively understandable.</p>
+  <p>We also have to adjust the definition for beta-reduction to the (pre-typed) terms of <math display="inline">
+  <msub>
+    <mi mathvariant="normal">
+      Λ
+    </mi>
+    <mi mathvariant="double-struck">
+      T
+    </mi>
+  </msub></math>:</p>
+  <ol>
+    <li>
+      <em>Basis</em>: <math display="inline">
+      <mo lspace="0" rspace="0" stretchy="false">
+        (
+      </mo>
+      <mi>
+        λ
+      </mi>
+      <mspace width="0"></mspace>
+      <mi>
+        x
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        σ
+      </mi>
+      <mo lspace="0" rspace="0">
+        .
+      </mo>
+      <mi>
+        M
+      </mi>
+      <mo lspace="0" rspace="0" stretchy="false">
+        )
+      </mo>
+      <mi>
+        N
+      </mi>
+      <msub>
+        <mo lspace="0.278em" rspace="0.278em">
+          →
+        </mo>
+        <mi>
+          β
+        </mi>
+      </msub>
+      <mi>
+        M
+      </mi>
+      <mo lspace="0" rspace="0" stretchy="false">
+        [
+      </mo>
+      <mi>
+        x
+      </mi>
+      <mo lspace="0.278em" rspace="0">
+        :
+      </mo>
+      <mo lspace="0" rspace="0.278em">
+        =
+      </mo>
+      <mi>
+        N
+      </mi>
+      <mo lspace="0" rspace="0" stretchy="false">
+        ]
+      </mo></math>.
+    </li>
+    <li>
+      <em>Compatibility</em>: If <math display="inline">
+      <mi>
+        M
+      </mi>
+      <msub>
+        <mo lspace="0.278em" rspace="0.278em">
+          →
+        </mo>
+        <mi>
+          β
+        </mi>
+      </msub>
+      <mi>
+        N
+      </mi></math>, then <math display="inline">
+      <mi>
+        M
+      </mi>
+      <mspace width="0"></mspace>
+      <mi>
+        L
+      </mi>
+      <msub>
+        <mo lspace="0.278em" rspace="0.278em">
+          →
+        </mo>
+        <mi>
+          β
+        </mi>
+      </msub>
+      <mi>
+        N
+      </mi>
+      <mspace width="0"></mspace>
+      <mi>
+        L
+      </mi></math>, <math display="inline">
+      <mi>
+        L
+      </mi>
+      <mspace width="0"></mspace>
+      <mi>
+        M
+      </mi>
+      <msub>
+        <mo lspace="0.278em" rspace="0.278em">
+          →
+        </mo>
+        <mi>
+          β
+        </mi>
+      </msub>
+      <mi>
+        N
+      </mi>
+      <mspace width="0"></mspace>
+      <mi>
+        L
+      </mi></math> and <math display="inline">
+      <mi>
+        λ
+      </mi>
+      <mspace width="0"></mspace>
+      <mi>
+        x
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        τ
+      </mi>
+      <mo lspace="0" rspace="0">
+        .
+      </mo>
+      <mi>
+        M
+      </mi>
+      <msub>
+        <mo lspace="0.278em" rspace="0.278em">
+          →
+        </mo>
+        <mi>
+          β
+        </mi>
+      </msub>
+      <mi>
+        λ
+      </mi>
+      <mspace width="0"></mspace>
+      <mi>
+        x
+      </mi>
+      <mo lspace="0.278em" rspace="0.278em">
+        :
+      </mo>
+      <mi>
+        τ
+      </mi>
+      <mo lspace="0" rspace="0">
+        .
+      </mo>
+      <mi>
+        N
+      </mi></math>.
+    </li>
+  </ol>
+  <p>The Church-Rosser Theorem is still valid as types clearly play no role in the reduction process.</p>
+  <p>The <em>Subject Reduction</em> states that beta-reduction does not affect typability, and even does not change the
+  term's type: if <math display="inline">
+  <mi mathvariant="normal">
+    Γ
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    ⊢
+  </mo>
+  <mi>
+    L
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    ρ
+  </mi></math> and if <math display="inline">
+  <mi>
+    L
+  </mi>
+  <msub>
+    <mo lspace="0.278em" rspace="0.278em">
+      ↠
+    </mo>
+    <mi>
+      β
+    </mi>
+  </msub>
+  <msup>
+    <mi>
+      L
+    </mi>
+    <mo lspace="0" rspace="0">
+      ′
+    </mo>
+  </msup></math>, then <math display="inline">
+  <mi mathvariant="normal">
+    Γ
+  </mi>
+  <mo lspace="0.278em" rspace="0.278em">
+    ⊢
+  </mo>
+  <msup>
+    <mi>
+      L
+    </mi>
+    <mo lspace="0" rspace="0">
+      ′
+    </mo>
+  </msup>
+  <mo lspace="0.278em" rspace="0.278em">
+    :
+  </mo>
+  <mi>
+    ρ
+  </mi></math>. Proof can be done by inducting the one basic and three compatibility cases of beta-reduction.</p>
+  <p>Finally, one can prove that there are no infinite reduction sequences in <math display="inline">
+  <mi>
+    λ
+  </mi>
+  <mo lspace="0.111em" rspace="0">
+    →
+  </mo></math>, or every legal term is strongly normalization. This is the <em>String Normalization Theorem</em> or
+  <em>Termination Theorem</em>.</p>
 </body>
 </html>
