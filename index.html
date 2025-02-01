@@ -22,8 +22,10 @@
       <h1 id="index">Archive RnE</h1>
       <h2 id="about">About This Site</h2>
       <p>This site is made up of clean HTML5, mostly transformed from XML using <a href="/RsML/">RsML</a>,
-        with some pages written by hand. The use of JavaScript is completely avoided.</p>
-      <p>Created with the help of Emacs <code>nXML</code> mode. Hosting service provided by GitHub. This work
+        with some pages written by hand. A modified version of RsML is used for client-side rendering, allowing
+        MathJax to handle the equation rendering. While most pages are served in RsML, your browser must
+        be capable of applying XSL style sheets on the fly.</p>
+      <p>Created with the help of Emacs <code>nXML</code> mode. Hosted by GitHub. This work
         is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
       <h2 id="article">Article Entries</h2>
       <p>These are the topics I might write about or am currently exploring. Each link could point to an article
@@ -31,7 +33,7 @@
       <div class="article">
         <div class="column">
           <h3>TeX</h3>
-          <p><a href="/article/apltex-dist.html">Small TeX distribution</a>;
+          <p><a href="/article/apltex-dist.xml">TeX distribution</a>;
             Font metric; Web2C; PlainTeX; Microtypography; Virtual fonts;
             MetaFont; MetaPost; Device independent file;
             Kinsoku; CJK typesetting; (u)pTeX; LuaTeX; WEB; ...</p>
@@ -45,12 +47,12 @@
         <div class="column">
           <h3>Programming Languages</h3>
           <p>C; Lua; OCaML; Elisp; Common Lisp; J; Swift; Shell;
-            <a href="/article/ml1-silicon.html">ML/1</a>; TeX; LaTeX3; XSLT; XPath; ...</p>
+            <a href="/article/ml1-silicon.xml">ML/1</a>; TeX; LaTeX3; XSLT; XPath; ...</p>
           <h3>Types</h3>
-          <p><a href="/article/ttapf-note.html">Type theory and formal proof</a>; Hindley-Milner;
+          <p><a href="/article/ttapf-note.xml">Type theory and formal proof</a>; Hindley-Milner;
             Polymorphism; Dependent type; Refinement type; ...</p>
           <h3>UNIX</h3>
-          <p><a href="/article/gentoo-efi.html">EFI boot stub</a>;
+          <p><a href="/article/gentoo-efi.xml">EFI boot stub</a>;
             Executable and linkable format; Static and dynamic linking;
             The quick emulator; Window manager; Wayland protocol;
             Font rendering; Equalizer; Sound server; Pipewire filter chain;
@@ -68,6 +70,9 @@
       </a>
       <a href="http://validator.w3.org/feed/check.cgi?url=https%3A//kekkan.org/atom.xml">
         <img class="icon atom" src="/static/images/atom.png" alt="Valid Atom!">
+      </a>
+      <a href="https://www.mathjax.org">
+        <img class="icon mjax" src="/static/images/mjax.gif" alt="MathJax!">
       </a>
       <a href="https://creativecommons.org/licenses/by/4.0">
         <img class="icon ccby" src="/static/images/ccby.svg" alt="CC BY 4.0!">

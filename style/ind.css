@@ -23,8 +23,11 @@ h1, h2, h3 {
 }
 
 p {
+    hyphens: auto;
+    -webkit-hyphens: auto;
     margin-block-end: .6em;
     margin-block-start: .6em;
+    text-align: justify;
 }
 
 code {
@@ -45,7 +48,7 @@ a:hover {
 
 .content {
     margin: auto;
-    max-width: 57em;
+    max-width: 54em;
 }
 
 .nav {
@@ -74,12 +77,19 @@ a:hover {
 
 .article {
     display: flex;
+    hyphens: auto;
+    -webkit-hyphens: auto;
     justify-content: space-between;
-    text-align: right;
 }
 
 .column {
     width: 46%;
+}
+
+.column p {
+    hyphens: none;
+    -webkit-hyphens: none;
+    text-align: right;
 }
 
 .banner {
@@ -95,21 +105,16 @@ a:hover {
     height: 30px;
 }
 
-.css {
-    padding: 0 2px;
-}
-
-.math {
-    padding: 0 2px;
-}
-
-.atom {
-    padding-left: 2px;
-    padding-right: 7px;
-}
-
+.css,
+.math,
 .ccby {
     padding: 0 2px;
+}
+
+.atom,
+.mjax {
+    padding-left: 2px;
+    padding-right: 7px;
 }
 
 .copyright {

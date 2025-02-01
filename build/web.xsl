@@ -2,7 +2,7 @@
                 xmlns:rsml="https://kekkan.org/RsML"
                 xmlns:mml="http://www.w3.org/1998/Math/MathML"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                exclude-result-prefixes="rsml mml">
+                exclude-result-prefixes="rsml">
 
   <!--
 
@@ -12,10 +12,11 @@
     MIT License, compatible with Apache 2, GNU Generic Public License, etc.
 
     2024-2025        RsML1 for WEB
+    2025             Modify for MathJax
 
   -->
 
-  <xsl:output method="xml" encoding="utf-8" indent="no"
+  <xsl:output method="html" encoding="utf-8" indent="no"
               omit-xml-declaration="yes"/>
 
   <xsl:template name="space">
@@ -170,6 +171,7 @@
       </xsl:if>
     </title>
     <link href="/style/art.css" rel="stylesheet"/>
+    <script src="/script/math.js"/>
   </xsl:template>
 
   <xsl:template mode="initial" match="rsml:meta">
@@ -334,7 +336,11 @@
   </xsl:template>
 
   <xsl:template mode="horizontal" match="rsml:math">
-    <math display="inline"><xsl:apply-templates mode="restricted"/></math>
+    <span class="math">
+      <xsl:text>\(</xsl:text>
+      <xsl:apply-templates mode="restricted"/>
+      <xsl:text>\)</xsl:text>
+    </span>
   </xsl:template>
 
   <xsl:template mode="horizontal" match="rsml:verbatim">
@@ -597,7 +603,7 @@
   </xsl:template>
 
   <xsl:template mode="vertical" match="rsml:math">
-    <math display="block">
+    <div class="math">
       <xsl:if test="@label">
         <xsl:variable name="xref">
           <xsl:number level="multiple" count="rsml:unit[@role='chapter']|rsml:math" format="1-1"/>
@@ -606,8 +612,10 @@
           <xsl:value-of select="concat('m',$xref)"/>
         </xsl:attribute>
       </xsl:if>
+      <xsl:text>\[</xsl:text>
       <xsl:apply-templates mode="restricted"/>
-    </math>
+      <xsl:text>\]</xsl:text>
+    </div>
   </xsl:template>
 
   <xsl:template mode="vertical" match="rsml:verbatim">
