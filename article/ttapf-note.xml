@@ -2,8 +2,7 @@
 <?xml-stylesheet type='text/xsl' href='/build/web.xsl'?>
 
 <rsml version="1.0" language="en"
-      xmlns="https://kekkan.org/RsML"
-      xmlns:b="http://gva.noekeon.org/blahtexml">
+      xmlns="https://kekkan.org/RsML">
   <meta>
     <title>Type Theory and Formal Proof</title>
     <subtitle><emphasize>Some Notes Taken While Reading</emphasize></subtitle>
