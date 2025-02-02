@@ -10,36 +10,36 @@
   <title>Archive RnE</title>
   <updated>2025-01-31T00:01:00Z</updated>
   <entry>
-    <id>https://kekkan.org/article/ttafp-note.html#c2</id>
-    <link rel="alternate" href="https://kekkan.org/article/ttafp-note.html#c2"/>
+    <id>https://kekkan.org/article/ttafp-note.xml#c2</id>
+    <link rel="alternate" href="https://kekkan.org/article/ttafp-note.xml#c2"/>
     <title>Type Theory and Formal Proof</title>
     <updated>2025-01-31T00:01:00Z</updated>
     <summary>About Simply Typed Lambda Calculus</summary>
   </entry>
   <entry>
-    <id>https://kekkan.org/article/apltex-dist.html</id>
-    <link rel="alternate" href="https://kekkan.org/article/apltex-dist.html"/>
+    <id>https://kekkan.org/article/apltex-dist.xml</id>
+    <link rel="alternate" href="https://kekkan.org/article/apltex-dist.xml"/>
     <title>Tiny TeX Distribution Based on Web2C and LuaTeX</title>
     <updated>2024-12-20T00:01:00Z</updated>
     <summary>An Attempt on Minifying TeX</summary>
   </entry>
   <entry>
-    <id>https://kekkan.org/article/ml1-silicon.html</id>
-    <link rel="alternate" href="https://kekkan.org/article/ml1-silicon.html"/>
+    <id>https://kekkan.org/article/ml1-silicon.xml</id>
+    <link rel="alternate" href="https://kekkan.org/article/ml1-silicon.xml"/>
     <title>Install ML/I on Apple Silicon from LOWL Source</title>
     <updated>2024-12-02T00:01:00Z</updated>
     <summary>Assembled ML/I Using LLVM</summary>
   </entry>
   <entry>
-    <id>https://kekkan.org/article/gentoo-efi.html</id>
-    <link rel="alternate" href="https://kekkan.org/article/gentoo-efi.html"/>
+    <id>https://kekkan.org/article/gentoo-efi.xml</id>
+    <link rel="alternate" href="https://kekkan.org/article/gentoo-efi.xml"/>
     <title>Boot Gentoo Using EFI Stub</title>
     <updated>2024-11-02T00:01:00Z</updated>
     <summary>Fast and Clean System Boot</summary>
   </entry>
   <entry>
-    <id>https://kekkan.org/article/ttafp-note.html#c1</id>
-    <link rel="alternate" href="https://kekkan.org/article/ttafp-note.html#c1"/>
+    <id>https://kekkan.org/article/ttafp-note.xml#c1</id>
+    <link rel="alternate" href="https://kekkan.org/article/ttafp-note.xml#c1"/>
     <title>Type Theory and Formal Proof</title>
     <updated>2024-08-18T00:01:00Z</updated>
     <summary>About Untyped Lambda Calculus</summary>
