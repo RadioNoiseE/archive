@@ -217,6 +217,7 @@ mjx-container[display='true'] {
 
 .prewrap {
     overflow-x: auto;
+    overflow-y: hidden;
 }
 
 pre {
