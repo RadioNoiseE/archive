@@ -5,7 +5,7 @@
       xmlns="https://kekkan.org/RsML">
   <meta>
     <title>Tiny TeX Distribution Based on Web2C and LuaTeX</title>
-    <subtitle><emphasize>An Attempt on Minifying TeX</emphasize></subtitle>
+    <subtitle>An Attempt on Minifying TeX</subtitle>
     <author>Jing Huang</author>
     <date>
       <year>2024</year>

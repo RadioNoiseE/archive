@@ -5,7 +5,7 @@
       xmlns="https://kekkan.org/RsML">
   <meta>
     <title>Install ML/I on Apple Silicon from LOWL Source</title>
-    <subtitle><emphasize>Assembled ML/I Using LLVM</emphasize></subtitle>
+    <subtitle>Assembled ML/I Using LLVM</subtitle>
     <author>Jing Huang</author>
     <date>
       <year>2024</year>

@@ -5,7 +5,7 @@
       xmlns="https://kekkan.org/RsML">
   <meta>
     <title>Boot Gentoo Using EFI Stub</title>
-    <subtitle><emphasize>Fast and Clean System Boot</emphasize></subtitle>
+    <subtitle>Fast and Clean System Boot</subtitle>
     <author>Jing Huang</author>
     <date>
       <year>2024</year>
