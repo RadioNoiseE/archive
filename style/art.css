@@ -124,10 +124,6 @@ mark {
     background: #eeeeee;
 }
 
-div .math {
-    overflow-x: auto;
-}
-
 .math {
     font-family: LAT-MS, monospace;
 }
@@ -209,6 +205,10 @@ table tfoot td,
 table tfoot th {
     font-style: italic;
     font-weight: normal;
+}
+
+div.math {
+    overflow-x: auto;
 }
 
 .prewrap {
