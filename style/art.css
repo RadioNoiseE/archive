@@ -124,6 +124,10 @@ mark {
     background: #eeeeee;
 }
 
+div .math {
+    overflow-x: auto;
+}
+
 .math {
     font-family: LAT-MS, monospace;
 }
