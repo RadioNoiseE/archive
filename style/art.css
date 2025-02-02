@@ -211,6 +211,10 @@ div.math {
     overflow-x: auto;
 }
 
+mjx-container[display='true'] {
+    margin: 0 !important;
+}
+
 .prewrap {
     overflow-x: auto;
 }
