@@ -13,7 +13,6 @@ window.MathJax = {
         processRefs: false
     },
     svg: {
-        scale: .94,
         fontCache: 'global'
     }
 };(function () {
