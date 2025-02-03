@@ -35,7 +35,7 @@ code {
     background: #eeeeee;
     border-radius: .25em;
     font-family: LAT-MS, monospace;
-    padding: .125rem .25rem;
+    padding: .125em .25em;
 }
 
 a {
@@ -76,15 +76,17 @@ a:hover {
     content: normal;
 }
 
-.article {
-    display: flex;
-    hyphens: auto;
-    -webkit-hyphens: auto;
-    justify-content: space-between;
-}
+@media only screen and (min-width: 60em) {
+    .article {
+        display: flex;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+        justify-content: space-between;
+    }
 
-.column {
-    width: 46%;
+    .column {
+        width: 46%;
+    }
 }
 
 .column p {
@@ -120,4 +122,11 @@ a:hover {
 
 .copyright {
     text-align: center;
+}
+
+@media (max-width: 60em), print {
+    body {
+        margin: 16px;
+        width: auto;
+    }
 }
