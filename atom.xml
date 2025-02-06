@@ -8,7 +8,14 @@
   <link type="application/atom+xml" rel="self" href="https://kekkan.org/atom.xml"/>
   <link rel="alternate" href="https://kekkan.org"/>
   <title>Archive RnE</title>
-  <updated>2025-01-31T00:01:00Z</updated>
+  <updated>2025-02-06T00:01:00Z</updated>
+  <entry>
+    <id>https://kekkan.org/index.html#n1</id>
+    <link rel="alternate" href="https://kekkan.org/index.html#n1"/>
+    <title>Site Update</title>
+    <updated>2025-02-06T00:01:00Z</updated>
+    <summary>Add HTML Mirror and Link to LdBeth&apos;s Homepage</summary>
+  </entry>
   <entry>
     <id>https://kekkan.org/article/ttafp-note.xml#c2</id>
     <link rel="alternate" href="https://kekkan.org/article/ttafp-note.xml#c2"/>
