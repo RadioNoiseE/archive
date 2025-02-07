@@ -208,12 +208,9 @@ table tfoot th {
 }
 
 div.math {
+    margin: -1em 0;
     overflow-x: auto;
     overflow-y: hidden;
-}
-
-mjx-container[display='true'] {
-    margin: 0 !important;
 }
 
 .prewrap {
