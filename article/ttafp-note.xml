@@ -18,8 +18,8 @@
 
   <unit role="chapter">
     <heading>Untyped Lambda Calculus</heading>
-    <paragraph><emphasize>Lambda-calculus</emphasize> encapsulates a formation of the basic aspects of functions.
-    Untyped lambda-calculus means we do not consider the types in this chapter.</paragraph>
+    <paragraph><emphasize>Lambda calculus</emphasize> encapsulates a formation of the basic aspects of functions.
+    Untyped lambda calculus means we do not consider the types in this chapter.</paragraph>
 
     <unit role="section">
       <heading>Constriction Principles</heading>
@@ -34,9 +34,9 @@
 
     <unit role="section">
       <heading>Lambda Terms</heading>
-      <paragraph>Expressions in the lambda calculus are called <emphasize>lambda-terms</emphasize>. We assume the
+      <paragraph>Expressions in the lambda calculus are called <emphasize>lambda terms</emphasize>. We assume the
       existence of an infinite set <math>V=\{x,y,z,\ldots\}</math> of so-called <emphasize>variables</emphasize>
-      while the below inductive definition establishes how the set <math>\Lambda</math> of all lambda-terms are
+      while the below inductive definition establishes how the set <math>\Lambda</math> of all lambda terms are
       constructed:</paragraph>
       <list type="enumerate">
         <item><emphasize>Variable</emphasize>: If <math>u\in V</math>, then <math>u\in\Lambda</math>.</item>
@@ -49,9 +49,9 @@
       are the only ways to construct elements of <math>\Lambda</math>. An alternative and shorter way is to define
       <math>\Lambda</math> via <emphasize>abstract syntax</emphasize>:</paragraph>
       <math>\Lambda=V|(\Lambda\Lambda)|(\lambda V.\Lambda).</math>
-      <paragraph>The <emphasize>syntactical identity</emphasize> of two lambda-terms can be denoted with the symbol
+      <paragraph>The <emphasize>syntactical identity</emphasize> of two lambda terms can be denoted with the symbol
       <math>\equiv</math>.</paragraph>
-      <paragraph>The <emphasize>subterms</emphasize> of a given lambda-term form a
+      <paragraph>The <emphasize>subterms</emphasize> of a given lambda term form a
       <emphasize>multiset</emphasize>:</paragraph>
       <list type="enumerate">
         <item><emphasize>Basis</emphasize>: <math>\texttt{sub}(x)=x</math>, for each <math>x\in V</math>.</item>
@@ -72,29 +72,29 @@
 
     <unit role="section">
       <heading>Free and Bound Variables</heading>
-      <paragraph>Variable occurrences in a lambda-term can be divided into three categories: <emphasize>free</emphasize>
+      <paragraph>Variable occurrences in a lambda term can be divided into three categories: <emphasize>free</emphasize>
       occurrences, <emphasize>bound</emphasize> occurrences and <emphasize>binding</emphasize> occurrences.</paragraph>
       <paragraph>Binding variables are those occurred immediately after a <math>\lambda</math>. In the construction of
-      a lambda-term, the single variable and the variables that aren<apostrophe/>t bound by the binding variables are
+      a lambda term, the single variable and the variables that aren<apostrophe/>t bound by the binding variables are
       free variables. However, during the process of abstraction, an occurrence of <math>x</math> which is free in
       <math>M</math> becomes bound in <math>\lambda x.M</math>; that is, abstraction of <math>x</math> over <math>M</math>
       binds all free occurrences of <math>X</math> in <math>M</math>.</paragraph>
       <paragraph>Then we have the following recursive rule, in which <math>\texttt{fv}(L)</math> denotes the set of free variables
-      in the lambda-term <math>L</math>.</paragraph>
+      in the lambda term <math>L</math>.</paragraph>
       <list type="enumerate">
         <item><emphasize>Variable</emphasize>: <math>\texttt{fv}(x)=\{x\}</math>.</item>
         <item><emphasize>Application</emphasize>: <math>\texttt{fv}(MN)=\texttt{fv}(M)\cup\texttt{fv}(N)</math>.</item>
         <item><emphasize>Abstract</emphasize>: <math>\texttt{fv}(\lambda x.M)=\texttt{fv}(M)\backslash\{x\}</math>.</item>
       </list>
-      <paragraph>The lambda-term is <emphasize>closed</emphasize> if <math>\texttt{fv}(M)=\emptyset</math>. A closed set is also called
-      a <emphasize>combinator</emphasize>. The set of all closed lambda-terms is denoted by <math>\Lambda^0</math>.</paragraph>
+      <paragraph>The lambda term is <emphasize>closed</emphasize> if <math>\texttt{fv}(M)=\emptyset</math>. A closed set is also called
+      a <emphasize>combinator</emphasize>. The set of all closed lambda terms is denoted by <math>\Lambda^0</math>.</paragraph>
     </unit>
 
     <unit role="section">
       <heading>Alpha Conversation</heading>
-      <paragraph>Functions in the lambda-notation have the property that the <emphasize>name</emphasize> of the binding variable
+      <paragraph>Functions in the lambda notation have the property that the <emphasize>name</emphasize> of the binding variable
       is not essential; the name is only used to express the transformation or procedure from input to output. Thus the relation
-      <emphasize>alpha-conversation</emphasize> or <emphasize>alpha-equivalence</emphasize> is defined to describe this process
+      <emphasize>alpha conversation</emphasize> or <emphasize>alpha equivalence</emphasize> is defined to describe this process
       formally. It<apostrophe/>s based on the possibility of renaming binding (and bound) variables.</paragraph>
       <paragraph><math>M^{x\rightarrow y}</math> denote the result of replacing every free occurrence of <math>x</math> in
       <math>M</math> by <math>y</math>. The relation <math>\lambda x.M=_\alpha\lambda y.M^{x\rightarrow y}</math> is called
@@ -102,12 +102,12 @@
       <paragraph>In the renaming of <math>\lambda x.M</math> to <math>\lambda y.M^{x\rightarrow y}</math>, it is prevented that
       the <emphasize>new</emphasize> binding variable <math>y</math> binds <emphasize>old</emphasize> free <math>y</math>s;
       and that any <emphasize>old</emphasize> binding <math>y</math> binds a <emphasize>new</emphasize> <math>y</math>.</paragraph>
-      <paragraph>Alpha-conversation follows <emphasize>compatibility</emphasize>, <emphasize>reflectivity</emphasize>,
+      <paragraph>Alpha conversation follows <emphasize>compatibility</emphasize>, <emphasize>reflectivity</emphasize>,
       <emphasize>symmetry</emphasize> and <emphasize>transitivity</emphasize>. If <math>M</math> and <math>N</math> are said to be
-      <emphasize>alpha-convertible</emphasize> or <emphasize>alpha-equivalent</emphasize>, then <math>M</math> is called an
-      <emphasize>alpha-variant</emphasize> of <math>N</math>.</paragraph>
-      <paragraph>We can abstract from the names of the bound (and binding) variables, by considering lambda-terms <emphasize>modulo
-      alpha-equivalence</emphasize>.</paragraph>
+      <emphasize>alpha convertible</emphasize> or <emphasize>alpha equivalent</emphasize>, then <math>M</math> is called an
+      <emphasize>alpha variant</emphasize> of <math>N</math>.</paragraph>
+      <paragraph>We can abstract from the names of the bound (and binding) variables, by considering lambda terms <emphasize>modulo
+      alpha equivalence</emphasize>.</paragraph>
     </unit>
 
     <unit role="section">
@@ -117,25 +117,25 @@
         <item><emphasize>Compatibility</emphasize>: If <math>M\rightarrow_\beta N</math>, then <math>ML\rightarrow_\beta NL</math>,
         <math>LM\rightarrow_\beta NL</math> and <math>\lambda x.M\rightarrow_\beta \lambda x.N</math>.</item>
       </list>
-      <paragraph>The suffix <math>[x:=N]</math> not in lambda-terms, are meant to be <emphasize>meta-notation</emphasize> called
+      <paragraph>The suffix <math>[x:=N]</math> not in lambda terms, are meant to be <emphasize>meta-notation</emphasize> called
       substitution, which follow:</paragraph>
       <list type="itemize">
         <item><math>x[x:=N]\equiv N</math>, <math>y[x:=N]\equiv y</math> if <math>x\not\equiv y</math>.</item>
         <item><math>(PQ)[x:=N]\equiv(P[x:=N])(Q[x:=N])</math>.</item>
         <item><math>(\lambda y.P)[x:=N]\equiv\lambda z.(P^{y\rightarrow z}[x:=N])</math>, if <math>\lambda z.P^{y\rightarrow z}</math>
-        is an alpha-variant of <math>\lambda y.P</math> such that <math>z\notin\texttt{fv}(N)</math>.</item>
+        is an alpha variant of <math>\lambda y.P</math> such that <math>z\notin\texttt{fv}(N)</math>.</item>
       </list>
       <paragraph>The subterm of the form <math>(\lambda x.M)N</math> is called a <emphasize>redex</emphasize> (from reducible
       expression) and subterm <math>M[x:=N]</math> is called the <emphasize>contractum</emphasize> (of the redex).</paragraph>
-      <paragraph>Note that in general, the substitutions <math>M[x:=N][y:=L]</math> does not describe the same lambda-term as
+      <paragraph>Note that in general, the substitutions <math>M[x:=N][y:=L]</math> does not describe the same lambda term as
       <math>M[y:=L][x:=N]</math> because of the left associativity
       (<math>M[x:=N][y:=L]\equiv M[y:=L][x:=N[y:=L]]\land x\notin\texttt{fv}(L)</math>).</paragraph>
-      <paragraph>We define the relation <math>\rightarrow_\beta</math> to be one-step beta-reduction since one redex is replaced
-      by its contractum. The further beta-reduction performed after the one-step reduction can be defined using
+      <paragraph>We define the relation <math>\rightarrow_\beta</math> to be one-step beta reduction since one redex is replaced
+      by its contractum. The further beta reduction performed after the one-step reduction can be defined using
       <math>\twoheadrightarrow_\beta</math> which generally take zero or more step. We can prove that
       <math>\twoheadrightarrow_\beta</math> is <emphasize>reflective</emphasize> and <emphasize>transitive</emphasize>.</paragraph>
-      <paragraph>Similar to alpha-conversation, we can define <emphasize>beta-conversation</emphasize> or
-      <emphasize>beta-equivalence</emphasize>. If <math>M=_\beta N</math> and there is an <math>n\geq 0</math> and there are
+      <paragraph>Similar to alpha conversation, we can define <emphasize>beta conversation</emphasize> or
+      <emphasize>beta equivalence</emphasize>. If <math>M=_\beta N</math> and there is an <math>n\geq 0</math> and there are
       terms <math>M_0</math> or <math>M_n</math> such that <math>M_0\equiv M</math>, <math>M_n\equiv N</math> for all
       <math>i</math> such that <math>0\leq i&lt;n</math>:</paragraph>
       <math>M_i\rightarrow_\beta M_{i+1}\lor M_{i+1}\rightarrow_\beta M_i.</math>
@@ -143,27 +143,27 @@
       <math>=_\beta</math> further extends <math>\twoheadrightarrow_\beta</math> in both directions. Thus <math>=_\beta</math> is
       <emphasize>reflective</emphasize>, <emphasize>symmetric</emphasize> and <emphasize>transitive</emphasize>.</paragraph>
       <list type="itemize">
-        <item><math>M</math> is in <emphasize>beta-normal</emphasize> form if <math>M</math> does not contain any redex.</item>
-        <item><math>M</math> is <emphasize>beta-normalizing</emphasize> if there is an <math>N</math> in beta-normal form
+        <item><math>M</math> is in <emphasize>beta normal</emphasize> form if <math>M</math> does not contain any redex.</item>
+        <item><math>M</math> is <emphasize>beta normalizing</emphasize> if there is an <math>N</math> in beta normal form
         such that <math>M=_\beta N</math>.</item>
       </list>
       <paragraph>A <emphasize>reduction path</emphasize> from <math>M</math> is an infinite or finite sequence <math>N_0,N_1,N_2,\ldots</math>
-      that is connected using one-step beta-reduction that starts from <math>M</math>.</paragraph>
+      that is connected using one-step beta reduction that starts from <math>M</math>.</paragraph>
       <list type="itemize">
-        <item><math>M</math> is <emphasize>weakly normalizing</emphasize> if there is an <math>N</math> in the beta-normal form such that
+        <item><math>M</math> is <emphasize>weakly normalizing</emphasize> if there is an <math>N</math> in the beta normal form such that
         <math>M\twoheadrightarrow_\beta N</math>. (<emphasize>One of</emphasize> the reduction path leads to an outcome.)</item>
         <item><math>M</math> is <emphasize>strongly normalizing</emphasize> if there are no infinite reduction paths starting from <math>M</math>.
         (<emphasize>Each</emphasize> reduction path leads to an outcome.)</item>
       </list>
-      <paragraph>Suppose that for a given lambda-term <math>M</math>, we have <math>M\twoheadrightarrow_\beta N_i</math> and
-      <math>M\twoheadrightarrow_\beta N_2</math>, then there is a lambda-term <math>N_3</math> such that
+      <paragraph>Suppose that for a given lambda term <math>M</math>, we have <math>M\twoheadrightarrow_\beta N_i</math> and
+      <math>M\twoheadrightarrow_\beta N_2</math>, then there is a lambda term <math>N_3</math> such that
       <math>N_1\twoheadrightarrow_\beta N_3</math> and <math>N_2\twoheadrightarrow_\beta N_3</math>. This is the
       <emphasize>Church-Rosser Theorem</emphasize>.</paragraph>
     </unit>
 
     <unit role="section">
       <heading>Fixed Point Theorem</heading>
-      <paragraph>Every lambda-term <math>L</math> has a <emphasize>fixed point</emphasize>, which can be constructed using a <emphasize>fixed point
+      <paragraph>Every lambda term <math>L</math> has a <emphasize>fixed point</emphasize>, which can be constructed using a <emphasize>fixed point
       combinator</emphasize>. One instance is:</paragraph>
       <math>Y\equiv\lambda y.(\lambda x.y(xx))(\lambda x.y(xx)).</math>
       <paragraph>Then we have <math>YL</math> which is a fixed point of <math>L</math>, since <math>L(YL)=_\beta YL</math>, which can be shown as
@@ -357,24 +357,129 @@
 
     <unit role="section">
       <heading>Reduction and <math>\lambda_\rightarrow</math></heading>
-      <paragraph>In order to be able to treat substitution, an operation at the heart of beta-reduction, in <math>\lambda_\rightarrow</math>,
+      <paragraph>In order to be able to treat substitution, an operation at the heart of beta reduction, in <math>\lambda_\rightarrow</math>,
       we have to append type information. We then have the <emphasize>Substitution Lemma</emphasize>: assume
       <math>\Gamma',x:\sigma,\Gamma''\vdash M:\tau</math> and <math>\Gamma'\vdash N:\sigma</math>; then
       <math>\Gamma',\Gamma''\vdash M[x:=N]:\tau</math>. This means that if we substitute all occurrences of context variable by a term of the
       same type, the result type is unchanged which is intuitively understandable.</paragraph>
-      <paragraph>We also have to adjust the definition for beta-reduction to the (pre-typed) terms of <math>\Lambda_\mathbb{T}</math>:</paragraph>
+      <paragraph>We also have to adjust the definition for beta reduction to the (pre-typed) terms of <math>\Lambda_\mathbb{T}</math>:</paragraph>
       <list type="enumerate">
         <item><emphasize>Basis</emphasize>: <math>(\lambda x:\sigma.M)N\rightarrow_\beta M[x:=N]</math>.</item>
         <item><emphasize>Compatibility</emphasize>: If <math>M\rightarrow_\beta N</math>, then <math>ML\rightarrow_\beta NL</math>,
         <math>LM\rightarrow_\beta NL</math> and <math>\lambda x:\tau.M\rightarrow_\beta \lambda x:\tau.N</math>.</item>
       </list>
       <paragraph>The Church-Rosser Theorem is still valid as types clearly play no role in the reduction process.</paragraph>
-      <paragraph>The <emphasize>Subject Reduction</emphasize> states that beta-reduction does not affect typability, and even does not change
+      <paragraph>The <emphasize>Subject Reduction</emphasize> states that beta reduction does not affect typability, and even does not change
       the term<apostrophe/>s type: if <math>\Gamma\vdash L:\rho</math> and if <math>L\twoheadrightarrow_\beta L'</math>, then
-      <math>\Gamma\vdash L':\rho</math>. Proof can be done by inducting the one basic and three compatibility cases of beta-reduction.</paragraph>
+      <math>\Gamma\vdash L':\rho</math>. Proof can be done by inducting the one basic and three compatibility cases of beta reduction.</paragraph>
       <paragraph>Finally, one can prove that there are no infinite reduction sequences in <math>\lambda_\rightarrow</math>, or every legal
       term is strongly normalization. This is the <emphasize>String Normalization Theorem</emphasize> or
       <emphasize>Termination Theorem</emphasize>.</paragraph>
+    </unit>
+  </unit>
+
+  <unit role="chapter">
+    <heading>Second Order Typed Lambda Calculus</heading>
+    <paragraph>In Church<apostrophe/>s <math>\lambda_\rightarrow</math>, we only encounter abstraction and application on the term level,
+    which is <emphasize>first order</emphasize>, as abstraction and application are over <emphasize>terms</emphasize>. In the present chapter,
+    <emphasize>second order</emphasize> operations, or terms depending on types, are introduced.</paragraph>
+    <paragraph>This is called the <emphasize>second order lambda calculus</emphasize>, written as <math>\lambda_2</math> for short.</paragraph>
+
+    <unit role="section">
+      <heading><math>\Pi</math> Types</heading>
+      <paragraph>To construct a function that can handle terms of different types, we can consider an <emphasize>arbitrary</emphasize>
+      type, and use this type as another abstraction for our function <math>\lambda\alpha:*.\lambda x:\alpha.x</math>.</paragraph>
+      <paragraph>This function receives a type variable <math>\alpha</math>, while the <math>*</math> symbol denotes <emphasize>the type of
+      all types</emphasize>. The function acts as a term depending on a type, thus is second ordered or
+      <emphasize>polymorphic</emphasize>.</paragraph>
+      <paragraph>To type this polymorphic term, we introduce a new <emphasize>binder</emphasize>, the <math>\Pi</math> binder. We can then express
+      the type of the polymorphic function created earlier as <math>\Pi\alpha:*.\alpha\rightarrow\alpha</math>.</paragraph>
+      <paragraph>By an obvious extension of the alpha conversation, we obtain:</paragraph>
+      <math>\Pi\alpha:*.\alpha\rightarrow\alpha\equiv\Pi\beta:*.\beta\rightarrow\beta.</math>
+    </unit>
+
+    <unit role="section">
+      <heading>Second Order Abstraction and Application Rules</heading>
+      <paragraph>Since we allow second order abstraction, second order application and <math>\Pi</math> types, our derivation system for
+      <math>\lambda_\rightarrow</math> has to be extended.</paragraph>
+      <math>\begin{array}{lc}
+      (appl_2)&amp;\displaystyle\frac{\Gamma\vdash M:\Pi\alpha:*.A\quad\Gamma\vdash B:*}{\Gamma\vdash MB:A[\alpha:=B]}.\\
+      (abst_2)&amp;\displaystyle\frac{\Gamma,\alpha:*\vdash M:A}{\Gamma\vdash\lambda\alpha:*.M:\Pi\alpha:*.A}.
+      \end{array}</math>
+      <paragraph>The second order application rule is intuitive, that two types of arbitrary type can be interchanged. This abstraction rule
+      also corresponds to our expectations, as presented in the previous section where the <math>\Pi</math> types are introduced.</paragraph>
+    </unit>
+
+    <unit role="section">
+      <heading>The System <math>\lambda_2</math></heading>
+      <paragraph>To describe the complete system, we have to first extend our definition of types. The abstract syntax for <math>\lambda_2</math>
+      types is <math>\mathbb{T}_2=\mathbb{V}|(\mathbb{T}_2\rightarrow\mathbb{T}_2)|(\Pi\mathbb{V}:*.\mathbb{T}_2)</math> while
+      <math>\mathbb{V}</math> is the set of type variables.</paragraph>
+      <paragraph>Then we extend our set of pre-typed lambda terms so that second order abstraction and application are allowed:</paragraph>
+      <math>\Lambda_{\mathbb{T}_2}=V|(\Lambda_{\mathbb{T}_2}\Lambda_{\mathbb{T}_2})|(\Lambda_{\mathbb{T}_2}\mathbb{T}_2)|
+      (\lambda V:\mathbb{T}_2.\Lambda_{\mathbb{T}_2})|(\lambda\mathbb{V}:*.\Lambda_{\mathbb{T}_2}).</math>
+      <paragraph>Note that now we have two classes of variables: object variables <math>V</math> and type variables <math>\mathbb{V}</math>.
+      We also have first order application <math>(\Lambda_{\mathbb{T}_2}\Lambda_{\mathbb{T}_2})</math> and second order application
+      <math>(\Lambda_{\mathbb{T}_2}\mathbb{T}_2)</math> as well as first order abstraction
+      <math>(\lambda V:\mathbb{T}_2.\Lambda_{\mathbb{T}_2})</math> from object variables and second order abstraction
+      <math>(\lambda\mathbb{V}:*.\Lambda_{\mathbb{T}_2})</math>.</paragraph>
+      <paragraph>The convention is similar to that in untyped and simply typed lambda calculus:</paragraph>
+      <list type="itemize">
+        <item>Outer parentheses may be omitted.</item>
+        <item>Application is left-associative.</item>
+        <item>Application and <math>\rightarrow</math> takes precedence over both <math>\lambda</math> and <math>\Pi</math> abstraction.</item>
+        <item>Successive <math>\lambda</math> or <math>\Pi</math> abstractions concerning the same types may be combined in a right-associative
+        way.</item>
+        <item>Arrow types are denoted in a right-associative way.</item>
+      </list>
+      <paragraph>The notation of declaration should as well be extended to allow second order declarations:</paragraph>
+      <list type="enumerate">
+        <item><emphasize>Statement</emphasize>: Either of the form <math>M:\sigma</math>, where <math>M\in\Lambda_{\mathbb{T}_2}</math> and
+        <math>\sigma\in\mathbb{T}_2</math>, or of the form <math>\sigma:*</math>, where <math>\sigma\in\mathbb{T}_2</math>.</item>
+        <item><emphasize>Declaration</emphasize>: A statement with a <emphasize>term variable</emphasize> or a <emphasize>type variable</emphasize>
+        as subject.</item>
+      </list>
+      <paragraph>The rule that all variables must be declared before they can be used motivates the following recursive definition of the
+      <math>\lambda_2</math> context, which the new definition of the <emphasize>domain</emphasize> of a context is combined:</paragraph>
+      <list type="enumerate">
+        <item><math>\emptyset</math> is a <math>\lambda_2</math> context. Its domain is the empty list.</item>
+        <item>If <math>\Gamma</math> is a <math>\lambda_2</math> context, <math>\alpha\in\mathbb{V}</math> and
+        <math>\alpha\notin\texttt{dom}(\Gamma)</math>, then <math>\Gamma,\alpha:*</math> is a <math>\lambda_2</math> context.
+        And <math>\texttt{dom}(\Gamma,\alpha:*)=(\texttt{dom}(\Gamma),\alpha)</math>.</item>
+        <item>If <math>\Gamma</math> is a <math>\lambda_2</math> context, if <math>\rho\in\mathbb{T}_2</math> such that
+        <math>\alpha\in\texttt{dom}(\Gamma)</math> for all free type variants <math>\alpha</math> occurring in <math>\rho</math> and if
+        <math>x\notin\texttt{dom}(\Gamma)</math>, then <math>\Gamma,x:\rho</math> is a <math>\lambda_2</math> context. And
+        <math>\texttt{dom}(\Gamma,x:\rho)=(\texttt{dom}(\Gamma),x)</math>.</item>
+      </list>
+      <paragraph>Conforming with the new notion of context, we adapt the variable rule and define the <emphasize>formation rule</emphasize>
+      which defines a properly formed <math>\lambda_2</math> type:</paragraph>
+      <math>\begin{array}{lc}
+      (var)&amp;\text{$\Gamma\vdash x:\sigma$ if $\Gamma$ is a $\lambda_2$ context and $x:\sigma\in\Gamma$}.\\
+      (form)&amp;\text{$\Gamma\vdash B:*$ if $\Gamma$ is a $\lambda_2$ context, $B\in\mathbb{T}_2$ and all free type variables in $B
+      $ are declared in $\Gamma$}.
+      \end{array}</math>
+      <paragraph>Finally, we define the legality of <math>\lambda_2</math>: a term <math>M</math> in <math>\Lambda_{\mathbb{T}_2}</math>
+      is called legal if there exists a <math>\lambda_2</math> context <math>\Gamma</math> and a type <math>\rho</math> in <math>\mathbb{T}_2</math>
+      such that <math>\Gamma\vdash m:\rho</math>.</paragraph>
+    </unit>
+
+    <unit role="section">
+      <heading>Properties of <math>\lambda_2</math></heading>
+      <paragraph>The definition of alpha conversion is adapted and extended accommodating <math>\Pi</math> types:</paragraph>
+      <list type="enumerate">
+        <item><emphasize>Renaming of term variable</emphasize>: <math>\lambda x:\sigma.M=_\alpha\lambda y:\sigma.M^{x\rightarrow y}</math> if
+        <math>y\notin \texttt{fv}(M)</math> and <math>y</math> does not occur as a binding variable in <math>M</math>.</item>
+        <item><emphasize>Renaming of type variable</emphasize>: <math>\lambda\alpha:*.M=_\alpha\lambda\beta:*.M[\alpha:=\beta]</math>
+        if <math>\beta</math> does not occur in <math>M</math> or <math>\Pi\alpha:*.M=_\alpha\Pi\beta:*.M[\alpha:=\beta]</math> if <math>\beta</math>
+        does not occur in <math>M</math>.</item>
+      </list>
+      <paragraph>We also extend the beta reduction in an obvious way matching the extensions of alpha conversation:</paragraph>
+      <list type="enumerate">
+        <item><emphasize>Basis for first order</emphasize>: <math>(\lambda m:\sigma.M)N\rightarrow_\beta M[x:=N]</math>.</item>
+        <item><emphasize>Basis for second order</emphasize>: <math>(\lambda\alpha:*.M)T\rightarrow_\beta M[\alpha:=T]</math>.</item>
+      </list>
+      <paragraph>Most properties for <math>\lambda_\rightarrow</math> defined in the present chapter still applies, except the
+      Permutation Lemma, which holds only if the permuted context is a <math>\lambda_2</math> context.</paragraph>
     </unit>
   </unit>
 </rsml>
