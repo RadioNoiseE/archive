@@ -383,7 +383,7 @@
     <paragraph>In Church<apostrophe/>s <math>\lambda_\rightarrow</math>, we only encounter abstraction and application on the term level,
     which is <emphasize>first order</emphasize>, as abstraction and application are over <emphasize>terms</emphasize>. In the present chapter,
     <emphasize>second order</emphasize> operations, or terms depending on types, are introduced.</paragraph>
-    <paragraph>This is called the <emphasize>second order lambda calculus</emphasize>, written as <math>\lambda_2</math> for short.</paragraph>
+    <paragraph>This is called the <emphasize>second order lambda calculus</emphasize>, written as <math>\lambda2</math> for short.</paragraph>
 
     <unit role="section">
       <heading><math>\Pi</math> Types</heading>
@@ -411,8 +411,8 @@
     </unit>
 
     <unit role="section">
-      <heading>The System <math>\lambda_2</math></heading>
-      <paragraph>To describe the complete system, we have to first extend our definition of types. The abstract syntax for <math>\lambda_2</math>
+      <heading>The System <math>\lambda2</math></heading>
+      <paragraph>To describe the complete system, we have to first extend our definition of types. The abstract syntax for <math>\lambda2</math>
       types is <math>\mathbb{T}_2=\mathbb{V}|(\mathbb{T}_2\rightarrow\mathbb{T}_2)|(\Pi\mathbb{V}:*.\mathbb{T}_2)</math> while
       <math>\mathbb{V}</math> is the set of type variables.</paragraph>
       <paragraph>Then we extend our set of pre-typed lambda terms so that second order abstraction and application are allowed:</paragraph>
@@ -440,30 +440,30 @@
         as subject.</item>
       </list>
       <paragraph>The rule that all variables must be declared before they can be used motivates the following recursive definition of the
-      <math>\lambda_2</math> context, which the new definition of the <emphasize>domain</emphasize> of a context is combined:</paragraph>
+      <math>\lambda2</math> context, which the new definition of the <emphasize>domain</emphasize> of a context is combined:</paragraph>
       <list type="enumerate">
-        <item><math>\emptyset</math> is a <math>\lambda_2</math> context. Its domain is the empty list.</item>
-        <item>If <math>\Gamma</math> is a <math>\lambda_2</math> context, <math>\alpha\in\mathbb{V}</math> and
-        <math>\alpha\notin\texttt{dom}(\Gamma)</math>, then <math>\Gamma,\alpha:*</math> is a <math>\lambda_2</math> context.
+        <item><math>\emptyset</math> is a <math>\lambda2</math> context. Its domain is the empty list.</item>
+        <item>If <math>\Gamma</math> is a <math>\lambda2</math> context, <math>\alpha\in\mathbb{V}</math> and
+        <math>\alpha\notin\texttt{dom}(\Gamma)</math>, then <math>\Gamma,\alpha:*</math> is a <math>\lambda2</math> context.
         And <math>\texttt{dom}(\Gamma,\alpha:*)=(\texttt{dom}(\Gamma),\alpha)</math>.</item>
-        <item>If <math>\Gamma</math> is a <math>\lambda_2</math> context, if <math>\rho\in\mathbb{T}_2</math> such that
+        <item>If <math>\Gamma</math> is a <math>\lambda2</math> context, if <math>\rho\in\mathbb{T}_2</math> such that
         <math>\alpha\in\texttt{dom}(\Gamma)</math> for all free type variants <math>\alpha</math> occurring in <math>\rho</math> and if
-        <math>x\notin\texttt{dom}(\Gamma)</math>, then <math>\Gamma,x:\rho</math> is a <math>\lambda_2</math> context. And
+        <math>x\notin\texttt{dom}(\Gamma)</math>, then <math>\Gamma,x:\rho</math> is a <math>\lambda2</math> context. And
         <math>\texttt{dom}(\Gamma,x:\rho)=(\texttt{dom}(\Gamma),x)</math>.</item>
       </list>
       <paragraph>Conforming with the new notion of context, we adapt the variable rule and define the <emphasize>formation rule</emphasize>
-      which defines a properly formed <math>\lambda_2</math> type. We assume <math>\Gamma</math> is a <math>\lambda_2</math> context.</paragraph>
+      which defines a properly formed <math>\lambda2</math> type. We assume <math>\Gamma</math> is a <math>\lambda2</math> context.</paragraph>
       <math>\begin{array}{lc}
       (var)&amp;\displaystyle\frac{x:\sigma\in\Gamma}{\Gamma\vdash x:\sigma}.\\
       (form)&amp;\displaystyle\frac{B\in\mathbb{T}_2\quad\texttt{fv}(B)\in\Gamma}{\Gamma\vdash B:*}.
       \end{array}</math>
-      <paragraph>Finally, we define the legality of <math>\lambda_2</math>: a term <math>M</math> in <math>\Lambda_{\mathbb{T}_2}</math>
-      is called legal if there exists a <math>\lambda_2</math> context <math>\Gamma</math> and a type <math>\rho</math> in <math>\mathbb{T}_2</math>
+      <paragraph>Finally, we define the legality of <math>\lambda2</math>: a term <math>M</math> in <math>\Lambda_{\mathbb{T}_2}</math>
+      is called legal if there exists a <math>\lambda2</math> context <math>\Gamma</math> and a type <math>\rho</math> in <math>\mathbb{T}_2</math>
       such that <math>\Gamma\vdash m:\rho</math>.</paragraph>
     </unit>
 
     <unit role="section">
-      <heading>Properties of <math>\lambda_2</math></heading>
+      <heading>Properties of <math>\lambda2</math></heading>
       <paragraph>The definition of alpha conversion is adapted and extended accommodating <math>\Pi</math> types:</paragraph>
       <list type="enumerate">
         <item><emphasize>Renaming of term variable</emphasize>: <math>\lambda x:\sigma.M=_\alpha\lambda y:\sigma.M^{x\rightarrow y}</math> if
@@ -478,7 +478,7 @@
         <item><emphasize>Basis for second order</emphasize>: <math>(\lambda\alpha:*.M)T\rightarrow_\beta M[\alpha:=T]</math>.</item>
       </list>
       <paragraph>Most properties for <math>\lambda_\rightarrow</math> defined in the present chapter still applies, except the
-      Permutation Lemma, which holds only if the permuted context is a <math>\lambda_2</math> context.</paragraph>
+      Permutation Lemma, which holds only if the permuted context is a <math>\lambda2</math> context.</paragraph>
     </unit>
   </unit>
 </rsml>
