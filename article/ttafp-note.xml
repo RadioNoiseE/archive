@@ -413,16 +413,16 @@
     <unit role="section">
       <heading>The System <math>\lambda2</math></heading>
       <paragraph>To describe the complete system, we have to first extend our definition of types. The abstract syntax for <math>\lambda2</math>
-      types is <math>\mathbb{T}_2=\mathbb{V}|(\mathbb{T}_2\rightarrow\mathbb{T}_2)|(\Pi\mathbb{V}:*.\mathbb{T}_2)</math> while
+      types is <math>\mathbb{T}2=\mathbb{V}|(\mathbb{T}2\rightarrow\mathbb{T}2)|(\Pi\mathbb{V}:*.\mathbb{T}2)</math> while
       <math>\mathbb{V}</math> is the set of type variables.</paragraph>
       <paragraph>Then we extend our set of pre-typed lambda terms so that second order abstraction and application are allowed:</paragraph>
-      <math>\Lambda_{\mathbb{T}_2}=V|(\Lambda_{\mathbb{T}_2}\Lambda_{\mathbb{T}_2})|(\Lambda_{\mathbb{T}_2}\mathbb{T}_2)|
-      (\lambda V:\mathbb{T}_2.\Lambda_{\mathbb{T}_2})|(\lambda\mathbb{V}:*.\Lambda_{\mathbb{T}_2}).</math>
+      <math>\Lambda_{\mathbb{T}2}=V|(\Lambda_{\mathbb{T}2}\Lambda_{\mathbb{T}2})|(\Lambda_{\mathbb{T}2}\mathbb{T}2)|
+      (\lambda V:\mathbb{T}2.\Lambda_{\mathbb{T}2})|(\lambda\mathbb{V}:*.\Lambda_{\mathbb{T}2}).</math>
       <paragraph>Note that now we have two classes of variables: object variables <math>V</math> and type variables <math>\mathbb{V}</math>.
-      We also have first order application <math>(\Lambda_{\mathbb{T}_2}\Lambda_{\mathbb{T}_2})</math> and second order application
-      <math>(\Lambda_{\mathbb{T}_2}\mathbb{T}_2)</math> as well as first order abstraction
-      <math>(\lambda V:\mathbb{T}_2.\Lambda_{\mathbb{T}_2})</math> from object variables and second order abstraction
-      <math>(\lambda\mathbb{V}:*.\Lambda_{\mathbb{T}_2})</math>.</paragraph>
+      We also have first order application <math>(\Lambda_{\mathbb{T}2}\Lambda_{\mathbb{T}2})</math> and second order application
+      <math>(\Lambda_{\mathbb{T}2}\mathbb{T}2)</math> as well as first order abstraction
+      <math>(\lambda V:\mathbb{T}2.\Lambda_{\mathbb{T}2})</math> from object variables and second order abstraction
+      <math>(\lambda\mathbb{V}:*.\Lambda_{\mathbb{T}2})</math>.</paragraph>
       <paragraph>The convention is similar to that in untyped and simply typed lambda calculus:</paragraph>
       <list type="itemize">
         <item>Outer parentheses may be omitted.</item>
@@ -434,8 +434,8 @@
       </list>
       <paragraph>The notation of declaration should as well be extended to allow second order declarations:</paragraph>
       <list type="enumerate">
-        <item><emphasize>Statement</emphasize>: Either of the form <math>M:\sigma</math>, where <math>M\in\Lambda_{\mathbb{T}_2}</math> and
-        <math>\sigma\in\mathbb{T}_2</math>, or of the form <math>\sigma:*</math>, where <math>\sigma\in\mathbb{T}_2</math>.</item>
+        <item><emphasize>Statement</emphasize>: Either of the form <math>M:\sigma</math>, where <math>M\in\Lambda_{\mathbb{T}2}</math> and
+        <math>\sigma\in\mathbb{T}2</math>, or of the form <math>\sigma:*</math>, where <math>\sigma\in\mathbb{T}2</math>.</item>
         <item><emphasize>Declaration</emphasize>: A statement with a <emphasize>term variable</emphasize> or a <emphasize>type variable</emphasize>
         as subject.</item>
       </list>
@@ -446,7 +446,7 @@
         <item>If <math>\Gamma</math> is a <math>\lambda2</math> context, <math>\alpha\in\mathbb{V}</math> and
         <math>\alpha\notin\texttt{dom}(\Gamma)</math>, then <math>\Gamma,\alpha:*</math> is a <math>\lambda2</math> context.
         And <math>\texttt{dom}(\Gamma,\alpha:*)=(\texttt{dom}(\Gamma),\alpha)</math>.</item>
-        <item>If <math>\Gamma</math> is a <math>\lambda2</math> context, if <math>\rho\in\mathbb{T}_2</math> such that
+        <item>If <math>\Gamma</math> is a <math>\lambda2</math> context, if <math>\rho\in\mathbb{T}2</math> such that
         <math>\alpha\in\texttt{dom}(\Gamma)</math> for all free type variants <math>\alpha</math> occurring in <math>\rho</math> and if
         <math>x\notin\texttt{dom}(\Gamma)</math>, then <math>\Gamma,x:\rho</math> is a <math>\lambda2</math> context. And
         <math>\texttt{dom}(\Gamma,x:\rho)=(\texttt{dom}(\Gamma),x)</math>.</item>
@@ -455,10 +455,10 @@
       which defines a properly formed <math>\lambda2</math> type. We assume <math>\Gamma</math> is a <math>\lambda2</math> context.</paragraph>
       <math>\begin{array}{lc}
       (var)&amp;\displaystyle\frac{x:\sigma\in\Gamma}{\Gamma\vdash x:\sigma}.\\
-      (form)&amp;\displaystyle\frac{B\in\mathbb{T}_2\quad\texttt{fv}(B)\in\Gamma}{\Gamma\vdash B:*}.
+      (form)&amp;\displaystyle\frac{B\in\mathbb{T}2\quad\texttt{fv}(B)\in\Gamma}{\Gamma\vdash B:*}.
       \end{array}</math>
-      <paragraph>Finally, we define the legality of <math>\lambda2</math>: a term <math>M</math> in <math>\Lambda_{\mathbb{T}_2}</math>
-      is called legal if there exists a <math>\lambda2</math> context <math>\Gamma</math> and a type <math>\rho</math> in <math>\mathbb{T}_2</math>
+      <paragraph>Finally, we define the legality of <math>\lambda2</math>: a term <math>M</math> in <math>\Lambda_{\mathbb{T}2}</math>
+      is called legal if there exists a <math>\lambda2</math> context <math>\Gamma</math> and a type <math>\rho</math> in <math>\mathbb{T}2</math>
       such that <math>\Gamma\vdash m:\rho</math>.</paragraph>
     </unit>
 
@@ -477,8 +477,106 @@
         <item><emphasize>Basis for first order</emphasize>: <math>(\lambda m:\sigma.M)N\rightarrow_\beta M[x:=N]</math>.</item>
         <item><emphasize>Basis for second order</emphasize>: <math>(\lambda\alpha:*.M)T\rightarrow_\beta M[\alpha:=T]</math>.</item>
       </list>
-      <paragraph>Most properties for <math>\lambda_\rightarrow</math> defined in the present chapter still applies, except the
+      <paragraph>Most properties for <math>\lambda_\rightarrow</math> defined in the previous chapter still applies, except the
       Permutation Lemma, which holds only if the permuted context is a <math>\lambda2</math> context.</paragraph>
+    </unit>
+  </unit>
+
+  <unit role="chapter">
+    <heading>Types Dependent on Types</heading>
+    <paragraph>In this chapter, we discuss the way to construct <emphasize>generalized types</emphasize>, by abstracting types. This results
+    in the system <math>\lambda\underline{\omega\!}\,</math>.</paragraph>
+
+    <unit role="section">
+      <heading>Type Constructors</heading>
+      <paragraph>We can handle the abstraction of types of terms similar to the way we handle arbitrary types: types like
+      <math>\beta\rightarrow\beta</math>, <math>\gamma\rightarrow\gamma</math>,
+      <math>(\beta\rightarrow\gamma)\rightarrow(\beta\rightarrow\gamma)</math> can be generalized using a function
+      <math>\lambda\alpha:*.\alpha\rightarrow\alpha</math> with type as value. This is a so-called <emphasize>type constructor</emphasize>, with
+      type <math>*\rightarrow*</math> itself. <emphasize>Proper constructor</emphasize> are the type constructors which are not types.</paragraph>
+      <paragraph>We name the type of the type constructors consisting of <math>*</math> alone and of <math>*</math> symbols with arrows in between
+      <emphasize>kind</emphasize>. They belong to set <math>\mathbb{K}</math> with abstract syntax
+      <math>\mathbb{K}=*|(\mathbb{K}\rightarrow\mathbb{K})</math>. Outermost parentheses may be omitted, and the kinds are right-associative. For
+      the type of all kinds, a new symbol <math>\square</math> is introduced.</paragraph>
+      <paragraph>We use the word <emphasize>sort</emphasize> or symbol <math>s</math> for either <math>*</math> or <math>\square</math>; by
+      definition, the set of sorts is <math>\{*,\square\}</math>.</paragraph>
+      <paragraph>So now there are four <emphasize>levels</emphasize> in our syntax:</paragraph>
+      <list type="enumerate">
+        <item>The terms.</item>
+        <item>The constructors (types plus the proper constructors).</item>
+        <item>The kinds.</item>
+        <item>Solely of type of kinds.</item>
+      </list>
+    </unit>
+
+    <unit role="section">
+      <heading>Sort and Variable in <math>\lambda\underline{\omega\!}\,</math></heading>
+      <paragraph>First, we formalize the fact that the super-type <math>*</math> is of type <math>\square</math> using the <emphasize>sort
+      rule</emphasize>:</paragraph>
+      <math>(sort)\quad\emptyset\vdash*:\square.</math>
+      <paragraph>The variable rule is used to establish that all declarations occurring in a context is derivable in that context. In
+      <math>\lambda_\rightarrow</math>, the set of permissible types was given beforehand. In <math>\lambda2</math>, we restrict the types of the
+      variables to the recursively defined <math>\lambda2</math> context. For the more complicated <math>\lambda\underline{\omega\!}\,</math>,
+      we combine it with the <emphasize>construction of the context proper</emphasize>.</paragraph>
+      <paragraph>The new approach is that we only extend a context with a declaration <math>x:A</math> only when the type <math>A</math> is
+      permissible, which is either a type or a kind:</paragraph>
+      <math>(var)\quad\frac{\Gamma\vdash A:s\quad x\notin\Gamma}{\Gamma,x:A\vdash x:A}.</math>
+      <paragraph>This rule plays a <emphasize>double role</emphasize> due to the two possibilities of <math>s</math>.</paragraph>
+    </unit>
+
+    <unit role="section">
+      <heading>Weakening Rule in <math>\lambda\underline{\omega\!}\,</math></heading>
+      <paragraph>When defining the variable rule, the type of the derivable term is restricted to level 2 and 3, since one prerequisite is that
+      the type of the derivable term must be of type sort, which is level 4. The solution to this limitation is the addition of the
+      <emphasize>weakening rule</emphasize>, which states the fact that the context of a judgment can be weakened by adding new declarations
+      provided that the types of the new declarations are well-formed.</paragraph>
+      <math>(weak)\quad\frac{\Gamma\vdash A:B\quad\Gamma\vdash C:s\quad x\notin\Gamma}{\Gamma,x:C\vdash A:B}.</math>
+      <paragraph>Assuming that we have derived the judgment <math>\Gamma\vdash A:B</math>, then we may weaken the context by adding an arbitrary
+      declaration which type is well-formed at the end. In fact, the Thinning Lemma still applies for <math>\lambda\underline{\omega\!}\,</math>,
+      which means insertion of new declaration is allowed at an arbitrary place, however the weakening rule is easy to express and turns out
+      to be sufficient.</paragraph>
+      <paragraph>Now that we are able to derive for example <math>\alpha:*,\beta:*\vdash\alpha:*</math> by proof tree:</paragraph>
+      <math>\begin{array}{cl}
+      \displaystyle\frac{\emptyset\vdash*:\square}{\alpha:*\vdash\alpha:*}\quad\frac{\emptyset\vdash*:\square}{\alpha:*\vdash*:\square}&amp;
+      (var,weak)\\
+      \displaystyle\frac{\alpha:*\vdash\alpha:*\>\quad\>\alpha:*\vdash*:\square}{\alpha:*,\beta:*\vdash\alpha:*}&amp;(weak)
+      \end{array}</math>
+    </unit>
+
+    <unit role="section">
+      <heading>Formation Rule in <math>\lambda\underline{\omega\!}\,</math></heading>
+      <paragraph>For the construction of typing statements in a context, we have the formation rule. In <math>\lambda2</math>, the rule was based
+      on a set <math>\mathbb{T}2</math> of <math>\lambda2</math> types. While types are more complex in <math>\lambda\underline{\omega\!}\,</math>,
+      the possibility of double roles makes things become easier.</paragraph>
+      <math>(form)\quad\frac{\Gamma\vdash A:s\quad\Gamma\vdash B:s}{\Gamma\vdash A\rightarrow B:s}.</math>
+    </unit>
+
+    <unit role="section">
+      <heading>Application and Abstraction Rules in <math>\lambda\underline{\omega\!}\,</math></heading>
+      <paragraph>The application and abstraction rules differ from the ones in the previous section because of the extended type in
+      <math>\lambda\underline{\omega\!}\,</math> and the lack of <math>\Pi</math> types. Thus the type identifier is changed and a second premiss
+      which the term must be well-formed is added.</paragraph>
+      <math>\begin{array}{lc}
+      (appl)&amp;\displaystyle\frac{\Gamma\vdash M:A\rightarrow B\quad\Gamma\vdash N:A}{\Gamma\vdash MN:B}.\\
+      (abst)&amp;\displaystyle\frac{\Gamma,x:A\vdash M:B\quad\Gamma\vdash A\rightarrow B:s}{\Gamma\vdash\lambda x:A.M:A\rightarrow B}.
+      \end{array}</math>
+      <paragraph>The two rules both have a double role again, since <math>s\in\{*,\square\}</math>.</paragraph>
+    </unit>
+
+    <unit role="section">
+      <heading>Conversion Rule</heading>
+      <paragraph>We have applied beta reduction and conversation only on terms before. While the type becomes more complex in
+      <math>\lambda\underline{\omega\!}\,</math>, one will want an other derivation rule which acts on the types.</paragraph>
+      <math>(conv)\quad\frac{\Gamma\vdash A:B\quad\Gamma\vdash B':s\quad B=_\beta B'}{\Gamma\vdash A:B'}.</math>
+      <paragraph>This rule is called the <emphasize>conversion rule</emphasize>, similar to the subject reduction but is intended for
+      types.</paragraph>
+    </unit>
+
+    <unit role="section">
+      <heading>Properties of <math>\lambda\underline{\omega\!}\,</math></heading>
+      <paragraph>The system <math>\lambda\underline{\omega\!}\,</math> satisfies the majority of the nice properties from the previous systems,
+      while only the conversion rule requires a slight modification of the Uniqueness of Type Lemma, that types need no longer be literally
+      unique, but they are unique up to conversation.</paragraph>
     </unit>
   </unit>
 </rsml>
