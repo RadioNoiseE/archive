@@ -8,7 +8,14 @@
   <link type="application/atom+xml" rel="self" href="https://kekkan.org/atom.xml"/>
   <link rel="alternate" href="https://kekkan.org"/>
   <title>Archive RnE</title>
-  <updated>2025-02-10T00:01:00Z</updated>
+  <updated>2025-02-12T00:01:00Z</updated>
+  <entry>
+    <id>https://kekkan.org/index.html#n2</id>
+    <link rel="alternate" href="https://kekkan.org/index.html#n2"/>
+    <title>Site Update</title>
+    <updated>2025-02-12T00:01:00Z</updated>
+    <summary>Since I&apos;ve Gained a Deeper Understanding of Type Theory, I&apos;m Updating Some of the Entries</summary>
+  </entry>
   <entry>
     <id>https://kekkan.org/article/ttafp-note.xml#c5</id>
     <link rel="alternate" href="https://kekkan.org/article/ttafp-note.xml#c5"/>
