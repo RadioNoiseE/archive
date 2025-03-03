@@ -40,7 +40,7 @@
       constructed:</paragraph>
       <list type="enumerate">
         <item><emphasize>Variable</emphasize>: If <math>u\in V</math>, then <math>u\in\Lambda</math>.</item>
-        <item><emphasize>Application</emphasize>: If <math>M\ \text{and}\ N\in\Lambda</math>, then
+        <item><emphasize>Application</emphasize>: If <math>M</math> and <math>N\in\Lambda</math>, then
         <math>(MN)\in\Lambda</math>.</item>
         <item><emphasize>Abstraction</emphasize>: If <math>u\in V</math> and <math>M\in\Lambda</math>, then
         <math>(\lambda u.M)\in\Lambda</math>.</item>
@@ -54,9 +54,9 @@
       <paragraph>The <emphasize>subterms</emphasize> of a given lambda term form a
       <emphasize>multiset</emphasize>:</paragraph>
       <list type="enumerate">
-        <item><emphasize>Basis</emphasize>: <math>\texttt{sub}(x)=x</math>, for each <math>x\in V</math>.</item>
-        <item><emphasize>Application</emphasize>: <math>\texttt{sub}((MN))=\texttt{sub}(M)\cup\texttt{sub}(N)\cup\{(MN)\}</math>.</item>
-        <item><emphasize>Abstraction</emphasize>: <math>\texttt{sub}((\lambda x.M))=\texttt{sub}(M)\cup\{(\lambda x.M)\}</math>.</item>
+        <item><emphasize>Basis</emphasize>: <math>\mathcal S(x)=x</math>, for each <math>x\in V</math>.</item>
+        <item><emphasize>Application</emphasize>: <math>\mathcal S((MN))=\mathcal S(M)\cup\mathcal S(N)\cup\{(MN)\}</math>.</item>
+        <item><emphasize>Abstraction</emphasize>: <math>\mathcal S((\lambda x.M))=\mathcal S(M)\cup\{(\lambda x.M)\}</math>.</item>
       </list>
       <paragraph>They follow <emphasize>reflexivity</emphasize> and <emphasize>transitivity</emphasize>. A proper
       subterm of <math>M</math> is <math>L</math> if <math>L\not\equiv M</math>.</paragraph>
@@ -79,14 +79,14 @@
       free variables. However, during the process of abstraction, an occurrence of <math>x</math> which is free in
       <math>M</math> becomes bound in <math>\lambda x.M</math>; that is, abstraction of <math>x</math> over <math>M</math>
       binds all free occurrences of <math>X</math> in <math>M</math>.</paragraph>
-      <paragraph>Then we have the following recursive rule, in which <math>\texttt{fv}(L)</math> denotes the set of free variables
+      <paragraph>Then we have the following recursive rule, in which <math>\mathcal F(L)</math> denotes the set of free variables
       in the lambda term <math>L</math>.</paragraph>
       <list type="enumerate">
-        <item><emphasize>Variable</emphasize>: <math>\texttt{fv}(x)=\{x\}</math>.</item>
-        <item><emphasize>Application</emphasize>: <math>\texttt{fv}(MN)=\texttt{fv}(M)\cup\texttt{fv}(N)</math>.</item>
-        <item><emphasize>Abstract</emphasize>: <math>\texttt{fv}(\lambda x.M)=\texttt{fv}(M)\setminus\{x\}</math>.</item>
+        <item><emphasize>Variable</emphasize>: <math>\mathcal F(x)=\{x\}</math>.</item>
+        <item><emphasize>Application</emphasize>: <math>\mathcal F(MN)=\mathcal F(M)\cup\mathcal F(N)</math>.</item>
+        <item><emphasize>Abstract</emphasize>: <math>\mathcal F(\lambda x.M)=\mathcal F(M)\setminus\{x\}</math>.</item>
       </list>
-      <paragraph>The lambda term is <emphasize>closed</emphasize> if <math>\texttt{fv}(M)=\emptyset</math>. A closed set is also called
+      <paragraph>The lambda term is <emphasize>closed</emphasize> if <math>\mathcal F(M)=\emptyset</math>. A closed set is also called
       a <emphasize>combinator</emphasize>. The set of all closed lambda terms is denoted by <math>\Lambda^0</math>.</paragraph>
     </unit>
 
@@ -123,13 +123,13 @@
         <item><math>x[x:=N]\equiv N</math>, <math>y[x:=N]\equiv y</math> if <math>x\not\equiv y</math>.</item>
         <item><math>(PQ)[x:=N]\equiv(P[x:=N])(Q[x:=N])</math>.</item>
         <item><math>(\lambda y.P)[x:=N]\equiv\lambda z.(P^{y\to z}[x:=N])</math>, if <math>\lambda z.P^{y\to z}</math>
-        is an alpha variant of <math>\lambda y.P</math> such that <math>z\notin\texttt{fv}(N)</math>.</item>
+        is an alpha variant of <math>\lambda y.P</math> such that <math>z\notin\mathcal F(N)</math>.</item>
       </list>
       <paragraph>The subterm of the form <math>(\lambda x.M)N</math> is called a <emphasize>redex</emphasize> (from reducible
       expression) and subterm <math>M[x:=N]</math> is called the <emphasize>contractum</emphasize> (of the redex).</paragraph>
       <paragraph>Note that in general, the substitutions <math>M[x:=N][y:=L]</math> does not describe the same lambda term as
       <math>M[y:=L][x:=N]</math> because of the left associativity
-      (<math>M[x:=N][y:=L]\equiv M[y:=L][x:=N[y:=L]]\land x\notin\texttt{fv}(L)</math>).</paragraph>
+      (<math>M[x:=N][y:=L]\equiv M[y:=L][x:=N[y:=L]]\land x\notin\mathcal F(L)</math>).</paragraph>
       <paragraph>We define the relation <math>\to_\beta</math> to be one-step beta reduction since one redex is replaced
       by its contractum. The further beta reduction performed after the one-step reduction can be defined using
       <math>\twoheadrightarrow_\beta</math> which generally take zero or more step. We can prove that
@@ -249,9 +249,9 @@
       <paragraph>Below we give three <emphasize>derivation rules</emphasize> to form a so-called <emphasize>derivation system</emphasize> for
       Church<apostrophe/>s <math>\lambda_\to</math> in the <emphasize>premiss-conclusion</emphasize> format.</paragraph>
       <math>\begin{array}{lc}
-      (var)&amp;\displaystyle\gamma\vdash x:\sigma\ \text{if}\ x:\sigma\in\Gamma.\\
-      (appl)&amp;\displaystyle\frac{\Gamma\vdash M:\sigma\to\tau\quad\gamma\vdash N:\sigma}{\Gamma\vdash MN:\tau}.\\
-      (abst)&amp;\displaystyle\frac{\gamma,x:\sigma\vdash M:\tau}{\Gamma\vdash\lambda x:\sigma,M:\sigma\to\tau}.
+      (var)&amp;\begin{prooftree}\AXC{$x:\sigma\in\Gamma$}\UIC{$y\vdash x:\sigma$}\end{prooftree}\\
+      (appl)&amp;\begin{prooftree}\AXC{$\Gamma\vdash M:\sigma\to\tau$}\AXC{$\Gamma\vdash N:\sigma$}\BIC{$\Gamma\vdash MN:\tau$}\end{prooftree}\\
+      (abst)&amp;\begin{prooftree}\AXC{$\Gamma,x:\sigma\vdash M:\tau$}\UIC{$\Gamma\vdash\lambda x:\sigma,M:\sigma\to\tau$}\end{prooftree}
       \end{array}</math>
       <paragraph>A pre-typed term <math>\lambda_\to</math> is called <emphasize>legal</emphasize> if there exist context
       <math>\Gamma</math> and type <math>\rho</math> such that <math>\Gamma\vdash M:\rho</math>.</paragraph>
@@ -265,9 +265,11 @@
       is to find a type <math>\rho</math> such that <math>\Gamma\vdash M:\rho</math>. First we determine the context <math>\Gamma</math> which
       <math>\Gamma\equiv\emptyset</math> suffices since there are no free variables in <math>M</math>. Then we need to find
       <math>\rho</math>.</paragraph>
-      <math>\dfrac{\dfrac{\dfrac{y:\alpha\to\beta\quad z:\alpha}{y:\alpha\to\beta,z:\alpha\vdash yz:\beta}}
-      {y:\alpha\to\beta\vdash\lambda z:\alpha.yz:\alpha\to\beta}}
-      {\lambda y:\alpha\to\beta.\lambda z:\alpha.yz:(\alpha\to\beta)\to(\alpha\to\beta)}</math>
+      <math>\begin{prooftree}
+      \AXC{$y:\alpha\to\beta$}\AXC{$z:\alpha$}\BIC{$y:\alpha\to\beta,z:\alpha\vdash yz:\beta$}
+      \UIC{$y:\alpha\to\beta\vdash\lambda z:\alpha.yz:\alpha\to\beta$}
+      \UIC{$\lambda y:\alpha\to\beta.\lambda z:\alpha.yz:(\alpha\to\beta)\to(\alpha\to\beta)$}
+      \end{prooftree}</math>
       <paragraph>Thus we can conclude that <math>\lambda y.\alpha\to\beta.\lambda z:\alpha.yz</math> is valid since we find
       <math>\rho</math> which is <math>(\alpha\to\beta)\to(\alpha\to\beta)</math>.</paragraph>
     </unit>
@@ -277,10 +279,12 @@
       <paragraph>The name type checking is straightforward, it means to check the validity of a full judgment.</paragraph>
       <paragraph>As an example, we can construct a derivation for
       <math>x:\alpha\to\alpha,y:(\alpha\to\alpha)\to\beta
-      \vdash(\lambda z:\beta.\lambda u:\gamma.z)(yz):\gamma\to\beta</math>:</paragraph>
-      <math>\dfrac{\dfrac{x:\alpha\to\alpha\quad y:(\alpha\to\alpha)\to\beta}{x:\alpha\to\alpha,y:(\alpha\to\alpha)\to\beta\vdash yx:\beta}\quad
-      \dfrac{z:\beta\quad u:\gamma}{z:\beta,u:\gamma\vdash\lambda z:\beta.\lambda u:\gamma.z:\beta\to\gamma\to\beta}}
-      {(\lambda z:\beta.\lambda u:\gamma.z)(yx):\gamma\to\beta}</math>
+      \vdash(\lambda z:\beta.\lambda u:\gamma.z)(yz):\gamma\to\beta</math>.</paragraph>
+      <math>\begin{prooftree}
+      \AXC{$x:\alpha\to\alpha$}\AXC{$y:(\alpha\to\alpha)\to\beta$}\BIC{$x:\alpha\to\alpha,y:(\alpha\to\alpha)\to\beta\vdash yx:\beta$}
+      \AXC{$z:\beta$}\AXC{$u:\gamma$}\BIC{$z:\beta,u:\gamma\vdash\lambda z:\beta.\lambda u:\gamma.z:\beta\to\gamma\to\beta$}
+      \BIC{$(\lambda z:\beta.\lambda u:\gamma.z)(yx):\gamma\to\beta$}
+      \end{prooftree}</math>
       <paragraph>Hence we have succeeded in giving a proper deviation of the judgment.</paragraph>
     </unit>
 
@@ -319,14 +323,14 @@
         <math>\Gamma</math> with <math>\mathcal D(\Gamma')=\mathcal D(\Gamma)\cap\Phi</math>.</item>
       </list>
       <paragraph>An important property concerning the free variables occurring in a judgment is that if <math>\Gamma\vdash L:\sigma</math>,
-      then <math>\texttt{fv}(L)\subseteq\mathcal D(\Gamma)</math>. This can be proved by induction on the deviation of the judgment
+      then <math>\mathcal F(L)\subseteq\mathcal D(\Gamma)</math>. This can be proved by induction on the deviation of the judgment
       <math>\mathcal J\equiv\Gamma\vdash L:\sigma</math>.</paragraph>
       <paragraph>We continue with three other properties which are trivial and can also be proved by induction.</paragraph>
       <list type="enumerate">
         <item><emphasize>Thinning</emphasize>: Let <math>\Gamma'</math> and <math>\Gamma''</math> be contexts such that
         <math>\Gamma'\subseteq\Gamma''</math>. If <math>\Gamma'\vdash M:\sigma</math>, then also <math>\Gamma''\vdash M:\sigma</math>.</item>
         <item><emphasize>Condensing</emphasize>: If <math>\Gamma\vdash M:\sigma</math>, then also
-        <math>\Gamma\upharpoonright\texttt{fv}(M)\vdash M:\sigma</math>.</item>
+        <math>\Gamma\upharpoonright\mathcal F(M)\vdash M:\sigma</math>.</item>
         <item><emphasize>Permutation</emphasize>: If <math>\Gamma\vdash M:\sigma</math>, and <math>\Gamma'</math> is a permutation of
         <math>\Gamma</math>, then <math>\Gamma'</math> is also a context and moreover, <math>\Gamma'\vdash M:\sigma</math>.</item>
       </list>
@@ -394,8 +398,8 @@
       <paragraph>Since we allow second order abstraction, second order application and <math>\Pi</math> types, our derivation system for
       <math>\lambda_\to</math> has to be extended.</paragraph>
       <math>\begin{array}{lc}
-      (appl_2)&amp;\displaystyle\frac{\Gamma\vdash M:\Pi\alpha:*.A\quad\Gamma\vdash B:*}{\Gamma\vdash MB:A[\alpha:=B]}.\\
-      (abst_2)&amp;\displaystyle\frac{\Gamma,\alpha:*\vdash M:A}{\Gamma\vdash\lambda\alpha:*.M:\Pi\alpha:*.A}.
+      (appl_2)&amp;\begin{prooftree}\AXC{$\Gamma\vdash M:\Pi\alpha:*.A$}\AXC{$\Gamma\vdash B:*$}\BIC{$\Gamma\vdash MB:A[\alpha:=B]$}\end{prooftree}\\
+      (abst_2)&amp;\begin{prooftree}\AXC{$\Gamma,\alpha:*\vdash M:A$}\UIC{$\Gamma\vdash\lambda\alpha:*.M:\Pi\alpha:*.A$}\end{prooftree}
       \end{array}</math>
       <paragraph>The second order application rule is intuitive, that two types of arbitrary type can be interchanged. This abstraction rule
       also corresponds to our expectations, as presented in the previous section where the <math>\Pi</math> types are introduced.</paragraph>
@@ -435,18 +439,18 @@
       <list type="enumerate">
         <item><math>\emptyset</math> is a <math>\lambda2</math> context. Its domain is the empty list.</item>
         <item>If <math>\Gamma</math> is a <math>\lambda2</math> context, <math>\alpha\in\mathbb{V}</math> and
-        <math>\alpha\notin\texttt{dom}(\Gamma)</math>, then <math>\Gamma,\alpha:*</math> is a <math>\lambda2</math> context.
-        And <math>\texttt{dom}(\Gamma,\alpha:*)=(\texttt{dom}(\Gamma),\alpha)</math>.</item>
+        <math>\alpha\notin\mathcal D(\Gamma)</math>, then <math>\Gamma,\alpha:*</math> is a <math>\lambda2</math> context.
+        And <math>\mathcal D(\Gamma,\alpha:*)=(\mathcal D(\Gamma),\alpha)</math>.</item>
         <item>If <math>\Gamma</math> is a <math>\lambda2</math> context, if <math>\rho\in\mathbb{T}2</math> such that
-        <math>\alpha\in\texttt{dom}(\Gamma)</math> for all free type variants <math>\alpha</math> occurring in <math>\rho</math> and if
-        <math>x\notin\texttt{dom}(\Gamma)</math>, then <math>\Gamma,x:\rho</math> is a <math>\lambda2</math> context. And
-        <math>\texttt{dom}(\Gamma,x:\rho)=(\texttt{dom}(\Gamma),x)</math>.</item>
+        <math>\alpha\in\mathcal D(\Gamma)</math> for all free type variants <math>\alpha</math> occurring in <math>\rho</math> and if
+        <math>x\notin\mathcal D(\Gamma)</math>, then <math>\Gamma,x:\rho</math> is a <math>\lambda2</math> context. And
+        <math>\mathcal D(\Gamma,x:\rho)=(\mathcal D(\Gamma),x)</math>.</item>
       </list>
       <paragraph>Conforming with the new notion of context, we adapt the variable rule and define the <emphasize>formation rule</emphasize>
       which defines a properly formed <math>\lambda2</math> type. We assume <math>\Gamma</math> is a <math>\lambda2</math> context.</paragraph>
       <math>\begin{array}{lc}
-      (var)&amp;\displaystyle\frac{x:\sigma\in\Gamma}{\Gamma\vdash x:\sigma}.\\
-      (form)&amp;\displaystyle\frac{B\in\mathbb{T}2\quad\texttt{fv}(B)\in\Gamma}{\Gamma\vdash B:*}.
+      (var)&amp;\begin{prooftree}\AXC{$x:\sigma\in\Gamma$}\UIC{$\Gamma\vdash x:\sigma$}\end{prooftree}\\
+      (form)&amp;\begin{prooftree}\AXC{$B\in\mathbb{T}2$}\AXC{$\mathcal F(B)\in\Gamma$}\BIC{$\Gamma\vdash B:*$}\end{prooftree}
       \end{array}</math>
       <paragraph>Finally, we define the legality of <math>\lambda2</math>: a term <math>M</math> in <math>\Lambda_{\mathbb{T}2}</math>
       is called legal if there exists a <math>\lambda2</math> context <math>\Gamma</math> and a type <math>\rho</math> in <math>\mathbb{T}2</math>
@@ -458,7 +462,7 @@
       <paragraph>The definition of alpha conversion is adapted and extended accommodating <math>\Pi</math> types:</paragraph>
       <list type="enumerate">
         <item><emphasize>Renaming of term variable</emphasize>: <math>\lambda x:\sigma.M=_\alpha\lambda y:\sigma.M^{x\to y}</math> if
-        <math>y\notin \texttt{fv}(M)</math> and <math>y</math> does not occur as a binding variable in <math>M</math>.</item>
+        <math>y\notin \mathcal F(M)</math> and <math>y</math> does not occur as a binding variable in <math>M</math>.</item>
         <item><emphasize>Renaming of type variable</emphasize>: <math>\lambda\alpha:*.M=_\alpha\lambda\beta:*.M[\alpha:=\beta]</math>
         if <math>\beta</math> does not occur in <math>M</math> or <math>\Pi\alpha:*.M=_\alpha\Pi\beta:*.M[\alpha:=\beta]</math> if <math>\beta</math>
         does not occur in <math>M</math>.</item>
@@ -503,15 +507,15 @@
     <unit role="section">
       <heading>Sort and Variable in <math>\lambda\underline{\omega\!}\,</math></heading>
       <paragraph>First, we formalize the fact that the super-type <math>*</math> is of type <math>\square</math> using the <emphasize>sort
-      rule</emphasize>:</paragraph>
-      <math>(sort)\quad\emptyset\vdash*:\square.</math>
+      rule</emphasize>.</paragraph>
+      <math>(sort)\quad\emptyset\vdash*:\square</math>
       <paragraph>The variable rule is used to establish that all declarations occurring in a context is derivable in that context. In
       <math>\lambda_\to</math>, the set of permissible types was given beforehand. In <math>\lambda2</math>, we restrict the types of the
       variables to the recursively defined <math>\lambda2</math> context. For the more complicated <math>\lambda\underline{\omega\!}\,</math>,
       we combine it with the <emphasize>construction of the context proper</emphasize>.</paragraph>
       <paragraph>The new approach is that we only extend a context with a declaration <math>x:A</math> only when the type <math>A</math> is
-      permissible, which is either a type or a kind:</paragraph>
-      <math>(var)\quad\frac{\Gamma\vdash A:s\quad x\notin\Gamma}{\Gamma,x:A\vdash x:A}.</math>
+      permissible, which is either a type or a kind.</paragraph>
+      <math>(var)\quad\begin{prooftree}\AXC{$\Gamma\vdash A:s$}\AXC{$x\notin\Gamma$}\BIC{$\Gamma,x:A\vdash x:A$}\end{prooftree}</math>
       <paragraph>This rule plays a <emphasize>double role</emphasize> due to the two possibilities of <math>s</math>.</paragraph>
     </unit>
 
@@ -521,16 +525,17 @@
       the type of the derivable term must be of type sort, which is level 4. The solution to this limitation is the addition of the
       <emphasize>weakening rule</emphasize>, which states the fact that the context of a judgment can be weakened by adding new declarations
       provided that the types of the new declarations are well-formed.</paragraph>
-      <math>(weak)\quad\frac{\Gamma\vdash A:B\quad\Gamma\vdash C:s\quad x\notin\Gamma}{\Gamma,x:C\vdash A:B}.</math>
+      <math>(weak)\quad\begin{prooftree}\AXC{$\Gamma\vdash A:B$}\AXC{$\Gamma\vdash C:s$}\AXC{$x\notin\Gamma$}\TIC{$\Gamma,x:C\vdash A:B$}
+      \end{prooftree}</math>
       <paragraph>Assuming that we have derived the judgment <math>\Gamma\vdash A:B</math>, then we may weaken the context by adding an arbitrary
       declaration which type is well-formed at the end. In fact, the Thinning Lemma still applies for <math>\lambda\underline{\omega\!}\,</math>,
       which means insertion of new declaration is allowed at an arbitrary place, however the weakening rule is easy to express and turns out
       to be sufficient.</paragraph>
-      <paragraph>Now that we are able to derive for example <math>\alpha:*,\beta:*\vdash\alpha:*</math> by proof tree:</paragraph>
-      <math>\dfrac{\dfrac{\emptyset\vdash*:\square}{\alpha:*\vdash\alpha:*}\quad
-      \dfrac{\emptyset\vdash*:\square\quad\emptyset\vdash*:\square}{\alpha:*\vdash*:\square}}
-      {\alpha:*,\beta:*\vdash\alpha:*}
-      </math>
+      <paragraph>Now that we are able to derive for example <math>\alpha:*,\beta:*\vdash\alpha:*</math> by proof tree.</paragraph>
+      <math>\begin{prooftree}
+      \AXC{$\emptyset\vdash*:\square$}\UIC{$\alpha:*\vdash\alpha:*$}\AXC{$\emptyset\vdash*:\square$}\AXC{$\emptyset\vdash*:\square$}
+      \BIC{$\alpha:*\vdash*:\square$}\BIC{$\alpha:*,\beta:*\vdash\alpha:*$}
+      \end{prooftree}</math>
     </unit>
 
     <unit role="section">
@@ -538,7 +543,7 @@
       <paragraph>For the construction of typing statements in a context, we have the formation rule. In <math>\lambda2</math>, the rule was based
       on a set <math>\mathbb{T}2</math> of <math>\lambda2</math> types. While types are more complex in <math>\lambda\underline{\omega\!}\,</math>,
       the possibility of double roles makes things become easier.</paragraph>
-      <math>(form)\quad\frac{\Gamma\vdash A:s\quad\Gamma\vdash B:s}{\Gamma\vdash A\to B:s}.</math>
+      <math>(form)\quad\begin{prooftree}\AXC{$\Gamma\vdash A:s$}\AXC{$\Gamma\vdash B:s$}\BIC{$\Gamma\vdash A\to B:s$}\end{prooftree}</math>
     </unit>
 
     <unit role="section">
@@ -547,8 +552,8 @@
       <math>\lambda\underline{\omega\!}\,</math> and the lack of <math>\Pi</math> types. Thus the type identifier is changed and a second premiss
       which the term must be well-formed is added.</paragraph>
       <math>\begin{array}{lc}
-      (appl)&amp;\displaystyle\frac{\Gamma\vdash M:A\to B\quad\Gamma\vdash N:A}{\Gamma\vdash MN:B}.\\
-      (abst)&amp;\displaystyle\frac{\Gamma,x:A\vdash M:B\quad\Gamma\vdash A\to B:s}{\Gamma\vdash\lambda x:A.M:A\to B}.
+      (appl)&amp;\begin{prooftree}\AXC{$\Gamma\vdash M:A\to B$}\AXC{$\Gamma\vdash N:A$}\BIC{$\Gamma\vdash MN:B$}\end{prooftree}\\
+      (abst)&amp;\begin{prooftree}\AXC{$\Gamma,x:A\vdash M:B$}\AXC{$\Gamma\vdash A\to B:s$}\BIC{$\Gamma\vdash\lambda x:A.M:A\to B$}\end{prooftree}
       \end{array}</math>
       <paragraph>The two rules both have a double role again, since <math>s\in\{*,\square\}</math>.</paragraph>
     </unit>
@@ -557,7 +562,8 @@
       <heading>Conversion Rule</heading>
       <paragraph>We have applied beta reduction and conversation only on terms before. While the type becomes more complex in
       <math>\lambda\underline{\omega\!}\,</math>, one will want an other derivation rule which acts on the types.</paragraph>
-      <math>(conv)\quad\frac{\Gamma\vdash A:B\quad\Gamma\vdash B':s\quad B=_\beta B'}{\Gamma\vdash A:B'}.</math>
+      <math>(conv)\quad\begin{prooftree}\AXC{$\Gamma\vdash A:B$}\AXC{$\Gamma\vdash B':s$}\AXC{$B=_\beta B'$}\TIC{$\Gamma\vdash A:B'$}
+      \end{prooftree}</math>
       <paragraph>This rule is called the <emphasize>conversion rule</emphasize>, similar to the subject reduction but is intended for
       types.</paragraph>
     </unit>
@@ -589,15 +595,16 @@
     <unit role="section">
       <heading>Derivation Rules of <math>\lambda P</math></heading>
       <paragraph>The derivation rules of <math>\lambda P</math> has a great resemblance to the rules of <math>\lambda\underline{\omega\!}\,</math>,
-      so we present them directly:</paragraph>
+      so we present them directly.</paragraph>
       <math>\begin{array}{lc}
-      (sort)&amp;\emptyset\vdash*:\square.\\
-      (var)&amp;\displaystyle\frac{\Gamma\vdash A:s\quad x\notin\Gamma}{\Gamma,x:A\vdash x:A}.\\
-      (weak)&amp;\displaystyle\frac{\Gamma\vdash A:B\quad\Gamma\vdash C:s\quad x\notin\Gamma}{\Gamma,x:C\vdash A:B}.\\
-      (form)&amp;\displaystyle\frac{\Gamma\vdash A:*\quad\Gamma,x:A\vdash B:s}{\Gamma\vdash\Pi x:A.B:s}.\\
-      (appl)&amp;\displaystyle\frac{\Gamma\vdash M:\Pi x:A.B\quad\Gamma\vdash N:A}{\Gamma\vdash MN:B[x:=N]}.\\
-      (abst)&amp;\displaystyle\frac{\Gamma,x:A\vdash M:B\quad\Gamma\vdash\Pi x:A.B:s}{\Gamma\vdash\lambda x:A.M:\Pi x:A.B}.\\
-      (conv)&amp;\displaystyle\frac{\Gamma\vdash A:B\quad\Gamma\vdash B':s\quad B=_\beta B'}{\Gamma\vdash A:B'}.
+      (sort)&amp;\emptyset\vdash*:\square\\
+      (var)&amp;\begin{prooftree}\AXC{$\Gamma\vdash A:s$}\AXC{$x\notin\Gamma$}\BIC{$\Gamma,x:A\vdash x:A$}\end{prooftree}\\
+      (weak)&amp;\begin{prooftree}\AXC{$\Gamma\vdash A:B$}\AXC{$\Gamma\vdash C:s$}\AXC{$x\notin\Gamma$}\TIC{$\Gamma,x:C\vdash A:B$}\end{prooftree}\\
+      (form)&amp;\begin{prooftree}\AXC{$\Gamma\vdash A:*$}\AXC{$\Gamma,x:A\vdash B:s$}\BIC{$\Gamma\vdash\Pi x:A.B:s$}\end{prooftree}\\
+      (appl)&amp;\begin{prooftree}\AXC{$\Gamma\vdash M:\Pi x:A.B$}\AXC{$\Gamma\vdash N:A$}\BIC{$\Gamma\vdash MN:B[x:=N]$}\end{prooftree}\\
+      (abst)&amp;\begin{prooftree}\AXC{$\Gamma,x:A\vdash M:B$}\AXC{$\Gamma\vdash\Pi x:A.B:s$}\BIC{$\Gamma\vdash\lambda x:A.M:\Pi x:A.B$}
+      \end{prooftree}\\
+      (conv)&amp;\begin{prooftree}\AXC{$\Gamma\vdash A:B$}\AXC{$\Gamma\vdash B':s$}\AXC{$B=_\beta B'$}\TIC{$\Gamma\vdash A:B'$}\end{prooftree}
       \end{array}</math>
       <paragraph>The main differences with respect to <math>\lambda\underline{\omega\!}\,</math> are:</paragraph>
       <list type="enumerate">
@@ -609,7 +616,7 @@
       <paragraph>The formation rule is also called the product rule, since it enables the construction and typing of a <math>\Pi</math> type.
       Martin-Löf calls a <math>\Pi</math> type the cartesian product of a family of types. So <math>\Pi</math> types can both be seen as
       a generalization of the cartesian product (consider <math>A=\{a_1,a_2\}</math>, then <math>\Pi x:A.B</math> is the same as
-      <math>B[x:=a_1]\times B[x:=a_2]</math>) and as a generalization of the function space (if <math>x\notin\texttt{fv}(B)</math>, then
+      <math>B[x:=a_1]\times B[x:=a_2]</math>) and as a generalization of the function space (if <math>x\notin\mathcal F(B)</math>, then
       <math>\Pi x:A.B</math> is just <math>A\to B</math>).</paragraph>
     </unit>
 
@@ -635,10 +642,12 @@
       <paragraph>An example of minimal predication logic is given. Let <math>S</math> be a set and <math>Q</math> a binary predicate over
       <math>S</math>, what we want to prove is <math>\forall_{x\in S}\forall_{y\in S}(Q(x,y))\Rightarrow\forall_{u\in S}(Q(u,u))</math>.
       We define a local environment <math>\Delta=\{S:*,Q:S\to S\to*\}</math> for this.</paragraph>
-      <math>\dfrac{\dfrac{\dfrac{\dfrac{\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash z:\Pi x:S.\Pi y:S.Qxy\quad\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash u:S}
-      {\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash zu:\Pi y:S.Quy}\quad\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash u:S}
-      {\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash zuu:Quu}}{\Delta,z:\Pi x:S.\Pi y:S.Qxy\vdash\lambda u:S.zuu:\Pi u:S.Quu}}
-      {\Delta\vdash\lambda z:\Pi x:S.\Pi y:S.Qxy.\lambda u:S.zuu:\Pi z:S.\Pi y:S.Qxy\to\Pi u:S.Quu}</math>
+      <math>\begin{prooftree}
+      \AXC{$\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash z:\Pi x:S.\Pi y:S.Qxy$}\AXC{$\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash u:S$}
+      \BIC{$\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash zu:\Pi y:S.Quy$}\AXC{$\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash u:S$}
+      \BIC{$\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash zuu:Quu$}\UIC{$\Delta,z:\Pi x:S.\Pi y:S.Qxy\vdash\lambda u:S.zuu:\Pi u:S.Quu$}
+      \UIC{$\Delta\vdash\lambda z:\Pi x:S.\Pi y:S.Qxy.\lambda u:S.zuu:\Pi z:S.\Pi y:S.Qxy\to\Pi u:S.Quu$}
+      \end{prooftree}</math>
       <paragraph>This is identical to a term finding process, and the proposition is proved since we succeeded in finding an inhabitant for the type
       representing the proposition.</paragraph>
     </unit>
