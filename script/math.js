@@ -7,6 +7,9 @@ window.MathJax = {
     },
     options: {
         enableMenu: false,
+        enableEnrichment: false,
+        enableComplexity: false,
+        enableExplorer: false,
     },
     tex: {
         inlineMath: [['\\(', '\\)']],
