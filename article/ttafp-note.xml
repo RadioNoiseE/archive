@@ -646,7 +646,7 @@
       \AXC{$\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash z:\Pi x:S.\Pi y:S.Qxy$}\AXC{$\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash u:S$}
       \BIC{$\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash zu:\Pi y:S.Quy$}\AXC{$\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash u:S$}
       \BIC{$\Delta,z:\Pi x:S.\Pi y:S.Qxy,u:S\vdash zuu:Quu$}\UIC{$\Delta,z:\Pi x:S.\Pi y:S.Qxy\vdash\lambda u:S.zuu:\Pi u:S.Quu$}
-      \UIC{$\Delta\vdash\lambda z:\Pi x:S.\Pi y:S.Qxy.\lambda u:S.zuu:\Pi z:S.\Pi y:S.Qxy\to\Pi u:S.Quu$}
+      \UIC{$\Delta\vdash\lambda z:\Pi x:S.\Pi y:S.Qxy.\lambda u:S.zuu:\Pi x:S.\Pi y:S.Qxy\to\Pi u:S.Quu$}
       \end{prooftree}</math>
       <paragraph>This is identical to a term finding process, and the proposition is proved since we succeeded in finding an inhabitant for the type
       representing the proposition.</paragraph>
