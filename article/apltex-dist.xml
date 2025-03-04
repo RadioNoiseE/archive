@@ -73,7 +73,7 @@
 
   <unit role="chapter">
     <heading>Dist Release</heading>
-    <paragraph>The poor man<apostrophe/>s version doesn<apostrophe/>t come with any macro-packages -- only
+    <paragraph>The poor man<apostrophe/>s version doesn<apostrophe/>t come with any macro-packages — only
     plainTeX. I believe external macro-packages are generally unnecessary for plainTeX, except in a few
     cases.</paragraph>
     <paragraph>For these rare cases, I<apostrophe/>ve packaged a few macro-packages. These are mainly for
