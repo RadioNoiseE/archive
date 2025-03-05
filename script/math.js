@@ -10,6 +10,11 @@ window.MathJax = {
     },
     options: {
         enableMenu: false,
+        menuOptions: {
+            settings: {
+                enrich: false,
+            },
+        },
     },
     tex: {
         inlineMath: [['\\(', '\\)']],
