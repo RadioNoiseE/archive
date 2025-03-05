@@ -137,6 +137,7 @@
 
   <xsl:template mode="preface" match="rsml:meta">
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
     <meta name="creator" content="RsML1"/>
     <xsl:if test="rsml:author">
       <xsl:element name="meta">
@@ -169,6 +170,7 @@
         <xsl:value-of select="rsml:subtitle"/>
       </xsl:if>
     </title>
+    <link href="/favicon.ico" rel="icon"/>
     <link href="/style/art.css" rel="stylesheet"/>
     <script src="/script/math.js"/>
   </xsl:template>
