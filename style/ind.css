@@ -15,17 +15,11 @@ h1 {
     text-align: center;
 }
 
-h3 {
-    text-align: right;
-}
-
 h1, h2, h3 {
     margin: 0;
 }
 
 p {
-    hyphens: auto;
-    -webkit-hyphens: auto;
     margin-block-end: .6em;
     margin-block-start: .6em;
 }
@@ -56,7 +50,7 @@ a:hover {
 .nav {
     display: flex;
     justify-content: center;
-    margin-top: 1em;
+    margin-top: 10px;
     text-align: center;
     user-select: none;
     -webkit-user-select: none;
@@ -80,20 +74,12 @@ a:hover {
 @media only screen and (min-width: 60em) {
     .article {
         display: flex;
-        hyphens: auto;
-        -webkit-hyphens: auto;
         justify-content: space-between;
     }
 
     .column {
         width: 46%;
     }
-}
-
-.column p {
-    hyphens: none;
-    -webkit-hyphens: none;
-    text-align: right;
 }
 
 .banner {
