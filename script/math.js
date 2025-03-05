@@ -2,14 +2,14 @@ window.MathJax = {
     startup: {
         elements: ['span.math', 'div.math'],
     },
+    loader: {
+        load: ['ui/lazy'],
+    },
     output: {
         font: 'mathjax-asana',
     },
     options: {
         enableMenu: false,
-        enableEnrichment: false,
-        enableComplexity: false,
-        enableExplorer: false,
     },
     tex: {
         inlineMath: [['\\(', '\\)']],
