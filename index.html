@@ -10,89 +10,93 @@
     <link href="/style/ind.css" rel="stylesheet">
   </head>
   <body>
-    <div class="nav">
-      <a href="#index">Index</a>
-      <a href="#about">About</a>
-      <a href="#article">Article</a>
-      <a href="#license">License</a>
-      <a href="/atom.xml">Atom</a>
-      <a href="/rne.asc">PGP</a>
-      <a href="/RsML">RsML</a>
-      <a href="https://ldbeth.sdf.org">LDB</a>
-    </div>
-    <hr>
-    <div class="content">
-      <h1 id="index">Archive RnE</h1>
-      <h2 id="about">About This Site</h2>
-      <p>This site runs on clean HTML5, mostly transformed from XML
+    <div class="frame">
+      <div class="nav">
+        <a href="#index">Index</a>
+        <a href="#about">About</a>
+        <a href="#article">Article</a>
+        <a href="#license">License</a>
+        <a href="/atom.xml">Atom</a>
+        <a href="/rne.asc">PGP</a>
+        <a href="/RsML">RsML</a>
+        <a href="https://ldbeth.sdf.org">LDB</a>
+      </div>
+      <hr>
+      <div class="content">
+        <h1 id="index">Archive RnE</h1>
+        <h2 id="about">About This Site</h2>
+        <p>This site runs on clean HTML5, mostly transformed from XML
         via <a href="/RsML">RsML</a>, with a touch of handcrafted
         pages. While most contents are served as XML, your browser
         must be capable of applying XSL stylesheet on the fly.</p>
-      <p>A mirror site serving HTML5 instead of XML is now available
+        <p>A mirror site serving HTML5 instead of XML is now available
         at the <code>cmp</code> subdomain for compatibility, where the
         path for each article remains the same but
         the <code>.xml</code> extension is replaced
         with <code>.html</code>.</p>
-      <p>Forged with Emacs <code>nXML</code>
-        mode. An <a href="/atom.xml">atom feed</a> is maintained to
-        help keep track of the site updates.</p>
-      <h2 id="article">Article Entries</h2>
-      <p>Topics I ramble about — each link either leads to an article
-        or a rabbit hole of more. Licensed under
-        <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
+        <p>Forged with Emacs <code>nXML</code>
+          mode. An <a href="/atom.xml">atom feed</a> is maintained to
+          help keep track of the site updates.</p>
+        <h2 id="article">Article Entries</h2>
+        <p>Topics I ramble about — each link either leads to an
+        article or a rabbit hole of more. Licensed under
+          <a href="https://creativecommons.org/licenses/by/4.0/">CC BY
         4.0</a>.</p>
-      <div class="article">
-        <div class="column">
-          <h3>TeX</h3>
-          <p><a href="/article/apltex-dist.xml">TeX distribution</a>;
-            Font metric; Web2C; PlainTeX; Microtypography; Virtual
-            fonts; MetaFont; MetaPost; Device independent file;
-            Kinsoku; CJK typesetting; (u)pTeX; LuaTeX; WEB; ...</p>
-          <h3>XML</h3>
-          <p>Extensible stylesheet language; Transformations; XQuery;
-            Schematron; RelaxNG; Schema definition; Document type
-            definition; ...</p>
-          <h3>Lambda Calculus</h3>
-          <p>Structural induction; Consistency; ISWIM; Machines; SECD;
-            Continuations; Imperative assignment; ...</p>
-        </div>
-        <div class="column">
-          <h3>Programming Languages</h3>
-          <p>C; Lua; OCaML; Emacs lisp; Common lisp; J; Swift; Shell;
-            <a href="/article/ml1-silicon.xml">ML/1</a>; TeX; LaTeX3;
-            XSLT; XPath; ...</p>
-          <h3>Types</h3>
-          <p><a href="/article/ttafp-note.xml">Calculus of
+        <div class="article">
+          <div class="column">
+            <h3>TeX</h3>
+            <p><a href="/article/apltex-dist.xml">TeX
+            distribution</a>; Font metric; Web2C; PlainTeX;
+            Microtypography; Virtual fonts; MetaFont; MetaPost; Device
+            independent file; Kinsoku; CJK typesetting; (u)pTeX;
+            LuaTeX; WEB; ...</p>
+            <h3>XML</h3>
+            <p>Extensible stylesheet language; Transformations;
+            XQuery; Schematron; RelaxNG; Schema definition; Document
+            type definition; ...</p>
+            <h3>Lambda Calculus</h3>
+            <p>Structural induction; Consistency; ISWIM; Machines;
+            SECD; Continuations; Imperative assignment; ...</p>
+          </div>
+          <div class="column">
+            <h3>Programming Languages</h3>
+            <p>C; Lua; OCaML; Emacs lisp; Common lisp; J; Swift;
+            Shell;
+              <a href="/article/ml1-silicon.xml">ML/1</a>; TeX;
+            LaTeX3; XSLT; XPath; ...</p>
+            <h3>Types</h3>
+            <p><a href="/article/ttafp-note.xml">Calculus of
             constructions with definitions</a>; Hindley-Milner;
             Curry-Howard Isomorphism; Pure type system; Dependent
             type; Refinement type; ...</p>
-          <h3>UNIX</h3>
-          <p><a href="/article/gentoo-efi.xml">EFI boot stub</a>;
+            <h3>UNIX</h3>
+            <p><a href="/article/gentoo-efi.xml">EFI boot stub</a>;
             Executable and linkable format; Emacs; Window manager;
             Wayland protocol; Font hinting; Equalizer; Sound server;
             Pipewire filter chain; POSIX shell; OpenRC; LaunchD;
             ...</p>
+          </div>
         </div>
       </div>
+      <hr>
+      <div class="banner">
+        <a href="https://jigsaw.w3.org/css-validator/check/referer">
+          <img class="icon css" src="/static/images/css.svg" alt="Valid CSS!">
+        </a>
+        <a href="http://www.w3.org/1998/Math/MathML">
+          <img class="icon math" src="/static/images/math.svg" alt="Valid MathML!">
+        </a>
+        <a href="http://validator.w3.org/feed/check.cgi?url=https%3A//kekkan.org/atom.xml">
+          <img class="icon atom" src="/static/images/atom.png" alt="Valid Atom!">
+        </a>
+        <a href="https://www.mathjax.org">
+          <img class="icon mjax" src="/static/images/mjax.gif" alt="MathJax!">
+        </a>
+        <a href="https://creativecommons.org/licenses/by/4.0">
+          <img class="icon ccby" src="/static/images/ccby.svg" alt="CC BY 4.0!">
+        </a>
+      </div>
+      <div class="copyright" id="license">© 2024-2025 Jing Huang</div>
     </div>
-    <hr>
-    <div class="banner">
-      <a href="https://jigsaw.w3.org/css-validator/check/referer">
-        <img class="icon css" src="/static/images/css.svg" alt="Valid CSS!">
-      </a>
-      <a href="http://www.w3.org/1998/Math/MathML">
-        <img class="icon math" src="/static/images/math.svg" alt="Valid MathML!">
-      </a>
-      <a href="http://validator.w3.org/feed/check.cgi?url=https%3A//kekkan.org/atom.xml">
-        <img class="icon atom" src="/static/images/atom.png" alt="Valid Atom!">
-      </a>
-      <a href="https://www.mathjax.org">
-        <img class="icon mjax" src="/static/images/mjax.gif" alt="MathJax!">
-      </a>
-      <a href="https://creativecommons.org/licenses/by/4.0">
-        <img class="icon ccby" src="/static/images/ccby.svg" alt="CC BY 4.0!">
-      </a>
-    </div>
-    <div class="copyright" id="license">© 2024-2025 Jing Huang</div>
   </body>
 </html>
