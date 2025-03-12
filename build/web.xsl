@@ -171,6 +171,7 @@
       </xsl:if>
     </title>
     <link href="/favicon.ico" rel="icon"/>
+    <link href="/static/images/minami.jpg" rel="apple-touch-icon"/>
     <link href="/style/art.css" rel="stylesheet"/>
     <script src="/script/math.js"/>
   </xsl:template>
