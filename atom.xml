@@ -8,7 +8,14 @@
   <link type="application/atom+xml" rel="self" href="https://kekkan.org/atom.xml"/>
   <link rel="alternate" href="https://kekkan.org"/>
   <title>Archive RnE</title>
-  <updated>2025-03-03T00:01:00Z</updated>
+  <updated>2025-03-12T00:01:00Z</updated>
+  <entry>
+    <id>https://kekkan.org/article/emacs-conf.xml</id>
+    <link rel="alternate" href="https://kekkan.org/article/emacs-conf.xml"/>
+    <title>Emacs Configuration</title>
+    <updated>2025-03-12T00:01:00Z</updated>
+    <summary>Document My Emacs Configuration, Literately</summary>
+  </entry>
   <entry>
     <id>https://kekkan.org/index.html#n3</id>
     <link rel="alternate" href="https://kekkan.org/index.html#n3"/>
