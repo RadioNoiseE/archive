@@ -603,6 +603,7 @@
     <verbatim lang="elisp" line="3"><![CDATA[
 (use-package flyspell
   :with "aspell"
+  :defer t
   :init (setq ispell-program-name "aspell"))
     ]]></verbatim>
     <paragraph>Large language model chat client for Emacs.</paragraph>
