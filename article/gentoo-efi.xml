@@ -45,7 +45,7 @@ Processor type and features --->
     <unit role="section">
       <heading>Install</heading>
       <paragraph>Rebuild the kernel and install the kernel modules.</paragraph>
-      <verbatim lang="sh" line="1"><![CDATA[
+      <verbatim lang="bash" line="1"><![CDATA[
 make -j && make modules_install
       ]]></verbatim>
     </unit>
@@ -79,7 +79,7 @@ make -j && make modules_install
     <paragraph>The tool we use to create and manage the boot entries requires the EFI variables filesystem to be accessible
     (i.e., properly mounted).</paragraph>
     <paragraph>Run the following command to check if it is mounted properly:</paragraph>
-    <verbatim lang="sh" line="1"><![CDATA[
+    <verbatim lang="bash" line="1"><![CDATA[
 mount | grep efivars
     ]]></verbatim>
     <paragraph>If it is mounted as <verbatim>ro</verbatim>, remount it with <verbatim>rw</verbatim> so that we can create and modify
@@ -89,11 +89,11 @@ mount | grep efivars
     <heading>Create Boot Entry</heading>
     <paragraph>First execute <verbatim>efibootmgr</verbatim> without any options to list the existing boot entries. Remove unnecessary
     or obsolete ones with:</paragraph>
-    <verbatim lang="sh" line="1"><![CDATA[
+    <verbatim lang="bash" line="1"><![CDATA[
 efibootmgr -b 2 -B # select the `Bootx002' entry and remove it
     ]]></verbatim>
     <paragraph>Then create an entry for our system.</paragraph>
-    <verbatim lang="sh" line="2"><![CDATA[
+    <verbatim lang="bash" line="2"><![CDATA[
 efibootmgr -c -d /dev/nvme0n1 -p 2 -L "Linux EFI Stub" -l '\EFI\gentoo\bzImage.efi' -u 'root=/dev/nvme0n1p3' # without initramfs
 efibootmgr -c -d /dev/nvme0n1 -p 2 -L "Linux EFI Stub" -l '\EFI\gentoo\bzImage.efi' -u 'initrd=\EFI\gentoo\initramfs.img' # with initramfs
     ]]></verbatim>

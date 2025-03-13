@@ -29,7 +29,7 @@
     <paragraph><verbatim>ml1-llvm</verbatim> requires LLVM to be installed on your system, as it utilizes
     <verbatim>llc</verbatim>, <verbatim>opt</verbatim> and <verbatim>llvm-as</verbatim>. To build LLVM
     without other subprojects, these commands will do:</paragraph>
-    <verbatim lang="sh" line="5"><![CDATA[
+    <verbatim lang="bash" line="5"><![CDATA[
 git clone --depth 1 https://github.com/llvm/llvm-project.git
 cd llvm-project
 cmake -S llvm -B build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
@@ -43,12 +43,12 @@ sudo make install -j
   <unit role="chapter">
     <heading>Make ML/I</heading>
     <paragraph>Fetch the LOWL sources and extract <verbatim>ml1ajb.lwl</verbatim>:</paragraph>
-    <verbatim lang="sh" line="2"><![CDATA[
+    <verbatim lang="bash" line="2"><![CDATA[
 curl -O "http://www.ml1.org.uk/tgz/lowlml1.tar.gz"
 unar lowlml1.tar.gz
     ]]></verbatim>
     <paragraph>Then clone the <verbatim>ml1-llvm</verbatim> and make the executable.</paragraph>
-    <verbatim lang="sh" line="4"><![CDATA[
+    <verbatim lang="bash" line="4"><![CDATA[
 git clone git@github.com:glguida/ml1-llvm.git
 cd ml1-llvm
 make ML1SRC=../lowlml1/ml1ajb.lwl
