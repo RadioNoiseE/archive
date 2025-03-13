@@ -2,6 +2,7 @@
    Copyright (C) 2025, Jing Huang <RadioNoiseE@gmail.com> */
 
 @import "font.css";
+@import "smt.css";
 
 ::selection {
     background-color: #bdbdbd;

@@ -12,6 +12,7 @@
 
     2024-2025        RsML1 for WEB
     2025             Modify for MathJax
+    2025             Add Prism Highlight
 
   -->
 
@@ -29,6 +30,7 @@
   </xsl:template>
 
   <xsl:template name="listing">
+    <xsl:param name="language"/>
     <xsl:param name="previous"/>
     <xsl:param name="current"/>
     <xsl:param name="capacity"/>
@@ -68,6 +70,9 @@
             <span class="nsep">|</span>
           </span>
           <span class="ld"><code>
+            <xsl:attribute name="class">
+              <xsl:value-of select="$language"/>
+            </xsl:attribute>
             <xsl:choose>
               <xsl:when test="normalize-space($before)=''">
                 <xsl:text> </xsl:text>
@@ -83,6 +88,7 @@
         </xsl:if>
       </xsl:if>
       <xsl:call-template name="listing">
+        <xsl:with-param name="language" select="$language"/>
         <xsl:with-param name="previous" select="$before"/>
         <xsl:with-param name="current" select="$after"/>
         <xsl:with-param name="capacity" select="$capacity"/>
@@ -174,6 +180,7 @@
     <link href="/static/images/minami.jpg" rel="apple-touch-icon"/>
     <link href="/style/art.css" rel="stylesheet"/>
     <script src="/script/math.js"/>
+    <script src="/script/listing.js"/>
   </xsl:template>
 
   <xsl:template mode="initial" match="rsml:meta">
@@ -631,6 +638,7 @@
         </xsl:attribute>
       </xsl:if>
       <xsl:call-template name="listing">
+        <xsl:with-param name="language" select="concat('lang-',@lang)"/>
         <xsl:with-param name="current" select="text()"/>
         <xsl:with-param name="capacity" select="string-length(@line)"/>
         <xsl:with-param name="pointer" select="1"/>
