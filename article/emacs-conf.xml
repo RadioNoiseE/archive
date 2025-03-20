@@ -195,12 +195,14 @@
     ]]></verbatim>
     <paragraph>Supply my own modeline, inspired by
     <verbatim>tecoline</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="20"><![CDATA[
+    <verbatim lang="lisp" line="22"><![CDATA[
 (setq mode-line-right-align-edge 'right-margin)
 
 (defun mode-line-compose (indicator buffer preamble postamble)
   (list `(:propertize ,indicator face (:foreground "#ffffff" :background "#004f5f"))
         `(:propertize ,buffer face (:foreground "#193668"))
+        '(:propertize " " display (raise 0.12))
+        '(:propertize " " display (raise -0.12))
         'mode-line-format-right-align
         `(:propertize ,preamble face (:foreground "#193668"))
         '(:propertize "<<" face (:foreground "#595959"))
@@ -455,7 +457,7 @@
     ]]></verbatim>
     <paragraph>Tweak the background color for the splash image, and
     modifications for HTML mail preview using XWidget.</paragraph>
-    <verbatim lang="lisp" line="63"><![CDATA[
+    <verbatim lang="lisp" line="65"><![CDATA[
 (with-eval-after-load 'wl-demo
   (set-face-background 'wl-highlight-demo-face nil))
 
@@ -465,7 +467,8 @@
 (defun xwidget-wl-window-remnant (window)
   (when-let* ((object (next-single-property-change (point-min) 'display))
               (total (xwidget-window-inside-pixel-height window))
-              (remnant 0))
+              (fringes (window-fringes))
+              (remnant 2))
     (save-excursion
       (goto-char (point-min))
       (while (< (point) object)
@@ -475,7 +478,8 @@
       (while (< (point) (point-max))
         (setq remnant (+ remnant (line-pixel-height)))
         (forward-line 1)))
-    (- total (+ remnant 4))))
+    (- total (+ remnant (/ (+ (nth 0 fringes)
+                              (nth 1 fringes)) 2)))))
 
 (defun xwidget-wl-window-realize (&optional frame)
   (walk-windows (lambda (window)
