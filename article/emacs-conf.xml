@@ -457,7 +457,7 @@
     ]]></verbatim>
     <paragraph>Tweak the background color for the splash image, and
     modifications for HTML mail preview using XWidget.</paragraph>
-    <verbatim lang="lisp" line="65"><![CDATA[
+    <verbatim lang="lisp" line="63"><![CDATA[
 (with-eval-after-load 'wl-demo
   (set-face-background 'wl-highlight-demo-face nil))
 
@@ -484,8 +484,7 @@
 (defun xwidget-wl-window-realize (&optional frame)
   (walk-windows (lambda (window)
                   (with-current-buffer (window-buffer window)
-                    (when (or (eq major-mode 'wl-message-mode)
-                              (eq major-mode 'mime-view-mode))
+                    (when (eq major-mode 'mime-view-mode)
                       (when-let* ((object (car (get-buffer-xwidgets (buffer-name))))
                                   (width (xwidget-window-inside-pixel-width window))
                                   (height (xwidget-wl-window-remnant window)))
@@ -495,8 +494,7 @@
   (dolist (buffer (buffer-list))
     (unless (get-buffer-window buffer)
       (with-current-buffer buffer
-        (when (or (eq major-mode 'wl-message-mode)
-                  (eq major-mode 'mime-view-mode))
+        (when (eq major-mode 'mime-view-mode)
           (when-let* ((object (car (get-buffer-xwidgets (buffer-name)))))
             (kill-xwidget object)
             (kill-buffer (current-buffer))
