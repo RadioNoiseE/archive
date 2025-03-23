@@ -16,27 +16,38 @@
 
   <unit role="chapter">
     <heading>Why Build a New TeX Distribution</heading>
-    <paragraph><emphasize>Finally</emphasize> I decided to build my own TeX distribution<footnote>Thanks
-    to LdBeth for advertising!</footnote>, as the current TeXLive (even the minimal installation) is too
-    bloated for me. All I need is a basic TeX compiler and a compact directory containing the files TeX reads in.
-    I use Type1 fonts, but I certainly don<apostrophe/>t need a command line tool to generate font maps for me.
-    <verbatim>ls-R</verbatim> database is unnecessary unless there are <emphasize>many</emphasize> files
-    under the directory Kpathsea searches<footnote>Which is the case for TeXLive.</footnote>. Strictly speaking,
-    I also don't need LaTeX2e.</paragraph>
+    <paragraph><emphasize>Finally</emphasize> I decided to build my
+    own TeX distribution<footnote>Thanks to LdBeth for
+    advertising!</footnote>, as the current TeXLive (even the minimal
+    installation) is too bloated for me. All I need is a basic TeX
+    compiler and a compact directory containing the files TeX reads
+    in. I use Type1 fonts, but I certainly don<apostrophe/>t need a
+    command line tool to generate font maps for me.
+    <verbatim>ls-R</verbatim> database is unnecessary unless there are
+    <emphasize>many</emphasize> files under the directory Kpathsea
+    searches<footnote>Which is the case for
+    TeXLive.</footnote>. Strictly speaking, I also don<apostrophe/>t
+    need LaTeX2e.</paragraph>
   </unit>
 
   <unit role="chapter">
     <heading>My Choice</heading>
-    <paragraph>I chose LuaTeX as the TeX engine. While it doesn't come with many fancy features out of the box,
-    its functionality can be greatly extended using the embedded Lua scripting language. As the successor to
-    Omega/Aleph, LuaTeX greatly enhances vanilla TeX<apostrophe/>s multilingual typesetting capabilities.
-    A build-in graphic library <verbatim>mplib</verbatim> is included, which eliminates the need for TikZ
-    and such.</paragraph>
-    <paragraph>The default format is plainTeX, which I found much easier to work with compared to LaTeX2e. It
-    doesn<apostrophe/>t involve many high-level abstractions (i.e., NFSS2 for font selection), making it more
-    straightforward. It also doesn<apostrophe/>t uselessly try to separate format and content, which is really
-    useless when doing <emphasize>non-trivial</emphasize> typesetting. There are some drawbacks though, such as
-    a less active community.</paragraph>
+    <paragraph>I chose LuaTeX as the TeX engine. While it
+    doesn<apostrophe/>t come with many fancy features out of the box,
+    its functionality can be greatly extended using the embedded Lua
+    scripting language. As the successor to Omega/Aleph, LuaTeX
+    greatly enhances vanilla TeX<apostrophe/>s multilingual
+    typesetting capabilities. A build-in graphic library
+    <verbatim>mplib</verbatim> is included, which eliminates the need
+    for TikZ and such.</paragraph>
+    <paragraph>The default format is plainTeX, which I found much
+    easier to work with compared to LaTeX2e. It doesn<apostrophe/>t
+    involve many high-level abstractions (i.e., NFSS2 for font
+    selection), making it more straightforward. It also
+    doesn<apostrophe/>t uselessly try to separate format and content,
+    which is really useless when doing
+    <emphasize>non-trivial</emphasize> typesetting. There are some
+    drawbacks though, such as a less active community.</paragraph>
   </unit>
 
   <unit role="chapter">
@@ -44,47 +55,63 @@
 
     <unit role="section">
       <heading>Web2C (Kpathsea)</heading>
-      <paragraph>The main focus here is on optimizing compile-time and runtime path configuration. This is where
-      I modified the standard TDS. In addition to optimizing file scanning, I removed support for engines other
-      than LuaTeX and eliminated support for most helper scripts.</paragraph>
+      <paragraph>The main focus here is on optimizing compile-time and
+      runtime path configuration. This is where I modified the
+      standard TDS. In addition to optimizing file scanning, I removed
+      support for engines other than LuaTeX and eliminated support for
+      most helper scripts.</paragraph>
     </unit>
 
     <unit role="section">
       <heading>Engine (LuaTeX)</heading>
-      <paragraph>Nothing special here. I simply compiled LuaTeX inside TeXLive<apostrophe/>s source tree
-      (and its banner remains) with HarfBuzz. I had tried embedding LuaJIT, but seems like it is incompatible
-      with so many Lua-based macro-packages (like <verbatim>luaotfload</verbatim>).</paragraph>
+      <paragraph>Nothing special here. I simply compiled LuaTeX inside
+      TeXLive<apostrophe/>s source tree (and its banner remains) with
+      HarfBuzz. I had tried embedding LuaJIT, but seems like it is
+      incompatible with so many Lua-based macro-packages (like
+      <verbatim>luaotfload</verbatim>).</paragraph>
     </unit>
 
     <unit role="section">
       <heading>Fonts and Format</heading>
-      <paragraph>The basic installation includes only the Type1 and TFM for Computer Modern and all fonts
-      included in the AMSFonts bundle. You can use them with the good old ways. In further versions, the
-      Concrete Math font might be included.</paragraph>
-      <paragraph>To use OpenType or TrueType fonts, you will need <verbatim>luaotfload</verbatim>, a font
-      loader adapted from ConTeXt for plainTeX. This is bundled in the <verbatim>dist.tar.gz</verbatim>
-      which is released with <term>aplTeX</term>.</paragraph>
-      <paragraph>The default format is plainTeX, which has been patched in a way to utilize the extensions
-      of eTeX, pdfTeX, and LuaTeX. It is also Unicode-aware. Additionally, I've added an
-      <verbatim>\everyjob</verbatim> hook so that LuaTeX will read <verbatim>luatex.map</verbatim><footnote>Rather
-      than the frustrating <verbatim>pdftex.map</verbatim>.</footnote>.</paragraph>
+      <paragraph>The basic installation includes only the Type1 and
+      TFM for Computer Modern and all fonts included in the AMSFonts
+      bundle. You can use them with the good old ways. In further
+      versions, the Concrete Math font might be included.</paragraph>
+      <paragraph>To use OpenType or TrueType fonts, you will need
+      <verbatim>luaotfload</verbatim>, a font loader adapted from
+      ConTeXt for plainTeX. This is bundled in the
+      <verbatim>dist.tar.gz</verbatim> which is released with
+      <term>aplTeX</term>.</paragraph>
+      <paragraph>The default format is plainTeX, which has been
+      patched in a way to utilize the extensions of eTeX, pdfTeX, and
+      LuaTeX. It is also Unicode-aware. Additionally, I<apostrophe/>ve
+      added an <verbatim>\everyjob</verbatim> hook so that LuaTeX will
+      read <verbatim>luatex.map</verbatim><footnote>Rather than the
+      frustrating
+      <verbatim>pdftex.map</verbatim>.</footnote>.</paragraph>
     </unit>
   </unit>
 
   <unit role="chapter">
     <heading>Dist Release</heading>
-    <paragraph>The poor man<apostrophe/>s version doesn<apostrophe/>t come with any macro-packages — only
-    plainTeX. I believe external macro-packages are generally unnecessary for plainTeX, except in a few
-    cases.</paragraph>
-    <paragraph>For these rare cases, I<apostrophe/>ve packaged a few macro-packages. These are mainly for
-    demonstration purposes (showing how the modified TDS works), and to handle some of the complex dependencies
-    (many of which weren't even documented). The packaged ones include:</paragraph>
+    <paragraph>The poor man<apostrophe/>s version doesn<apostrophe/>t
+    come with any macro-packages — only plainTeX. I believe external
+    macro-packages are generally unnecessary for plainTeX, except in a
+    few cases.</paragraph>
+    <paragraph>For these rare cases, I<apostrophe/>ve packaged a few
+    macro-packages. These are mainly for demonstration purposes
+    (showing how the modified TDS works), and to handle some of the
+    complex dependencies (many of which weren<apostrophe/>t even
+    documented). The packaged ones include:</paragraph>
     <list type="itemize">
-      <item><verbatim>luamplib</verbatim>, which offers a convenient way to use LuaTeX<apostrophe/>s
-      <verbatim>mplib</verbatim> for plotting.</item>
-      <item><verbatim>luaotfload</verbatim>, which is the plainTeX migration of the ConTeXt font loader, making
-      it easier to work with OTF fonts.</item>
-      <item><verbatim>luatexja</verbatim>, which provides high-quality CJK typesetting support.</item>
+      <item><verbatim>luamplib</verbatim>, which offers a convenient
+      way to use LuaTeX<apostrophe/>s <verbatim>mplib</verbatim> for
+      plotting.</item>
+      <item><verbatim>luaotfload</verbatim>, which is the plainTeX
+      migration of the ConTeXt font loader, making it easier to work
+      with OTF fonts.</item>
+      <item><verbatim>luatexja</verbatim>, which provides high-quality
+      CJK typesetting support.</item>
     </list>
   </unit>
 </rsml>

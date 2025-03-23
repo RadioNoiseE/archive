@@ -16,25 +16,30 @@
 
   <unit role="chapter">
     <heading>Background</heading>
-    <paragraph>In order to boot the Linux kernel, one traditionally needs a bootloader like Grub or chainloader like
-    rEFInd. However, these are ugly (text-only ones look alright, but graphic ones with low resolution images really don't
-    look good), slow and no longer necessary.</paragraph>
-    <paragraph>Modern PC comes with UEFI support, which enables us to directly load kernel images from the EFI partition
-    without the need for any bootloader or chainloaders.</paragraph>
+    <paragraph>In order to boot the Linux kernel, one traditionally
+    needs a bootloader like Grub or chainloader like rEFInd. However,
+    these are ugly (text-only ones look alright, but graphic ones with
+    low resolution images really don<apostrophe/>t look good), slow
+    and no longer necessary.</paragraph>
+    <paragraph>Modern PC comes with UEFI support, which enables us to
+    directly load kernel images from the EFI partition without the
+    need for any bootloader or chainloaders.</paragraph>
   </unit>
 
   <unit role="chapter">
     <heading>Linux Kernal</heading>
     <unit role="section">
       <heading>Configuration</heading>
-      <paragraph>You should enable native EFI support and EFI stub support for the kernel.</paragraph>
+      <paragraph>You should enable native EFI support and EFI stub
+      support for the kernel.</paragraph>
       <verbatim lang="kernel" line="4"><![CDATA[
 Processor type and features --->
    [*] EFI runtime service support
    [*]   EFI stub support
    [ ]     EFI mixed-mode support
       ]]></verbatim>
-      <paragraph>You are also recommended to embed the root partition information into the kernel.</paragraph>
+      <paragraph>You are also recommended to embed the root partition
+      information into the kernel.</paragraph>
       <verbatim lang="kernel" line="3"><![CDATA[
 Processor type and features --->
    [*] Built-in kernel command line
@@ -44,7 +49,8 @@ Processor type and features --->
 
     <unit role="section">
       <heading>Install</heading>
-      <paragraph>Rebuild the kernel and install the kernel modules.</paragraph>
+      <paragraph>Rebuild the kernel and install the kernel
+      modules.</paragraph>
       <verbatim lang="bash" line="1"><![CDATA[
 make -j && make modules_install
       ]]></verbatim>
@@ -52,15 +58,18 @@ make -j && make modules_install
 
     <unit role="section">
       <heading>Initramfs</heading>
-      <paragraph>An initramfs regeneration might be necessary. For example if you embedded the root partition information into the
+      <paragraph>An initramfs regeneration might be necessary. For
+      example if you embedded the root partition information into the
       kernel, or if you use BTRFS subvolumes.</paragraph>
     </unit>
   </unit>
 
   <unit role="section">
     <heading>EFI Partition</heading>
-    <paragraph>Create an EFI system partition if you don't have one. This ESP should then be mounted at <verbatim>/efi</verbatim>.
-    Then make the below directory structure:</paragraph>
+    <paragraph>Create an EFI system partition if you don<apostrophe/>t
+    have one. This ESP should then be mounted at
+    <verbatim>/efi</verbatim>. Then make the below directory
+    structure:</paragraph>
     <verbatim lang="dir" line="5"><![CDATA[
 /efi
 └── EFI
@@ -68,26 +77,33 @@ make -j && make modules_install
         ├── initramfs.img
         └── bzImage.efi
     ]]></verbatim>
-    <paragraph>The <verbatim>bzImage.efi</verbatim> should be copied from <verbatim>/usr/src/linux/arch/x86/boot/bzImage</verbatim>.
-    The <verbatim>initramfs.img</verbatim> is optional, copied from the initramfs only when needed.</paragraph>
-    <paragraph>There can be more than one subdirectories containing stub images for more than one system inside the <verbatim>EFI</verbatim>
-    directory.</paragraph>
+    <paragraph>The <verbatim>bzImage.efi</verbatim> should be copied
+    from <verbatim>/usr/src/linux/arch/x86/boot/bzImage</verbatim>.
+    The <verbatim>initramfs.img</verbatim> is optional, copied from
+    the initramfs only when needed.</paragraph>
+    <paragraph>There can be more than one subdirectories containing
+    stub images for more than one system inside the
+    <verbatim>EFI</verbatim> directory.</paragraph>
   </unit>
 
   <unit role="chapter">
     <heading>EFI Variables Filesystem</heading>
-    <paragraph>The tool we use to create and manage the boot entries requires the EFI variables filesystem to be accessible
-    (i.e., properly mounted).</paragraph>
-    <paragraph>Run the following command to check if it is mounted properly:</paragraph>
+    <paragraph>The tool we use to create and manage the boot entries
+    requires the EFI variables filesystem to be accessible (i.e.,
+    properly mounted).</paragraph>
+    <paragraph>Run the following command to check if it is mounted
+    properly:</paragraph>
     <verbatim lang="bash" line="1"><![CDATA[
 mount | grep efivars
     ]]></verbatim>
-    <paragraph>If it is mounted as <verbatim>ro</verbatim>, remount it with <verbatim>rw</verbatim> so that we can create and modify
-    EFI boot entries.</paragraph>
+    <paragraph>If it is mounted as <verbatim>ro</verbatim>, remount it
+    with <verbatim>rw</verbatim> so that we can create and modify EFI
+    boot entries.</paragraph>
   </unit>
   <unit role="chapter">
     <heading>Create Boot Entry</heading>
-    <paragraph>First execute <verbatim>efibootmgr</verbatim> without any options to list the existing boot entries. Remove unnecessary
+    <paragraph>First execute <verbatim>efibootmgr</verbatim> without
+    any options to list the existing boot entries. Remove unnecessary
     or obsolete ones with:</paragraph>
     <verbatim lang="bash" line="1"><![CDATA[
 efibootmgr -b 2 -B # select the `Bootx002' entry and remove it
@@ -97,22 +113,32 @@ efibootmgr -b 2 -B # select the `Bootx002' entry and remove it
 efibootmgr -c -d /dev/nvme0n1 -p 2 -L "Linux EFI Stub" -l '\EFI\gentoo\bzImage.efi' -u 'root=/dev/nvme0n1p3' # without initramfs
 efibootmgr -c -d /dev/nvme0n1 -p 2 -L "Linux EFI Stub" -l '\EFI\gentoo\bzImage.efi' -u 'initrd=\EFI\gentoo\initramfs.img' # with initramfs
     ]]></verbatim>
-    <paragraph>After checking if the system can successfully boot, you can unmerge <verbatim>efibootmgr</verbatim>. Just copy new
-    kernel images and initramfs to the same position on the EFI partition.</paragraph>
+    <paragraph>After checking if the system can successfully boot, you
+    can unmerge <verbatim>efibootmgr</verbatim>. Just copy new kernel
+    images and initramfs to the same position on the EFI
+    partition.</paragraph>
   </unit>
 
   <unit role="chapter">
     <heading>Troubleshoot</heading>
-    <paragraph>If you encountered the common <quote>VFS: Cannot open root device or unknown block</quote> error, don<apostrophe/>t panic.</paragraph>
+    <paragraph>If you encountered the common <quote>VFS: Cannot open
+    root device or unknown block</quote> error, don<apostrophe/>t
+    panic.</paragraph>
     <list type="enumerate">
-      <item>Remember to supply the kernel with <verbatim><![CDATA[root=/dev/<block>]]></verbatim> using <verbatim>-u</verbatim> option of
-      <verbatim>efibootmgr</verbatim> or the kernel built-in command line. An initramfs generated by for instance dracut might also
+      <item>Remember to supply the kernel with
+      <verbatim><![CDATA[root=/dev/<block>]]></verbatim> using
+      <verbatim>-u</verbatim> option of
+      <verbatim>efibootmgr</verbatim> or the kernel built-in command
+      line. An initramfs generated by for instance dracut might also
       contain one.</item>
-      <item>If you specified the system root partition using kernel build-in command line or by <verbatim>UUID</verbatim>, you need an
-      initramfs.</item>
+      <item>If you specified the system root partition using kernel
+      build-in command line or by <verbatim>UUID</verbatim>, you need
+      an initramfs.</item>
       <item>If you use BTRFS subvolumes, you need an initramfs.</item>
-      <item>Try the <verbatim>rootwait</verbatim> option if an initramfs is not used and the root filesystem is on an MTD device
-      (such as an NVME drive) to make the kernel wait for asynchronous initialization of the device.</item>
+      <item>Try the <verbatim>rootwait</verbatim> option if an
+      initramfs is not used and the root filesystem is on an MTD
+      device (such as an NVME drive) to make the kernel wait for
+      asynchronous initialization of the device.</item>
     </list>
   </unit>
 </rsml>
