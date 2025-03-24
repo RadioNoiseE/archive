@@ -658,7 +658,7 @@
       (\lambda V:\mathbb{T}2.\Lambda_{\mathbb{T}2})\mid(\lambda\mathbb{V}:*.\Lambda_{\mathbb{T}2}).</math>
       <paragraph>Note that now we have two classes of variables:
       object variables <math>V</math> and type variables
-      <math>\mathbb{V}</math>.  We also have first order application
+      <math>\mathbb{V}</math>. We also have first order application
       <math>(\Lambda_{\mathbb{T}2}\Lambda_{\mathbb{T}2})</math> and
       second order application
       <math>(\Lambda_{\mathbb{T}2}\mathbb{T}2)</math> as well as first
