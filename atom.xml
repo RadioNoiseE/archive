@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"
-      xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
+<feed xmlns="http://www.w3.org/2005/Atom">
   <title>Archive RnE</title>
   <author>
     <name>Jing Huang</name>
@@ -25,9 +23,10 @@
     <published>2025-03-23T00:01:00Z</published>
     <updated>2025-03-12T00:01:00Z</updated>
     <summary type="xhtml">
-      <xhtml:div>Emacs configuration designed specifically for the
-      NeXTStep Cocoa implementation, focusing on simplicity, avoiding
-      complex abstractions, while incorporating a few handy
+      <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">Emacs
+      configuration designed specifically for the NeXTStep Cocoa
+      implementation, focusing on simplicity, avoiding complex
+      abstractions, while incorporating a few handy
       patches.</xhtml:div>
     </summary>
   </entry>
@@ -39,9 +38,10 @@
     <published>2025-03-03T00:01:00Z</published>
     <updated>2025-03-03T00:01:00Z</updated>
     <summary type="xhtml">
-      <xhtml:div>Updated MathJax to version 4.0 beta for linebreak and
-      math font support for the SVG output backend and correct
-      bounding box for <xhtml:em>BussProofs</xhtml:em>.</xhtml:div>
+      <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">Updated
+      MathJax to version 4.0 beta for linebreak and math font support
+      for the SVG output backend and correct bounding box for
+      <xhtml:i>BussProofs</xhtml:i>.</xhtml:div>
     </summary>
   </entry>
 
@@ -52,8 +52,9 @@
     <published>2025-02-12T00:01:00Z</published>
     <updated>2025-02-12T00:01:00Z</updated>
     <summary type="xhtml">
-      <xhtml:div>Since I&#8217;ve learnt more about type theory,
-      I&#8217;m updating some of the entries (aka, holes).</xhtml:div>
+      <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">Since
+      I&#8217;ve learnt more about type theory, I&#8217;m updating
+      some of the entries (aka, holes).</xhtml:div>
     </summary>
   </entry>
 
@@ -64,10 +65,10 @@
     <published>2025-02-10T00:01:00Z</published>
     <updated>2025-02-10T00:01:00Z</updated>
     <summary type="xhtml">
-      <xhtml:div>The new chapter for <xhtml:em>Type Theory and Formal
-      Proof</xhtml:em> is about type dependent on terms, also known as
-      dependent types, an overlapping feature of type theory and type
-      systems.</xhtml:div>
+      <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">The new
+      chapter for <xhtml:i>Type Theory and Formal Proof</xhtml:i> is
+      about type dependent on terms, also known as dependent types, an
+      overlapping feature of type theory and type systems.</xhtml:div>
     </summary>
   </entry>
 
@@ -78,9 +79,10 @@
     <published>2025-02-09T00:01:00Z</published>
     <updated>2025-02-09T00:01:00Z</updated>
     <summary type="xhtml">
-      <xhtml:div>The new chapter for <xhtml:em>Type Theory and Formal
-      Proof</xhtml:em> is about type dependent on types, which
-      provides a way to construct generalized types.</xhtml:div>
+      <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">The new
+      chapter for <xhtml:i>Type Theory and Formal Proof</xhtml:i> is
+      about type dependent on types, which provides a way to construct
+      generalized types.</xhtml:div>
     </summary>
   </entry>
 
@@ -91,11 +93,12 @@
     <published>2025-02-07T00:01:00Z</published>
     <updated>2025-02-07T00:01:00Z</updated>
     <summary type="xhtml">
-      <xhtml:div>The new chapter for <xhtml:em>Type Theory and Formal
-      Proof</xhtml:em> is about second order lambda calculus, which
-      extends simply typed lambda calculus by allowing types to be
-      functions that can take other types as arguments and return
-      types as results.</xhtml:div>
+      <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">The new
+      chapter for <xhtml:i>Type Theory and Formal Proof</xhtml:i> is
+      about second order lambda calculus, which extends simply typed
+      lambda calculus by allowing types to be functions that can take
+      other types as arguments and return types as
+      results.</xhtml:div>
     </summary>
   </entry>
 
@@ -106,9 +109,10 @@
     <published>2025-02-06T00:01:00Z</published>
     <updated>2025-02-06T00:01:00Z</updated>
     <summary type="xhtml">
-      <xhtml:div>Mirror site which serves HTML5 instead of RsML is now
-      available, hosting service provided by CloudFlare.  Also
-      specially feature LdBeth&#8217;s homepage.</xhtml:div>
+      <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">Mirror
+      site which serves HTML5 instead of RsML is now available,
+      hosting service provided by CloudFlare.  Also specially feature
+      LdBeth&#8217;s homepage.</xhtml:div>
     </summary>
   </entry>
 
@@ -119,10 +123,10 @@
     <published>2025-01-31T00:01:00Z</published>
     <updated>2025-01-31T00:01:00Z</updated>
     <summary type="xhtml">
-      <xhtml:div>The new chapter for <xhtml:em>Type Theory and Formal
-      Proof</xhtml:em> is about simply typed lambda calculus, a
-      variant of lambda calculus where each term is assigned a
-      specific type.</xhtml:div>
+      <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">The new
+      chapter for <xhtml:i>Type Theory and Formal Proof</xhtml:i> is
+      about simply typed lambda calculus, a variant of lambda calculus
+      where each term is assigned a specific type.</xhtml:div>
     </summary>
   </entry>
 
@@ -133,8 +137,9 @@
     <published>2024-12-20T00:01:00Z</published>
     <updated>2024-12-20T00:01:00Z</updated>
     <summary type="xhtml">
-      <xhtml:div>Article about my plainTeX distribution built on top
-      of Web2C and LuaTeX, which entire installation is less than
+      <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">Article
+      about my plainTeX distribution built on top of Web2C and LuaTeX,
+      which entire installation is less than
       <xhtml:code>20mb</xhtml:code>.</xhtml:div>
     </summary>
   </entry>
@@ -146,8 +151,9 @@
     <published>2024-12-02T00:01:00Z</published>
     <updated>2024-12-02T00:01:00Z</updated>
     <summary type="xhtml">
-      <xhtml:div>Article about assembling ML/I on Apple silicon using
-      the LOWL to LLVM map available.  A short one.</xhtml:div>
+      <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">Article
+      about assembling ML/I on Apple silicon using the LOWL to LLVM
+      map available.  A short one.</xhtml:div>
     </summary>
   </entry>
 
@@ -158,9 +164,10 @@
     <published>2024-11-02T00:01:00Z</published>
     <updated>2024-11-02T00:01:00Z</updated>
     <summary type="xhtml">
-      <xhtml:div>Article about a modern system booting practice by
-      leveraging the EFI system partition to directly load the kernel,
-      a fast, clean, and robust approach.</xhtml:div>
+      <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">Article
+      about a modern system booting practice by leveraging the EFI
+      system partition to directly load the kernel, a fast, clean, and
+      robust approach.</xhtml:div>
     </summary>
   </entry>
 
@@ -171,10 +178,11 @@
     <published>2024-08-18T00:01:00Z</published>
     <updated>2024-08-18T00:01:00Z</updated>
     <summary type="xhtml">
-      <xhtml:div>The first chapter for <xhtml:em>Type Theory and
-      Formal Proof</xhtml:em> presents a formal system for expressing
-      computation based on function abstraction and application, where
-      all functions and variables are treated as untyped.</xhtml:div>
+      <xhtml:div xmlns:xhtml="http://www.w3.org/1999/xhtml">The first
+      chapter for <xhtml:i>Type Theory and Formal Proof</xhtml:i>
+      presents a formal system for expressing computation based on
+      function abstraction and application, where all functions and
+      variables are treated as untyped.</xhtml:div>
     </summary>
   </entry>
 </feed>
