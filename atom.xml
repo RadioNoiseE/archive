@@ -1,96 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
+<feed xmlns="http://www.w3.org/2005/Atom"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <title>Archive RnE</title>
   <author>
     <name>Jing Huang</name>
+    <uri>https://kekkan.org/</uri>
+    <email>radionoisee@gmail.com</email>
   </author>
   <id>https://kekkan.org/</id>
-  <generator>RnE</generator>
+
+  <link type="text/html" rel="alternate" href="https://kekkan.org/index.html"/>
   <link type="application/atom+xml" rel="self" href="https://kekkan.org/atom.xml"/>
-  <link rel="alternate" href="https://kekkan.org"/>
-  <title>Archive RnE</title>
-  <updated>2025-03-12T00:01:00Z</updated>
+  <icon>https://kekkan.org/favicon.ico</icon>
+  <logo>https://kekkan.org/static/images/minami.jpg</logo>
+
+  <rights>Copyright 2024-2025 Jing Huang</rights>
+  <updated>2025-03-23T00:01:00Z</updated>
+
   <entry>
-    <id>https://kekkan.org/article/emacs-conf.xml</id>
+    <id>tag:kekkan.org,2025:article#9</id>
     <link rel="alternate" href="https://kekkan.org/article/emacs-conf.xml"/>
-    <title>Emacs Configuration</title>
+    <title>New article which documents my Emacs configuration</title>
+    <published>2025-03-23T00:01:00Z</published>
     <updated>2025-03-12T00:01:00Z</updated>
-    <summary>Document My Emacs Configuration, Literately</summary>
+    <summary type="xhtml">
+      <xhtml:div>Emacs configuration designed specifically for the
+      NeXTStep Cocoa implementation, focusing on simplicity, avoiding
+      complex abstractions, while incorporating a few handy
+      patches.</xhtml:div>
+    </summary>
   </entry>
+
   <entry>
-    <id>https://kekkan.org/index.html#n3</id>
+    <id>tag:kekkan.org,2025:news#3</id>
     <link rel="alternate" href="https://kekkan.org/index.html#n3"/>
-    <title>Site Update</title>
+    <title>Component for math equations updated</title>
+    <published>2025-03-03T00:01:00Z</published>
     <updated>2025-03-03T00:01:00Z</updated>
-    <summary>Update MathJax to Version 4.0 Beta for Better Linebreak, SVG Font and BussProofs</summary>
+    <summary type="xhtml">
+      <xhtml:div>Updated MathJax to version 4.0 beta for linebreak and
+      math font support for the SVG output backend and correct
+      bounding box for <xhtml:em>BussProofs</xhtml:em>.</xhtml:div>
+    </summary>
   </entry>
+
   <entry>
-    <id>https://kekkan.org/index.html#n2</id>
+    <id>tag:kekkan.org,2025:news#2</id>
     <link rel="alternate" href="https://kekkan.org/index.html#n2"/>
-    <title>Site Update</title>
+    <title>Article entries about types updated</title>
+    <published>2025-02-12T00:01:00Z</published>
     <updated>2025-02-12T00:01:00Z</updated>
-    <summary>Since I&apos;ve Gained a Deeper Understanding of Type Theory, I&apos;m Updating Some of the Entries</summary>
+    <summary type="xhtml">
+      <xhtml:div>Since I&#8217;ve learnt more about type theory,
+      I&#8217;m updating some of the entries (aka, holes).</xhtml:div>
+    </summary>
   </entry>
+
   <entry>
-    <id>https://kekkan.org/article/ttafp-note.xml#c5</id>
+    <id>tag:kekkan.org,2025:article#8</id>
     <link rel="alternate" href="https://kekkan.org/article/ttafp-note.xml#c5"/>
-    <title>Type Theory and Formal Proof</title>
+    <title>New chapter about type dependent on terms</title>
+    <published>2025-02-10T00:01:00Z</published>
     <updated>2025-02-10T00:01:00Z</updated>
-    <summary>About Type Dependent on Terms</summary>
+    <summary type="xhtml">
+      <xhtml:div>The new chapter for <xhtml:em>Type Theory and Formal
+      Proof</xhtml:em> is about type dependent on terms, also known as
+      dependent types, an overlapping feature of type theory and type
+      systems.</xhtml:div>
+    </summary>
   </entry>
+
   <entry>
-    <id>https://kekkan.org/article/ttafp-note.xml#c4</id>
+    <id>tag:kekkan.org,2025:article#7</id>
     <link rel="alternate" href="https://kekkan.org/article/ttafp-note.xml#c4"/>
-    <title>Type Theory and Formal Proof</title>
+    <title>New chapter about type dependent on types</title>
+    <published>2025-02-09T00:01:00Z</published>
     <updated>2025-02-09T00:01:00Z</updated>
-    <summary>About Type Dependent on Types</summary>
+    <summary type="xhtml">
+      <xhtml:div>The new chapter for <xhtml:em>Type Theory and Formal
+      Proof</xhtml:em> is about type dependent on types, which
+      provides a way to construct generalized types.</xhtml:div>
+    </summary>
   </entry>
+
   <entry>
-    <id>https://kekkan.org/article/ttafp-note.xml#c3</id>
+    <id>tag:kekkan.org,2025:article#6</id>
     <link rel="alternate" href="https://kekkan.org/article/ttafp-note.xml#c3"/>
-    <title>Type Theory and Formal Proof</title>
+    <title>New chapter about second order lambda calculus</title>
+    <published>2025-02-07T00:01:00Z</published>
     <updated>2025-02-07T00:01:00Z</updated>
-    <summary>About Second Order Typed Lambda Calculus</summary>
+    <summary type="xhtml">
+      <xhtml:div>The new chapter for <xhtml:em>Type Theory and Formal
+      Proof</xhtml:em> is about second order lambda calculus, which
+      extends simply typed lambda calculus by allowing types to be
+      functions that can take other types as arguments and return
+      types as results.</xhtml:div>
+    </summary>
   </entry>
+
   <entry>
-    <id>https://kekkan.org/index.html#n1</id>
+    <id>tag:kekkan.org,2025:news#1</id>
     <link rel="alternate" href="https://kekkan.org/index.html#n1"/>
-    <title>Site Update</title>
+    <title>HTML mirror established and feature LdBeth</title>
+    <published>2025-02-06T00:01:00Z</published>
     <updated>2025-02-06T00:01:00Z</updated>
-    <summary>Add HTML Mirror and Link to LdBeth&apos;s Homepage</summary>
+    <summary type="xhtml">
+      <xhtml:div>Mirror site which serves HTML5 instead of RsML is now
+      available, hosting service provided by CloudFlare.  Also
+      specially feature LdBeth&#8217;s homepage.</xhtml:div>
+    </summary>
   </entry>
+
   <entry>
-    <id>https://kekkan.org/article/ttafp-note.xml#c2</id>
+    <id>tag:kekkan.org,2025:article#5</id>
     <link rel="alternate" href="https://kekkan.org/article/ttafp-note.xml#c2"/>
-    <title>Type Theory and Formal Proof</title>
+    <title>New chapter about simply typed lambda calculus</title>
+    <published>2025-01-31T00:01:00Z</published>
     <updated>2025-01-31T00:01:00Z</updated>
-    <summary>About Simply Typed Lambda Calculus</summary>
+    <summary type="xhtml">
+      <xhtml:div>The new chapter for <xhtml:em>Type Theory and Formal
+      Proof</xhtml:em> is about simply typed lambda calculus, a
+      variant of lambda calculus where each term is assigned a
+      specific type.</xhtml:div>
+    </summary>
   </entry>
+
   <entry>
-    <id>https://kekkan.org/article/apltex-dist.xml</id>
+    <id>tag:kekkan.org,2025:article#4</id>
     <link rel="alternate" href="https://kekkan.org/article/apltex-dist.xml"/>
-    <title>Tiny TeX Distribution Based on Web2C and LuaTeX</title>
+    <title>New article about my minified TeX distribution</title>
+    <published>2024-12-20T00:01:00Z</published>
     <updated>2024-12-20T00:01:00Z</updated>
-    <summary>An Attempt on Minifying TeX</summary>
+    <summary type="xhtml">
+      <xhtml:div>Article about my plainTeX distribution built on top
+      of Web2C and LuaTeX, which entire installation is less than
+      <xhtml:code>20mb</xhtml:code>.</xhtml:div>
+    </summary>
   </entry>
+
   <entry>
-    <id>https://kekkan.org/article/ml1-silicon.xml</id>
+    <id>tag:kekkan.org,2025:article#3</id>
     <link rel="alternate" href="https://kekkan.org/article/ml1-silicon.xml"/>
-    <title>Install ML/I on Apple Silicon from LOWL Source</title>
+    <title>New article about installing assembled ML/I on M3</title>
+    <published>2024-12-02T00:01:00Z</published>
     <updated>2024-12-02T00:01:00Z</updated>
-    <summary>Assembled ML/I Using LLVM</summary>
+    <summary type="xhtml">
+      <xhtml:div>Article about assembling ML/I on Apple silicon using
+      the LOWL to LLVM map available.  A short one.</xhtml:div>
+    </summary>
   </entry>
+
   <entry>
-    <id>https://kekkan.org/article/gentoo-efi.xml</id>
+    <id>tag:kekkan.org,2025:article#2</id>
     <link rel="alternate" href="https://kekkan.org/article/gentoo-efi.xml"/>
-    <title>Boot Gentoo Using EFI Stub</title>
+    <title>New article about gentoo system boot using EFI stub</title>
+    <published>2024-11-02T00:01:00Z</published>
     <updated>2024-11-02T00:01:00Z</updated>
-    <summary>Fast and Clean System Boot</summary>
+    <summary type="xhtml">
+      <xhtml:div>Article about a modern system booting practice by
+      leveraging the EFI system partition to directly load the kernel,
+      a fast, clean, and robust approach.</xhtml:div>
+    </summary>
   </entry>
+
   <entry>
-    <id>https://kekkan.org/article/ttafp-note.xml#c1</id>
+    <id>tag:kekkan.org,2025:article#1</id>
     <link rel="alternate" href="https://kekkan.org/article/ttafp-note.xml#c1"/>
-    <title>Type Theory and Formal Proof</title>
+    <title>New chapter about untyped lambda calculus</title>
+    <published>2024-08-18T00:01:00Z</published>
     <updated>2024-08-18T00:01:00Z</updated>
-    <summary>About Untyped Lambda Calculus</summary>
+    <summary type="xhtml">
+      <xhtml:div>The first chapter for <xhtml:em>Type Theory and
+      Formal Proof</xhtml:em> presents a formal system for expressing
+      computation based on function abstraction and application, where
+      all functions and variables are treated as untyped.</xhtml:div>
+    </summary>
   </entry>
 </feed>
