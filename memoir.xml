@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Memoir RnE</title>
+  <author>
+    <name>Jing Huang</name>
+    <email>radionoisee@gmail.com</email>
+  </author>
+  <id>https://kekkan.org/</id>
+
+  <link type="text/html" rel="alternate" href="https://kekkan.org/index.html"/>
+  <link type="application/atom+xml" rel="self" href="https://kekkan.org/memoir.xml"/>
+  <icon>https://kekkan.org/favicon.ico</icon>
+  <logo>https://kekkan.org/static/images/minami.jpg</logo>
+
+  <rights>Copyright 2024-2025 Jing Huang</rights>
+  <updated>2025-03-25T00:01:00Z</updated>
+
+  <entry>
+    <id>tag:kekkan.org,2025:memoir#1</id>
+    <title>Somewhat a tough start</title>
+    <published>2025-03-25T22:50:29Z</published>
+    <updated>2025-03-25T22:50:29Z</updated>
+    <content type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        <p>Received a very low score on my first monthly test, getting
+        a 5 in Japanese.  Lot of deadlines ahead.</p> <p>First memoir
+        in this feed, but I&#8217;m not sure exactly what to say. I
+        guess this will be it for now.</p>
+      </div>
+    </content>
+  </entry>
+</feed>
