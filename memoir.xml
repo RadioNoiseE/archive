@@ -24,9 +24,9 @@
     <content type="xhtml">
       <div xmlns="http://www.w3.org/1999/xhtml">
         <p>Just decided to write some XSLT to transform atom feed to
-        valid HTML5 so can be displayed in an iframe.</p> <p>It feels
-        more comfortable for me than using JavaScript, unless I missed
-        something.</p>
+        valid HTML5 so it can be displayed in an iframe.</p> <p>It
+        feels more comfortable for me than using JavaScript, unless I
+        missed something.</p>
       </div>
     </content>
   </entry>
