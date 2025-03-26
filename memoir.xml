@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Memoir RnE</title>
   <author>
@@ -13,7 +14,22 @@
   <logo>https://kekkan.org/static/images/minami.jpg</logo>
 
   <rights>Copyright 2024-2025 Jing Huang</rights>
-  <updated>2025-03-25T00:01:00Z</updated>
+  <updated>2025-03-26T13:25:03Z</updated>
+
+  <entry>
+    <id>tag:kekkan.org,2025:memoir#2</id>
+    <title>Some more XSLT for my site</title>
+    <published>2025-03-26T13:25:03Z</published>
+    <updated>2025-03-26T13:25:03Z</updated>
+    <content type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        <p>Just decided to write some XSLT to transform atom feed to
+        valid HTML5 so can be displayed in an iframe.</p> <p>It feels
+        more comfortable for me than using JavaScript, unless I missed
+        something.</p>
+      </div>
+    </content>
+  </entry>
 
   <entry>
     <id>tag:kekkan.org,2025:memoir#1</id>
@@ -24,7 +40,7 @@
       <div xmlns="http://www.w3.org/1999/xhtml">
         <p>Received a very low score on my first monthly test, getting
         a 5 in Japanese.  Lot of deadlines ahead.</p> <p>First memoir
-        in this feed, but I&#8217;m not sure exactly what to say. I
+        in this feed, but I&#8217;m not sure exactly what to say.  I
         guess this will be it for now.</p>
       </div>
     </content>
