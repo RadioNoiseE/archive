@@ -53,18 +53,6 @@ body {
     font-weight: bold;
 }
 
-.header .email {
-    font-family: LAT-MS, monospace;
-}
-
-.header .email::before {
-    content: '<';
-}
-
-.header .email::after {
-    content: '>';
-}
-
 .header .bio {
     display: block;
     font-size: 1.1em;
@@ -85,8 +73,8 @@ body {
 }
 
 .content * {
-    line-height: 1.2em;
-    margin-bottom: .2em;
+    line-height: 1.4em;
+    margin-bottom: .4em;
 }
 
 .discrete {
