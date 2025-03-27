@@ -36,13 +36,13 @@
     <id>tag:kekkan.org,2025:memoir#2</id>
     <title>Some more XSLT for my site</title>
     <published>2025-03-26T13:25:03Z</published>
-    <updated>2025-03-26T13:25:03Z</updated>
+    <updated>2025-03-26T13:27:52Z</updated>
     <content type="xhtml">
       <div xmlns="http://www.w3.org/1999/xhtml">
         <p>Just decided to write some XSLT to transform atom feed to
-        valid HTML5 so it can be displayed in an iframe.</p> <p>It
-        feels more comfortable for me than using JavaScript, unless I
-        missed something.</p>
+        valid HTML5 so it can be displayed in an
+        <code>iframe</code>.</p> <p>It feels more comfortable for me
+        than using JavaScript, unless I missed something.</p>
       </div>
     </content>
   </entry>
