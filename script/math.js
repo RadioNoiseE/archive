@@ -20,7 +20,7 @@ window.MathJax = {
     }
 };
 
-(function () {
+(() => {
     var script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-svg-nofont.js';
     script.async = true;
