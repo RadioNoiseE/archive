@@ -33,7 +33,7 @@
       <body>
         <div class="meta">
           <div class="header">
-            <a class="header-left" href="{atom:id}"><img class="avatar" src="{atom:logo}"/></a>
+            <a class="header-left" href="{atom:id}" target="_blank"><img class="avatar" src="{atom:logo}"/></a>
             <div class="header-right"><span class="description">
               <xsl:variable name="contact" select="atom:author/atom:email"/>
               <a class="title" href="mailto:{$contact}"><xsl:value-of select="atom:title"/></a>
