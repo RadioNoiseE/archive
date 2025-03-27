@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type='text/xsl' href='/build/atom.xsl'?>
 
-<memoir xmlns="http://kekkan.org/RsFL">
+<feed xmlns="http://www.w3.org/2005/Atom">
   <title>Memoir RnE</title>
   <subtitle>开擺すればいいんだよ</subtitle>
   <author>
@@ -16,7 +15,22 @@
   <logo>https://kekkan.org/static/images/minami.jpg</logo>
 
   <rights>Copyright 2024-2025 Jing Huang</rights>
-  <updated>2025-03-26T13:25:03Z</updated>
+  <updated>2025-03-27T13:34:42Z</updated>
+
+  <entry>
+    <id>tag:kekkan.org,2025:memoir#3</id>
+    <title>Safari is smart</title>
+    <published>2025-03-27T10:34:42Z</published>
+    <updated>2025-03-27T10:34:42Z</updated>
+    <content type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        <p>Safari handles atom feeds by attempting to open and
+        subscribe to it with an external RSS reader, ignoring the
+        <code><![CDATA[<?xml-stylesheet?>]]></code> directive.</p>
+        <p>I think I will give JavaScript a try.</p>
+      </div>
+    </content>
+  </entry>
 
   <entry>
     <id>tag:kekkan.org,2025:memoir#2</id>
@@ -41,10 +55,10 @@
     <content type="xhtml">
       <div xmlns="http://www.w3.org/1999/xhtml">
         <p>Received a very low score on my first monthly test, getting
-        a 5 in Japanese.  Lot of deadlines ahead.</p> <p>First memoir
-        in this feed, but I&#8217;m not sure exactly what to say.  I
-        guess this will be it for now.</p>
+        a 5 in Japanese.  Lot of deadlines waiting ahead.</p> <p>First
+        memoir in this feed, but I&#8217;m not sure exactly what to
+        say.  I guess this will be it for now.</p>
       </div>
     </content>
   </entry>
-</memoir>
+</feed>

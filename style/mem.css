@@ -113,9 +113,5 @@ a:hover {
 }
 
 code {
-    background: #eeeeee;
-    border-radius: .25em;
     font-family: LAT-MS, monospace;
-    padding: .125em .25em;
 }
-

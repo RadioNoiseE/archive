@@ -1,5 +1,5 @@
 <xsl:stylesheet version="1.0"
-                xmlns:atom="http://kekkan.org/RsFL"
+                xmlns:atom="http://www.w3.org/2005/Atom"
                 xmlns:xhtml="http://www.w3.org/1999/xhtml"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 exclude-result-prefixes="atom xhtml">
@@ -22,7 +22,7 @@
     <xsl:apply-templates mode="virgin"/>
   </xsl:template>
 
-  <xsl:template mode="virgin" match="atom:memoir">
+  <xsl:template mode="virgin" match="atom:feed">
     <xsl:text disable-output-escaping="yes">&lt;!DOCTYPE html&gt;</xsl:text>
     <html lang="en">
       <head>
