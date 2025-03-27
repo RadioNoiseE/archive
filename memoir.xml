@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type='text/xsl' href='/build/atom.xsl'?>
 
-<feed xmlns="http://www.w3.org/2005/Atom">
+<memoir xmlns="http://kekkan.org/RsFL">
   <title>Memoir RnE</title>
+  <subtitle>开擺すればいいんだよ</subtitle>
   <author>
     <name>Jing Huang</name>
     <email>radionoisee@gmail.com</email>
@@ -45,4 +47,4 @@
       </div>
     </content>
   </entry>
-</feed>
+</memoir>

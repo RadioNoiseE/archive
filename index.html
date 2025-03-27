@@ -9,6 +9,7 @@
     <link href="/favicon.ico" rel="icon">
     <link href="/static/images/minami.jpg" rel="apple-touch-icon">
     <link href="/style/ind.css" rel="stylesheet">
+    <script src="/script/index.js" defer></script>
   </head>
   <body>
     <div class="frame">
@@ -17,8 +18,8 @@
         <a href="#about">About</a>
         <a href="#article">Article</a>
         <a href="#license">License</a>
+        <a id="toggle">Memoir</a>
         <a href="/atom.xml">Atom</a>
-        <a href="/memoir.xml">Memoir</a>
         <a href="/rne.asc">PGP</a>
         <a href="/RsML">RsML</a>
         <a href="https://ldbeth.sdf.org">LDB</a>
@@ -99,6 +100,9 @@
         </a>
       </div>
       <div class="copyright" id="license">© 2024-2025 Jing Huang</div>
+    </div>
+    <div id="overlay">
+      <iframe id="memoir" src="/memoir.xml"></iframe>
     </div>
   </body>
 </html>

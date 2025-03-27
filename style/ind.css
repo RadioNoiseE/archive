@@ -12,6 +12,11 @@ body {
     font-size: 1em;
     justify-content: center;
     line-height: 1.4;
+    z-index: 0;
+}
+
+body.idle {
+    overflow: hidden;
 }
 
 .frame {
@@ -118,4 +123,29 @@ a:hover {
 
 .copyright {
     text-align: center;
+}
+
+#overlay {
+    backdrop-filter: blur(3px);
+    background-color: rgba(255, 255, 255, 0.6);
+    display: none;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+iframe {
+    background-color: white;
+    border: 1px solid;
+    display: none;
+    height: 420px;
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    z-index: 2;
 }
