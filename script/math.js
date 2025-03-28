@@ -1,7 +1,7 @@
 window.MathJax = {
     startup: { elements: ['span.math', 'div.math'] },
     loader: { load: ['ui/lazy'] },
-    output: { font: 'mathjax-asana' },
+    output: { font: 'mathjax-modern' },
     options: {
         enableMenu: false,
         menuOptions: { settings: { enrich: false } }
