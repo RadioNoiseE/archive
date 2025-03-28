@@ -10,8 +10,8 @@ const toggle = show => {
 
 const transform = () => {
     Promise.all([
-        fetch('/memoir.xml').then(r => r.text()),
-        fetch('/build/atom.xsl').then(r => r.text())
+        fetch('/memoir.xml').then(response => response.text()),
+        fetch('/build/atom.xsl').then(response => response.text())
     ]).then(([xml, xsl]) => {
         const proc = new DOMParser();
         const xslt = new XSLTProcessor();
