@@ -47,6 +47,16 @@
 
   <unit role="chapter">
     <heading>Initial Stage</heading>
+    <paragraph>Set the <verbatim>load-path</verbatim> explicitly and
+    re-enable previous defaults when portable dumped.</paragraph>
+    <verbatim lang="lisp" line="6"><![CDATA[
+(defvar dumped-load-path)
+
+(when (boundp 'dumped-load-path)
+  (setq load-path dumped-load-path)
+  (global-font-lock-mode t)
+  (transient-mark-mode t))
+    ]]></verbatim>
     <paragraph>The handlers for file names are stripped locally during
     the very early stages.</paragraph>
     <verbatim lang="lisp" line="1"><![CDATA[
@@ -61,11 +71,10 @@
     ]]></verbatim>
     <paragraph>Then add <verbatim>core</verbatim> to the load
     path.</paragraph>
-    <verbatim lang="lisp" line="4"><![CDATA[
-(mapc (lambda (folder)
-        (add-to-list 'load-path
-                     (expand-file-name folder user-emacs-directory)))
-      '("core"))
+    <verbatim lang="lisp" line="3"><![CDATA[
+(dolist (site '("core"))
+  (add-to-list 'load-path
+               (expand-file-name site user-emacs-directory)))
     ]]></verbatim>
     <paragraph>Function used to update the environment variables,
     particularly <verbatim>PATH</verbatim>, from the shell, so that
@@ -624,6 +633,34 @@
                                   :key key
                                   :stream t
                                   :models '(gpt-4o)))))
+    ]]></verbatim>
+  </unit>
+
+  <unit role="chapter">
+    <heading>Portable Dumper</heading>
+    <paragraph>The portable dumper is a subsystem that replaces the
+    traditional <verbatim>unexec</verbatim> method of creating an
+    Emacs pre-loaded with Lisp code and data. This potentially speeds
+    up Emacs boot and responce speed.</paragraph>
+    <verbatim lang="lisp" line="18"><![CDATA[
+(package-initialize)
+
+(defconst dumped-load-path load-path)
+
+(dolist (site '("early-init" "init"))
+  (load (concat user-emacs-directory site)))
+
+(load-theme 'modus-operandi-tritanopia t)
+
+(dolist (package '(package use-package treesit which-key
+                           vertico corfu marginalia
+                           yasnippet eldoc-box eww
+                           wanderlust xwidget nxml-mode
+                           markdown-mode auctex magit
+                           diff-hl flyspell))
+  (require package))
+
+(dump-emacs-portable "Emacs.pdmp")
     ]]></verbatim>
   </unit>
 </rsml>
