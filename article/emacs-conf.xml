@@ -66,7 +66,7 @@
     <verbatim>custom</verbatim> is instructed not to modify
     <verbatim>init.el</verbatim>.</paragraph>
     <verbatim lang="lisp" line="2"><![CDATA[
-(setq inhibit-startup-message t
+(setq inhibit-startup-screen t
       custom-file (make-temp-file "custom" nil ".el"))
     ]]></verbatim>
     <paragraph>Then add <verbatim>core</verbatim> to the load
