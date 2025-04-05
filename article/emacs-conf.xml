@@ -47,26 +47,26 @@
 
   <unit role="chapter">
     <heading>Initial Stage</heading>
-    <paragraph>Set the <verbatim>load-path</verbatim> explicitly and
-    re-enable previous defaults when portable dumped.</paragraph>
-    <verbatim lang="lisp" line="6"><![CDATA[
+    <paragraph>Set the <verbatim>load-path</verbatim> explicitly when
+    portable dumped. Portable dump related details are documented in
+    <refer type="chapter" label="5"/>.</paragraph>
+    <verbatim lang="lisp" line="4"><![CDATA[
 (defvar dumped-load-path)
 
 (when (boundp 'dumped-load-path)
-  (setq load-path dumped-load-path)
-  (global-font-lock-mode t)
-  (transient-mark-mode t))
+  (setq load-path dumped-load-path))
     ]]></verbatim>
     <paragraph>The handlers for file names are stripped locally during
     the very early stages.</paragraph>
     <verbatim lang="lisp" line="1"><![CDATA[
 (setq-local file-name-handler-alist nil)
     ]]></verbatim>
-    <paragraph>Boot splash screen is inhibited, while
-    <verbatim>custom</verbatim> is instructed not to modify
-    <verbatim>init.el</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="2"><![CDATA[
-(setq inhibit-startup-screen t
+    <paragraph>Short answers are activated, boot splash screen is
+    inhibited, and <verbatim>custom</verbatim> is instructed not to
+    modify <verbatim>init.el</verbatim>.</paragraph>
+    <verbatim lang="lisp" line="3"><![CDATA[
+(setq use-short-answers t
+      inhibit-startup-screen t
       custom-file (make-temp-file "custom" nil ".el"))
     ]]></verbatim>
     <paragraph>Then add <verbatim>core</verbatim> to the load
@@ -93,6 +93,12 @@
           (when (string= variable "PATH")
             (setenv variable value)
             (setq exec-path (split-string value path-separator))))))))
+    ]]></verbatim>
+    <paragraph>Improve startup times by basically telling
+    <verbatim>package.el</verbatim> to write all autoloads into one
+    file.</paragraph>
+    <verbatim lang="lisp" line="1"><![CDATA[
+(setq package-quickstart t)
     ]]></verbatim>
     <paragraph>Set up the Milkypostman<apostrophe/>s Emacs Lisp
     package archive.</paragraph>
@@ -160,12 +166,15 @@
     ]]></verbatim>
     <paragraph>Next, we configure the Latin font, which indirectly
     overrides Hanazono Mincho as a side effect.</paragraph>
-    <verbatim lang="lisp" line="5"><![CDATA[
+    <verbatim lang="lisp" line="8"><![CDATA[
 (when (display-graphic-p)
   (set-face-attribute 'default nil :family "SF Mono")
   (set-face-attribute 'fixed-pitch nil :family "IBM 3270")
   (set-face-attribute 'fixed-pitch-serif nil :family "IBM 3270")
   (set-face-attribute 'variable-pitch nil :family "IBM Plex Serif"))
+
+(add-to-list 'face-font-rescale-alist
+             '("IBM 3270" . 1.24))
     ]]></verbatim>
     <paragraph>Optimizes the editing experience for large files, based
     on LdBeth<apostrophe/>s approach.</paragraph>
@@ -182,16 +191,18 @@
 (keymap-global-set "C-<wheel-up>" 'ignore)
 (keymap-global-set "C-<wheel-down>" 'ignore)
     ]]></verbatim>
+    <paragraph>Match parentheses and override selected text instead of
+    appending at end.</paragraph>
+    <verbatim lang="lisp" line="2"><![CDATA[
+(electric-pair-mode t)
+(delete-selection-mode t)
+    ]]></verbatim>
     <paragraph>Enable pixel-based precision scrolling.</paragraph>
     <verbatim lang="lisp" line="3"><![CDATA[
 (pixel-scroll-precision-mode t)
 
 (setq pixel-scroll-precision-use-momentum t
       pixel-scroll-precision-interpolate-page t)
-    ]]></verbatim>
-    <paragraph>Match parentheses by default.</paragraph>
-    <verbatim lang="lisp" line="1"><![CDATA[
-(electric-pair-mode t)
     ]]></verbatim>
     <paragraph>Load Protesilaos<apostrophe/> Modus theme, specifically
     optimized for users with blue-yellow color deficiency.</paragraph>
@@ -259,6 +270,28 @@
     <verbatim lang="lisp" line="1"><![CDATA[
 (setq word-wrap-by-category t)
     ]]></verbatim>
+    <paragraph>Handy function to expand the selection region based on
+    the current node.</paragraph>
+    <verbatim lang="lisp" line="18"><![CDATA[
+(defun expand-region ()
+  (interactive)
+  (when (and (boundp 'treesit-primary-parser)
+             treesit-primary-parser)
+    (let* ((node (if (use-region-p)
+                     (treesit-node-on (region-beginning) (region-end))
+                   (treesit-node-at (point))))
+           (start (treesit-node-start node))
+           (end (treesit-node-end node)))
+      (when (and (= (region-beginning) start)
+                 (= (region-end) end))
+        (when-let* ((node (treesit-node-parent node)))
+          (setq start (treesit-node-start node)
+                end (treesit-node-end node))))
+      (goto-char start)
+      (set-mark end))))
+
+(keymap-global-set "M-+" 'expand-region)
+    ]]></verbatim>
     <paragraph>Enable natural line-breaking and inline completion
     preview in text mode.</paragraph>
     <verbatim lang="lisp" line="8"><![CDATA[
@@ -294,7 +327,7 @@
     <paragraph>Configure <verbatim>treesit</verbatim> to handle syntax
     highlighting, while keeping <verbatim>fontlock</verbatim> as a
     fallback.</paragraph>
-    <verbatim lang="lisp" line="28"><![CDATA[
+    <verbatim lang="lisp" line="30"><![CDATA[
 (use-package treesit
   :ensure nil)
 
@@ -305,7 +338,9 @@
                                       (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
                                       (css "https://github.com/tree-sitter/tree-sitter-css")
                                       (html "https://github.com/tree-sitter/tree-sitter-html")
+                                      (java "https://github.com/tree-sitter/tree-sitter-java")
                                       (json "https://github.com/tree-sitter/tree-sitter-json")
+                                      (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
                                       (rust "https://github.com/tree-sitter/tree-sitter-rust")))
 
 (dolist (grammar treesit-language-source-alist)
@@ -642,23 +677,19 @@
     traditional <verbatim>unexec</verbatim> method of creating an
     Emacs pre-loaded with Lisp code and data. This potentially speeds
     up Emacs boot and responce speed.</paragraph>
-    <verbatim lang="lisp" line="18"><![CDATA[
+    <verbatim lang="lisp" line="14"><![CDATA[
 (package-initialize)
 
 (defconst dumped-load-path load-path)
 
+(defun dumped-init ()
+  (global-font-lock-mode t)
+  (transient-mark-mode t))
+
+(add-hook 'emacs-startup-hook 'dumped-init)
+
 (dolist (site '("early-init" "init"))
   (load (concat user-emacs-directory site)))
-
-(load-theme 'modus-operandi-tritanopia t)
-
-(dolist (package '(package use-package treesit which-key
-                           vertico corfu marginalia
-                           yasnippet eldoc-box eww
-                           wanderlust xwidget nxml-mode
-                           markdown-mode auctex magit
-                           diff-hl flyspell))
-  (require package))
 
 (dump-emacs-portable "Emacs.pdmp")
     ]]></verbatim>
