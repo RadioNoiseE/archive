@@ -359,12 +359,13 @@
              (add-to-list 'major-mode-remap-alist
                           `(,derived . ,default)))))))
     ]]></verbatim>
-    <paragraph>Key binding hints by
-    <verbatim>which-key</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="3"><![CDATA[
-(use-package which-key
-  :hook (after-init . which-key-mode)
-  :init (which-key-setup-minibuffer))
+    <paragraph>Jumping to arbitrary position using a char-based
+    decision tree by <verbatim>avy</verbatim>.</paragraph>
+    <verbatim lang="lisp" line="4"><![CDATA[
+(use-package avy
+  :bind (("C-: c" . avy-goto-char)
+         ("C-: x" . avy-goto-char-timer)
+         ("C-: l" . avy-goto-line)))
     ]]></verbatim>
     <paragraph>Minibuffer completion by
     <verbatim>vertico</verbatim>.</paragraph>
