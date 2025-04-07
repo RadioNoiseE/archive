@@ -80,7 +80,8 @@ body {
 .discrete {
     font-family: LAT-MS, monospace;
     font-size: .9em;
-    margin-top: 1em;
+    margin: .6em 0 -.4em 0;
+    text-align: right;
 }
 
 .date::after {
@@ -102,4 +103,18 @@ a:hover {
 
 code {
     font-family: LAT-MS, monospace;
+}
+
+.enclosure {
+    display: flex;
+    flex-flow: row wrap;
+    margin: .6em -1em -.2em -1em;
+    overflow: hidden;
+}
+
+.enclosure > * {
+    height: 100%;
+    max-height: 10em;
+    object-fit: cover;
+    width: 100%;
 }
