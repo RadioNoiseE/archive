@@ -708,8 +708,8 @@
     <paragraph>The portable dumper is a subsystem that replaces the
     traditional <verbatim>unexec</verbatim> method of creating an
     Emacs pre-loaded with Lisp code and data. This
-    <emphasize>greatly</emphasize> speeds up Emacs boot and responce
-    speed.</paragraph>
+    <emphasize>significantly</emphasize> improves Emacs startup and
+    response time.</paragraph>
     <verbatim lang="lisp" line="25"><![CDATA[
 (package-initialize)
 
