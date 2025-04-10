@@ -24,10 +24,9 @@
     <verbatim>init.el</verbatim> is loaded. This ensures the settings
     which might cause clutter or affect performance are avoided, and
     the initial UI is cleaned up.</paragraph>
-    <verbatim lang="lisp" line="15"><![CDATA[
+    <verbatim lang="lisp" line="14"><![CDATA[
 (setq read-process-output-max (* 4 1024 1024)
       display-time-load-average nil
-      process-adaptive-read-buffering nil
       frame-inhibit-implied-resize t
       frame-resize-pixelwise t
       default-frame-alist '((width . 150)
@@ -62,11 +61,13 @@
 (setq-local file-name-handler-alist nil)
     ]]></verbatim>
     <paragraph>Short answers are activated, boot splash screen is
-    inhibited, and <verbatim>custom</verbatim> is instructed not to
-    modify <verbatim>init.el</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="3"><![CDATA[
+    inhibited, implicit resize of the echo area is disabled, and
+    <verbatim>custom</verbatim> is instructed not to modify
+    <verbatim>init.el</verbatim>.</paragraph>
+    <verbatim lang="lisp" line="4"><![CDATA[
 (setq use-short-answers t
       inhibit-startup-screen t
+      max-mini-window-height 1
       custom-file (make-temp-file "custom" nil ".el"))
     ]]></verbatim>
     <paragraph>Then add <verbatim>core</verbatim> to the load
@@ -110,14 +111,15 @@
     <paragraph>Make sure that <verbatim>use-package</verbatim> is
     loaded during byte-compilation, then prepare it for
     use.</paragraph>
-    <verbatim lang="lisp" line="7" label="@env-flush"><![CDATA[
+    <verbatim lang="lisp" line="8" label="@env-flush"><![CDATA[
 (eval-when-compile
   (require 'use-package))
 
 (with-eval-after-load 'use-package
   (env-flush))
 
-(setq use-package-always-ensure t)
+(setq use-package-always-ensure t
+      use-package-vc-prefer-newest t)
     ]]></verbatim>
     <paragraph>Advice <verbatim>use-package</verbatim> to conceal the
     package declaration if the executable specified using
@@ -166,15 +168,14 @@
     ]]></verbatim>
     <paragraph>Next, we configure the Latin font, which indirectly
     overrides Hanazono Mincho as a side effect.</paragraph>
-    <verbatim lang="lisp" line="8"><![CDATA[
+    <verbatim lang="lisp" line="7"><![CDATA[
 (when (display-graphic-p)
   (set-face-attribute 'default nil :family "SF Mono")
   (set-face-attribute 'fixed-pitch nil :family "IBM 3270")
-  (set-face-attribute 'fixed-pitch-serif nil :family "IBM 3270")
   (set-face-attribute 'variable-pitch nil :family "IBM Plex Serif"))
 
 (add-to-list 'face-font-rescale-alist
-             '("IBM 3270" . 1.24))
+             '("IBM 3270" . 1.17))
     ]]></verbatim>
     <paragraph>Optimizes the editing experience for large files, based
     on LdBeth<apostrophe/>s approach.</paragraph>
@@ -204,15 +205,12 @@
 (setq pixel-scroll-precision-use-momentum t
       pixel-scroll-precision-interpolate-page t)
     ]]></verbatim>
-    <paragraph>Load Protesilaos<apostrophe/> Modus theme, specifically
-    optimized for users with blue-yellow color deficiency.</paragraph>
-    <verbatim lang="lisp" line="8"><![CDATA[
-(setq modus-themes-common-palette-overrides
-      '((fringe unspecified)
-        (border-mode-line-active cyan-faint)))
-
-(mapc 'disable-theme custom-enabled-themes)
-(load-theme 'modus-operandi-tritanopia)
+    <paragraph>Load the railgun theme, using
+    <verbatim>package-vc-install</verbatim>.</paragraph>
+    <verbatim lang="lisp" line="3"><![CDATA[
+(use-package railgun-themes
+  :vc (:url "https://github.com/radionoisee/railgun-themes.git")
+  :config (load-theme 'railgun-light t))
     ]]></verbatim>
     <paragraph>Supply my own modeline, inspired by
     <verbatim>tecoline</verbatim>.</paragraph>
@@ -220,14 +218,14 @@
 (setq mode-line-right-align-edge 'right-margin)
 
 (defun mode-line-compose (indicator buffer preamble postamble)
-  (list `(:propertize ,indicator face (:foreground "#ffffff" :background "#004f5f"))
-        `(:propertize ,buffer face (:foreground "#193668"))
+  (list `(:propertize ,indicator face (:foreground "#ffffff" :background "#b3b9be"))
+        `(:propertize ,buffer face (:foreground "#3a81c3"))
         '(:propertize " " display (raise 0.12))
         '(:propertize " " display (raise -0.12))
         'mode-line-format-right-align
-        `(:propertize ,preamble face (:foreground "#193668"))
-        '(:propertize "<<" face (:foreground "#595959"))
-        `(:propertize ,postamble face ((:foreground "#004f5f") bold))))
+        `(:propertize ,preamble face (:foreground "#6c3163"))
+        '(:propertize "<<" face (:foreground "#dc752f"))
+        `(:propertize ,postamble face ((:foreground "#3a81c3") bold))))
 
 (defun mode-line-default ()
   (let ((indicator '(" " (:eval (cond ((and buffer-file-name (buffer-modified-p)) "RW")
@@ -240,7 +238,7 @@
 
 (setq-default mode-line-format (mode-line-default))
     ]]></verbatim>
-    <paragraph>Gain focus upon launched on Aqua.</paragraph>
+    <paragraph>Gain focus upon launch on Aqua.</paragraph>
     <verbatim lang="lisp" line="1"><![CDATA[
 (select-frame-set-input-focus (selected-frame))
     ]]></verbatim>
@@ -404,22 +402,30 @@
   :hook (prog-mode . yas-minor-mode))
     ]]></verbatim>
     <paragraph>Language server protocol integration provided by
-    <verbatim>eglot</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="2"><![CDATA[
-(use-package eglot
-  :hook ((c-ts-mode c++-ts-mode tuareg-mode caml-mode) . eglot-ensure))
-    ]]></verbatim>
-    <paragraph>Childframe documentation for
-    <verbatim>eldoc</verbatim>.</paragraph>
+    <verbatim>eglot</verbatim>. The Emoji code action indicator is
+    removed.</paragraph>
     <verbatim lang="lisp" line="3"><![CDATA[
-(use-package eldoc-box
-  :hook ((eglot-managed-mode . eldoc-box-hover-mode)
-         (eldoc-mode . eldoc-box-hover-mode)))
+(use-package eglot
+  :hook ((c-ts-mode c++-ts-mode tuareg-mode caml-mode) . eglot-ensure)
+  :init (setq eglot-code-action-indications '(eldoc-hint)))
+    ]]></verbatim>
+    <paragraph>Configure <verbatim>eldoc</verbatim>, make sure every
+    function description fits in exactly one line, as the echo area
+    won<apostrophe/>t resize for it.</paragraph>
+    <verbatim lang="lisp" line="5"><![CDATA[
+(use-package eldoc
+  :defer t
+  :init (setq eldoc-echo-area-display-truncation-message nil
+              eldoc-echo-area-use-multiline-p nil
+              eldoc-echo-area-prefer-doc-buffer 'maybe))
     ]]></verbatim>
     <paragraph>Make the Emacs web broswer capable of rendering XSL
     templates, implemented as a <verbatim>xsltproc</verbatim>
     filter.</paragraph>
     <verbatim lang="lisp" line="32"><![CDATA[
+(use-package eww
+  :hook (eww-after-render . eww-render-xslt))
+
 (defun eww-extract-xslt ()
   (save-excursion
     (goto-char (point-min))
@@ -449,9 +455,6 @@
       (append-to-file nil nil xml)
       (call-process-shell-command command nil nil)
       (eww-open-file html))))
-
-(add-hook 'eww-after-render-hook
-          'eww-render-xslt)
     ]]></verbatim>
     <paragraph>Mail user agent in Emacs featuring
     WanderLust.</paragraph>
@@ -578,17 +581,16 @@
   :config (add-to-list 'rng-schema-locating-files
                        (expand-file-name "schema/schemas.xml" user-emacs-directory)))
     ]]></verbatim>
-    <paragraph>Markdown mode, mainly for
-    <verbatim>gptel</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="8"><![CDATA[
+    <paragraph>Markdown mode, configured mainly for
+    <verbatim>eldoc</verbatim> and <verbatim>gptel</verbatim> as I
+    hardly ever uses this markup language.</paragraph>
+    <verbatim lang="lisp" line="6"><![CDATA[
 (use-package markdown-mode
   :defer t
   :init (setq markdown-enable-math t
-              markdown-hide-urls t
-              markdown-fontify-code-blocks-natively t))
-
-(with-eval-after-load 'markdown-mode
-  (set-face-underline 'markdown-line-break-face nil))
+              markdown-fontify-code-blocks-natively t
+              markdown-hide-urls t)
+  :config (set-face-underline 'markdown-line-break-face nil))
     ]]></verbatim>
     <paragraph>For better TeX editing, compile and preview, requires
     <verbatim>luatex</verbatim>.</paragraph>
@@ -655,6 +657,35 @@
   :defer t
   :init (setq ispell-program-name "aspell"))
     ]]></verbatim>
+    <paragraph>Load <verbatim>flymake</verbatim> so that it is
+    included in the portable dump image. Then supply our own fringe
+    indicator.</paragraph>
+    <verbatim lang="lisp" line="24"><![CDATA[
+(use-package flymake
+  :defer t
+  :init (define-fringe-bitmap 'flymake-fringe-indicator
+          (vector #b00000000
+                  #b00000000
+                  #b00000000
+                  #b00000000
+                  #b00000000
+                  #b00000000
+                  #b00011100
+                  #b00111110
+                  #b00111110
+                  #b00111110
+                  #b00011100
+                  #b00000000
+                  #b00000000
+                  #b00000000
+                  #b00000000
+                  #b00000000
+                  #b00000000))
+  :config (setq flymake-indicator-type 'fringes
+                flymake-note-bitmap '(flymake-fringe-indicator compilation-info)
+                flymake-warning-bitmap '(flymake-fringe-indicator compilation-warning)
+                flymake-error-bitmap '(flymake-fringe-indicator compilation-error)))
+    ]]></verbatim>
     <paragraph>Large language model chat client for Emacs.</paragraph>
     <verbatim lang="lisp" line="12"><![CDATA[
 (use-package gptel
@@ -676,8 +707,9 @@
     <heading>Portable Dumper</heading>
     <paragraph>The portable dumper is a subsystem that replaces the
     traditional <verbatim>unexec</verbatim> method of creating an
-    Emacs pre-loaded with Lisp code and data. This potentially speeds
-    up Emacs boot and responce speed.</paragraph>
+    Emacs pre-loaded with Lisp code and data. This
+    <emphasize>greatly</emphasize> speeds up Emacs boot and responce
+    speed.</paragraph>
     <verbatim lang="lisp" line="25"><![CDATA[
 (package-initialize)
 
@@ -695,7 +727,7 @@
              (require package nil t)))))
     (end-of-file nil)))
 
-(load-theme 'modus-operandi-tritanopia t t)
+(load-theme 'railgun-light t t)
 
 (defun dumped-init ()
   (global-font-lock-mode t)
