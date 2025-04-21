@@ -61,13 +61,11 @@
 (setq-local file-name-handler-alist nil)
     ]]></verbatim>
     <paragraph>Short answers are activated, boot splash screen is
-    inhibited, implicit resize of the echo area is disabled, and
-    <verbatim>custom</verbatim> is instructed not to modify
-    <verbatim>init.el</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="4"><![CDATA[
+    inhibited, and <verbatim>custom</verbatim> is instructed not to
+    modify <verbatim>init.el</verbatim>.</paragraph>
+    <verbatim lang="lisp" line="3"><![CDATA[
 (setq use-short-answers t
       inhibit-startup-screen t
-      max-mini-window-height 1
       custom-file (make-temp-file "custom" nil ".el"))
     ]]></verbatim>
     <paragraph>Then add <verbatim>core</verbatim> to the load
