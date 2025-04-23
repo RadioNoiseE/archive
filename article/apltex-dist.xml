@@ -41,11 +41,10 @@
     <verbatim>mplib</verbatim> is included, which eliminates the need
     for TikZ and such.</paragraph>
     <paragraph>The default format is plainTeX, which I found much
-    easier to work with compared to LaTeX2e. It doesn<apostrophe/>t
-    involve many high-level abstractions (i.e., NFSS2 for font
-    selection), making it more straightforward. It also
-    doesn<apostrophe/>t uselessly try to separate format and content,
-    which is really useless when doing
+    easier to work with compared to LaTeX2e. It does not involve many
+    high-level abstractions (i.e., NFSS2 for font selection), making
+    it more straightforward. It also doesn<apostrophe/>t attempt to
+    separate format and content, which is really useless when doing
     <emphasize>non-trivial</emphasize> typesetting. There are some
     drawbacks though, such as a less active community.</paragraph>
   </unit>
