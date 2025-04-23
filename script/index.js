@@ -23,6 +23,6 @@ const transform = () => {
     });
 };
 
-trigger.addEventListener('click', () => toggle(true));
-overlay.addEventListener('click', () => toggle(false));
+trigger.addEventListener('click', (event) => { event.preventDefault(); toggle(true); });
+overlay.addEventListener('click', (event) => { event.preventDefault(); toggle(false); });
 document.addEventListener('DOMContentLoaded', transform);
