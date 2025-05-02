@@ -14,14 +14,28 @@
   <logo>https://kekkan.org/static/images/minami.jpg</logo>
 
   <rights>Copyright 2024-2025 Jing Huang</rights>
-  <updated>2025-03-23T00:01:00Z</updated>
+  <updated>2025-05-02T00:01:00Z</updated>
+
+  <entry>
+    <id>tag:kekkan.org,2025:article#10</id>
+    <link rel="alternate" href="https://kekkan.org/article/emacs-conf.xml"/>
+    <title>Updated article on Emacs configuration after refactoring</title>
+    <published>2025-05-02T00:01:00Z</published>
+    <updated>2025-05-02T00:01:00Z</updated>
+    <summary type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">After refactoring, the
+      configuration is further flattened. Parts are separated,
+      especially the prelude and the actual management of
+      packages. Another notable update is on the mode line.</div>
+    </summary>
+  </entry>
 
   <entry>
     <id>tag:kekkan.org,2025:article#9</id>
     <link rel="alternate" href="https://kekkan.org/article/emacs-conf.xml"/>
     <title>New article which documents my Emacs configuration</title>
-    <published>2025-03-23T00:01:00Z</published>
-    <updated>2025-03-12T00:01:00Z</updated>
+    <published>2025-03-12T00:01:00Z</published>
+    <updated>2025-03-23T00:01:00Z</updated>
     <summary type="xhtml">
       <div xmlns="http://www.w3.org/1999/xhtml">Emacs configuration
       designed specifically for the NeXTStep Cocoa implementation,

@@ -14,31 +14,30 @@
     </date>
     <abstract>For reasons that felt arbitrary at the time, I decided
     to document my Emacs configuration, written specifically for the
-    NeXTStep Cocoa implementation.</abstract>
+    NeXTStep Cocoa implementation. Refactored in May 2025.</abstract>
   </meta>
 
   <unit role="chapter">
     <heading>Early Initial Stage</heading>
     <paragraph>Somewhat trivial, basically about correcting
-    Emacs<apostrophe/>s behavior early in the startup process, before
-    <verbatim>init.el</verbatim> is loaded. This ensures the settings
-    which might cause clutter or affect performance are avoided, and
-    the initial UI is cleaned up.</paragraph>
-    <verbatim lang="lisp" line="14"><![CDATA[
-(setq read-process-output-max (* 4 1024 1024)
-      display-time-load-average nil
+    Emacs<apostrophe/>s behavior before <verbatim>init.el</verbatim>
+    is loaded. This toggles off the defaults that might cause clutter
+    or affect performance, and disables unnecessary components for the
+    interface.</paragraph>
+    <verbatim lang="lisp" line="15"><![CDATA[
+(setq default-frame-alist '((horizontal-scroll-bar . nil)
+                            (vertical-scroll-bar . nil))
       frame-inhibit-implied-resize t
       frame-resize-pixelwise t
-      default-frame-alist '((width . 150)
-                            (height . 50)
-                            (vertical-scroll-bar . nil)
-                            (horizontal-scroll-bar . nil)
-                            (ns-transparent-titlebar t)))
+      window-resize-pixelwise t
+      inhibit-startup-screen t
+      inhibit-startup-echo-area-message user-login-name
+      use-dialog-box nil)
 
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(tooltip-mode -1)
-(menu-bar-mode -1)
+(setopt menu-bar-mode nil
+        scroll-bar-mode nil
+        tool-bar-mode nil
+        tooltip-mode nil)
     ]]></verbatim>
     <paragraph>As you can see, there are no redundant GC
     tweaks.</paragraph>
@@ -60,69 +59,160 @@
     <verbatim lang="lisp" line="1"><![CDATA[
 (setq-local file-name-handler-alist nil)
     ]]></verbatim>
-    <paragraph>Short answers are activated, boot splash screen is
-    inhibited, and <verbatim>custom</verbatim> is instructed not to
-    modify <verbatim>init.el</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="3"><![CDATA[
-(setq use-short-answers t
-      inhibit-startup-screen t
-      custom-file (make-temp-file "custom" nil ".el"))
-    ]]></verbatim>
     <paragraph>Then add <verbatim>core</verbatim> to the load
-    path.</paragraph>
+    path. The <verbatim>dolist</verbatim> is intended for more
+    fine-grained division of load paths in the future.</paragraph>
     <verbatim lang="lisp" line="3"><![CDATA[
 (dolist (site '("core"))
   (add-to-list 'load-path
                (expand-file-name site user-emacs-directory)))
     ]]></verbatim>
-    <paragraph>Function used to update the environment variables,
-    particularly <verbatim>PATH</verbatim>, from the shell, so that
-    Emacs can call the correct executables. This is utilized at <refer
-    type="verbatim" label="@env-flush"/>.</paragraph>
+    <paragraph>Tell Emacs not to litter on the file system, prevent
+    <verbatim>custom.el</verbatim> from writing
+    <verbatim>init.el</verbatim>, use short answers, and enable
+    refined CJK line-break, with respect to kinsoku.</paragraph>
+    <verbatim lang="lisp" line="5"><![CDATA[
+(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+      backup-directory-alist `((".*" . ,temporary-file-directory))
+      custom-file (make-temp-file "custom" nil ".el")
+      use-short-answers t
+      word-wrap-by-category t)
+    ]]></verbatim>
+    <paragraph>Font configuration without mixing fonts, as they may
+    lead to unexpected line height related issues. Since we
+    don<apostrophe/>t actually use any sans serif fonts, we
+    should<apostrophe/>t scale the
+    <verbatim>variable-pitch-text</verbatim> face as well.</paragraph>
+    <verbatim lang="lisp" line="5"><![CDATA[
+(when (display-graphic-p)
+  (dolist (face '(default fixed-pitch fixed-pitch-serif variable-pitch))
+    (set-face-attribute face nil :family "SF Mono")))
+
+(set-face-attribute 'variable-pitch-text nil :height 1.0)
+    ]]></verbatim>
+    <paragraph>Optimizations for large files, based on
+    LdBeth<apostrophe/>s approach.</paragraph>
+    <verbatim lang="lisp" line="5"><![CDATA[
+(setq bidi-display-reordering nil
+      bidi-inhibit-bpa t
+      large-hscroll-threshold 1000
+      long-line-threshold 1000
+      syntax-wholeline-max 1000)
+    ]]></verbatim>
+    <paragraph>Unbind the annoying key binding to
+    <verbatim>mouse-wheel-text-scale</verbatim>, to prevent accidental
+    unintended text scaling.</paragraph>
+    <verbatim lang="lisp" line="2"><![CDATA[
+(keymap-global-set "C-<wheel-up>" 'ignore)
+(keymap-global-set "C-<wheel-down>" 'ignore)
+    ]]></verbatim>
+    <paragraph>Supply our own mode line, which is by design robust,
+    with only necessary elements displayed. The lighter for minor
+    modes are replaced with condensed Unicode glyphs.</paragraph>
+    <verbatim lang="lisp" line="27"><![CDATA[
+(setq mode-line-right-align-edge 'right-margin
+      mode-line-space (propertize " " 'display '(space :height 1.4))
+      mode-line-minor-mode '("ⓐ")
+      mode-line-minor-mode-lighter '((corfu-mode . "ⓒ")
+                                     (diff-hl-mode . "ⓗ")
+                                     (eldoc-mode . "ⓔ")
+                                     (flymake-mode . "ⓜ")
+                                     (flyspell-mode . "ⓢ")
+                                     (visual-line-mode . "ⓥ")
+                                     (whitespace-mode . "ⓦ")
+                                     (yas-minor-mode . "ⓨ")))
+
+(dolist (mapping mode-line-minor-mode-lighter)
+  (let ((mode (intern (symbol-name (car mapping))))
+        (lighter (cdr mapping)))
+    (push `(,mode ,lighter) mode-line-minor-mode)))
+
+(setq-default mode-line-format `(,mode-line-space
+                                 ,mode-line-mule-info
+                                 ,mode-line-modified
+                                 ,mode-line-space
+                                 (:propertize "%b" face bold)
+                                 mode-line-format-right-align
+                                 (:propertize mode-name face bold)
+                                 ,mode-line-space
+                                 ,mode-line-minor-mode
+                                 ,mode-line-space))
+    ]]></verbatim>
+    <paragraph>Activate some handy builtin modes. We use
+    <verbatim>setopt</verbatim> for modes simply because they look
+    better than numbers preceded by mode name as functions. Note that
+    <verbatim>indent-tabs-mode</verbatim> is disabled, meaning that
+    spaces will be used instead.</paragraph>
     <verbatim lang="lisp" line="12"><![CDATA[
-(defun env-flush ()
-  (let* ((shell (or (getenv "SHELL") "/bin/sh"))
-         (command (format "%s -l -c 'env'" shell)))
-    (with-temp-buffer
-      (call-process-shell-command command nil t)
-      (goto-char (point-min))
-      (while (re-search-forward "^\\([^=]+\\)=\\(.*\\)$" nil t)
-        (when-let* ((variable (match-string 1))
-                    (value (match-string 2)))
-          (when (string= variable "PATH")
-            (setenv variable value)
-            (setq exec-path (split-string value path-separator))))))))
+(setq pixel-scroll-precision-use-momentum t
+      pixel-scroll-precision-interpolate-page t
+      window-divider-default-right-width 1)
+
+(setopt indent-tabs-mode nil
+        delete-selection-mode t
+        electric-pair-mode t
+        global-auto-revert-mode t
+        pixel-scroll-precision-mode t
+        repeat-mode t
+        save-place-mode t
+        window-divider-mode t)
     ]]></verbatim>
-    <paragraph>Improve startup times by basically telling
-    <verbatim>package.el</verbatim> to write all autoloads into one
-    file.</paragraph>
+    <paragraph>Way to insert backslashs on JIS keyboard.</paragraph>
     <verbatim lang="lisp" line="1"><![CDATA[
-(setq package-quickstart t)
+(keymap-global-set "M-¥" "\\")
     ]]></verbatim>
-    <paragraph>Set up the Milkypostman<apostrophe/>s Emacs Lisp
-    package archive.</paragraph>
+  </unit>
+
+  <unit role="chapter">
+    <heading>External World</heading>
+    <paragraph>Spawn a shell process to update environment variables
+    inside Emacs. Without this, our wrapper around
+    <verbatim>use-package</verbatim> which checks for appropriate
+    executables won<apostrophe/>t work right.</paragraph>
+    <verbatim lang="lisp" line="11"><![CDATA[
+(defun environment-flush ()
+  (with-temp-buffer
+    (call-process-shell-command
+     (format "%s -l -c 'env'" (getenv "SHELL")) nil t)
+    (goto-char (point-min))
+    (while (re-search-forward "^\\([^=]+\\)=\\(.*\\)$" nil t)
+      (when-let* ((name (match-string 1))
+                  (value (match-string 2)))
+        (when (string= name "PATH")
+          (setenv name value)
+          (setq exec-path (split-string value path-separator)))))))
+    ]]></verbatim>
+    <paragraph>We then gather the cookies in third-party extension
+    packages that are not managed by <verbatim>package.el</verbatim>
+    and process them. The heavy lifting of generating autoloads is
+    taken care of by
+    <verbatim>loaddefs-generate</verbatim>.</paragraph>
+    <verbatim lang="lisp" line="5"><![CDATA[
+(let* ((site (expand-file-name "core" user-emacs-directory))
+       (cookie (expand-file-name "core-autoloads.el" site)))
+  (loaddefs-generate site cookie))
+
+(require 'core-autoloads)
+    ]]></verbatim>
+    <paragraph>Set up Milkypostman<apostrophe/>s Emacs Lisp package
+    archive. I<apostrophe/>m happy with the bleeding-edge
+    repository.</paragraph>
     <verbatim lang="lisp" line="3"><![CDATA[
 (with-eval-after-load 'package
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/")))
     ]]></verbatim>
-    <paragraph>Make sure that <verbatim>use-package</verbatim> is
-    loaded during byte-compilation, then prepare it for
-    use.</paragraph>
-    <verbatim lang="lisp" line="8" label="@env-flush"><![CDATA[
+    <paragraph>Finally we setup <verbatim>use-package</verbatim>, an
+    abstraction layer for configuration and loading of packages. It is
+    further extended with the ability to conceal package declarations
+    unless specific binary exists.</paragraph>
+    <verbatim lang="lisp" line="16"><![CDATA[
+(setq use-package-always-defer t
+      use-package-always-ensure t)
+
 (eval-when-compile
   (require 'use-package))
 
-(with-eval-after-load 'use-package
-  (env-flush))
-
-(setq use-package-always-ensure t
-      use-package-vc-prefer-newest t)
-    ]]></verbatim>
-    <paragraph>Advice <verbatim>use-package</verbatim> to conceal the
-    package declaration if the executable specified using
-    <verbatim>:with</verbatim> keyword is not found.</paragraph>
-    <verbatim lang="lisp" line="7"><![CDATA[
 (define-advice use-package
     (:around (orig package &rest body) use-with-binary)
   (let ((executable (plist-get body :with)))
@@ -130,250 +220,33 @@
       (setq body (seq-difference body `(:with ,executable))))
     (if (or (not executable) (executable-find executable))
         (apply orig package body))))
-    ]]></verbatim>
-    <paragraph>Tell Emacs not to litter in the working space.</paragraph>
-    <verbatim lang="lisp" line="2"><![CDATA[
-(setq backup-directory-alist `((".*" . ,temporary-file-directory))
-      auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-    ]]></verbatim>
-    <paragraph>Dump autoloads collected from the
-    <verbatim>core</verbatim> directory into
-    <verbatim>core-autoloads.el</verbatim> and evaluate it by abusing
-    <verbatim>use-package</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="5"><![CDATA[
-(use-package core-autoloads
-  :load-path "core"
-  :init (loaddefs-generate
-         (concat user-emacs-directory "core")
-         (concat user-emacs-directory "core/core-autoloads.el")))
+
+(with-eval-after-load 'use-package
+  (environment-flush))
     ]]></verbatim>
   </unit>
 
   <unit role="chapter">
-    <heading>Displayed Frame</heading>
-    <paragraph>Configure the fallback Hanazono Mincho fontset, which
-    covers all CJK unified and compatibility ideographs.</paragraph>
-    <verbatim lang="lisp" line="9"><![CDATA[
-(setq cjk-fontset-map-alist '(("Hanazono Mincho A" . ((#x0000 . #xD7FF)
-                                                      (#xE000 . #xFFFD)
-                                                      (#x10000 . #x1FFFD)))
-                              ("Hanazono Mincho B" . ((#x20000 . #x2A6D6)))
-                              ("Hanazono Mincho C" . ((#x2A700 . #x2FFFD)))))
+    <heading>Package Management</heading>
+    <message type="note">Here contains the configuration and loading
+    of extension packages, which are either shipped with Emacs or
+    available in any of the repositories. They are declared in
+    alphabetical order, which is not generally recommended considering
+    loading priorities, etc. However it<apostrophe/>s applicable here
+    since I dump all of them.</message>
+    <verbatim lang="lisp" line="220"><![CDATA[
+(use-package auctex
+  :with "luatex"
+  :init
+  (setq-default TeX-engine 'luatex)
+  (setq TeX-check-TeX nil
+        TeX-parse-self t
+        TeX-view-program-list '(("Preview" "open -a Preview.app %o"))))
 
-(dolist (entry cjk-fontset-map-alist)
-  (dolist (range (cdr entry))
-    (set-fontset-font t range (font-spec :family (car entry)))))
-    ]]></verbatim>
-    <paragraph>Next, we configure the Latin font, which indirectly
-    overrides Hanazono Mincho as a side effect.</paragraph>
-    <verbatim lang="lisp" line="7"><![CDATA[
-(when (display-graphic-p)
-  (set-face-attribute 'default nil :family "SF Mono")
-  (set-face-attribute 'fixed-pitch nil :family "IBM 3270")
-  (set-face-attribute 'variable-pitch nil :family "IBM Plex Serif"))
-
-(add-to-list 'face-font-rescale-alist
-             '("IBM 3270" . 1.17))
-    ]]></verbatim>
-    <paragraph>Optimizes the editing experience for large files, based
-    on LdBeth<apostrophe/>s approach.</paragraph>
-    <verbatim lang="lisp" line="5"><![CDATA[
-(setq bidi-display-reordering nil
-      bidi-inhibit-bpa t
-      long-line-threshold 1000
-      large-hscroll-threshold 1000
-      syntax-wholeline-max 1000)
-    ]]></verbatim>
-    <paragraph>Abolish the annoying key binding to
-    <verbatim>mouse-wheel-text-scale</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="2"><![CDATA[
-(keymap-global-set "C-<wheel-up>" 'ignore)
-(keymap-global-set "C-<wheel-down>" 'ignore)
-    ]]></verbatim>
-    <paragraph>Match parentheses and override selected text instead of
-    appending at end.</paragraph>
-    <verbatim lang="lisp" line="2"><![CDATA[
-(electric-pair-mode t)
-(delete-selection-mode t)
-    ]]></verbatim>
-    <paragraph>Enable pixel-based precision scrolling.</paragraph>
-    <verbatim lang="lisp" line="3"><![CDATA[
-(pixel-scroll-precision-mode t)
-
-(setq pixel-scroll-precision-use-momentum t
-      pixel-scroll-precision-interpolate-page t)
-    ]]></verbatim>
-    <paragraph>Load the railgun theme, using
-    <verbatim>package-vc-install</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="3"><![CDATA[
-(use-package railgun-themes
-  :vc (:url "https://github.com/radionoisee/railgun-themes.git")
-  :config (load-theme 'railgun-light t))
-    ]]></verbatim>
-    <paragraph>Supply my own modeline, inspired by
-    <verbatim>tecoline</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="22"><![CDATA[
-(setq mode-line-right-align-edge 'right-margin)
-
-(defun mode-line-compose (indicator buffer preamble postamble)
-  (list `(:propertize ,indicator face (:foreground "#ffffff" :background "#b3b9be"))
-        `(:propertize ,buffer face (:foreground "#3a81c3"))
-        '(:propertize " " display (raise 0.12))
-        '(:propertize " " display (raise -0.12))
-        'mode-line-format-right-align
-        `(:propertize ,preamble face (:foreground "#6c3163"))
-        '(:propertize "<<" face (:foreground "#dc752f"))
-        `(:propertize ,postamble face ((:foreground "#3a81c3") bold))))
-
-(defun mode-line-default ()
-  (let ((indicator '(" " (:eval (cond ((and buffer-file-name (buffer-modified-p)) "RW")
-                                      (buffer-read-only "RO")
-                                      (t "WR"))) " "))
-        (buffer '(" %b "))
-        (preamble '((-3 "%p") " %l:%c "))
-        (postamble '(" %[" mode-name "%] ")))
-    (mode-line-compose indicator buffer preamble postamble)))
-
-(setq-default mode-line-format (mode-line-default))
-    ]]></verbatim>
-    <paragraph>Gain focus upon launch on Aqua.</paragraph>
-    <verbatim lang="lisp" line="1"><![CDATA[
-(select-frame-set-input-focus (selected-frame))
-    ]]></verbatim>
-    <paragraph>Handy utility to peak into the window behind.</paragraph>
-    <verbatim lang="lisp" line="19"><![CDATA[
-(defun adjust-frame-opacity (frame delta)
-  (let* ((alpha (or (frame-parameter frame 'alpha) 100))
-         (alpha (if (listp alpha) (car alpha) alpha))
-         (alpha (+ alpha delta)))
-    (when (and (<= frame-alpha-lower-limit alpha)
-               (>= 100 alpha))
-      (set-frame-parameter frame 'alpha alpha))))
-
-(defun frame-perspective ()
-  (interactive)
-  (dolist (frame (frame-list))
-    (adjust-frame-opacity frame -40))
-  (read-event)
-  (when last-input-event
-    (dolist (frame (frame-list))
-      (adjust-frame-opacity frame 40))))
-
-(keymap-global-set "M-RET" 'frame-perspective)
-    ]]></verbatim>
-    <paragraph>For refined CJK line-breaking, respecting
-    Kinsoku.</paragraph>
-    <verbatim lang="lisp" line="1"><![CDATA[
-(setq word-wrap-by-category t)
-    ]]></verbatim>
-    <paragraph>Handy function to expand the selection region based on
-    the current node.</paragraph>
-    <verbatim lang="lisp" line="18"><![CDATA[
-(defun expand-region ()
-  (interactive)
-  (when (and (boundp 'treesit-primary-parser)
-             treesit-primary-parser)
-    (let* ((node (if (use-region-p)
-                     (treesit-node-on (region-beginning) (region-end))
-                   (treesit-node-at (point))))
-           (start (treesit-node-start node))
-           (end (treesit-node-end node)))
-      (when (and (= (region-beginning) start)
-                 (= (region-end) end))
-        (when-let* ((node (treesit-node-parent node)))
-          (setq start (treesit-node-start node)
-                end (treesit-node-end node))))
-      (goto-char start)
-      (set-mark end))))
-
-(keymap-global-set "M-+" 'expand-region)
-    ]]></verbatim>
-    <paragraph>Enable natural line-breaking and inline completion
-    preview in text mode.</paragraph>
-    <verbatim lang="lisp" line="8"><![CDATA[
-(defun text-mode-refine ()
-  (setq-local corfu-auto nil
-              completion-preview-minimum-symbol-length 2)
-  (completion-preview-mode)
-  (visual-line-mode))
-
-(add-hook 'text-mode-hook
-          'text-mode-refine)
-    ]]></verbatim>
-    <paragraph>Alternate way to insert backslash on JIS
-    keyboard.</paragraph>
-    <verbatim lang="lisp" line="1"><![CDATA[
-(keymap-global-set "M-¥" "\\")
-    ]]></verbatim>
-    <paragraph>Get rid of tabs, fortunately with ease.</paragraph>
-    <verbatim lang="lisp" line="1"><![CDATA[
-(setq-default indent-tabs-mode nil)
-    ]]></verbatim>
-  </unit>
-
-  <unit role="chapter">
-    <heading>Extension Packages</heading>
-    <paragraph>Make <verbatim>dired</verbatim> compatible with BSD
-    <verbatim>ls</verbatim>, and enable <verbatim>gpg</verbatim>
-    loopback for <verbatim>epg</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="2"><![CDATA[
-(setq dired-use-ls-dired nil
-      epg-pinentry-mode 'loopback)
-    ]]></verbatim>
-    <paragraph>Configure <verbatim>treesit</verbatim> to handle syntax
-    highlighting, while keeping <verbatim>fontlock</verbatim> as a
-    fallback.</paragraph>
-    <verbatim lang="lisp" line="30"><![CDATA[
-(use-package treesit
-  :ensure nil)
-
-(setq treesit-language-unmask-alist '((c++ . cpp))
-      treesit-language-fallback-alist '((html-ts-mode . mhtml-mode))
-      treesit-language-source-alist '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-                                      (c "https://github.com/tree-sitter/tree-sitter-c")
-                                      (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
-                                      (css "https://github.com/tree-sitter/tree-sitter-css")
-                                      (html "https://github.com/tree-sitter/tree-sitter-html")
-                                      (java "https://github.com/tree-sitter/tree-sitter-java")
-                                      (json "https://github.com/tree-sitter/tree-sitter-json")
-                                      (ruby "https://github.com/tree-sitter/tree-sitter-ruby")
-                                      (rust "https://github.com/tree-sitter/tree-sitter-rust")))
-
-(dolist (grammar treesit-language-source-alist)
-  (let* ((language (or (car (rassq (car grammar) treesit-language-unmask-alist))
-                       (car grammar)))
-         (derived (intern (concat (symbol-name language) "-ts-mode")))
-         (fallback (assq derived treesit-language-fallback-alist))
-         (default (or (cdr fallback)
-                      (intern (concat (symbol-name language) "-mode")))))
-    (and (not (and fallback (not (cdr fallback))))
-         (fboundp derived)
-         (if (treesit-ready-p (car grammar) t)
-             (add-to-list 'major-mode-remap-alist
-                          `(,default . ,derived))
-           (when (fboundp default)
-             (add-to-list 'major-mode-remap-alist
-                          `(,derived . ,default)))))))
-    ]]></verbatim>
-    <paragraph>Jumping to arbitrary position using a char-based
-    decision tree by <verbatim>avy</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="4"><![CDATA[
 (use-package avy
   :bind (("C-: c" . avy-goto-char)
          ("C-: x" . avy-goto-char-timer)
          ("C-: l" . avy-goto-line)))
-    ]]></verbatim>
-    <paragraph>Minibuffer completion by
-    <verbatim>vertico</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="2"><![CDATA[
-(use-package vertico
-  :hook (after-init . vertico-mode))
-    ]]></verbatim>
-    <paragraph>In-buffer completion by
-    <verbatim>corfu</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="14"><![CDATA[
-(setq tab-always-indent 'complete
-      read-extended-command-predicate 'command-completion-default-include-p)
 
 (use-package corfu
   :hook (after-init . global-corfu-mode)
@@ -386,281 +259,67 @@
               ([backtab] . corfu-previous)
               ([return] . corfu-send)
               ([escape] . corfu-quit)))
-    ]]></verbatim>
-    <paragraph>Docstring informations during selection in
-    minibuffer.</paragraph>
-    <verbatim lang="lisp" line="2"><![CDATA[
-(use-package marginalia
-  :hook (after-init . marginalia-mode))
-    ]]></verbatim>
-    <paragraph>Snippet and template support via
-    <verbatim>yasnippet</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="2"><![CDATA[
-(use-package yasnippet
-  :hook (prog-mode . yas-minor-mode))
-    ]]></verbatim>
-    <paragraph>Language server protocol integration provided by
-    <verbatim>eglot</verbatim>. The Emoji code action indicator is
-    removed.</paragraph>
-    <verbatim lang="lisp" line="3"><![CDATA[
+
+(use-package diff-hl)
+
+(use-package dired
+  :ensure nil
+  :init (setq dired-use-ls-dired nil))
+
+(use-package ef-themes
+  :defer nil
+  :config (ef-themes-select 'ef-owl))
+
 (use-package eglot
-  :hook ((c-ts-mode c++-ts-mode tuareg-mode caml-mode) . eglot-ensure)
+  :ensure nil
   :init (setq eglot-code-action-indications '(eldoc-hint)))
-    ]]></verbatim>
-    <paragraph>Configure <verbatim>eldoc</verbatim>, make sure every
-    function description fits in exactly one line, as the echo area
-    won<apostrophe/>t resize for it.</paragraph>
-    <verbatim lang="lisp" line="5"><![CDATA[
+
 (use-package eldoc
-  :defer t
+  :ensure nil
+  :hook (after-init . global-eldoc-mode)
   :init (setq eldoc-echo-area-display-truncation-message nil
               eldoc-echo-area-use-multiline-p nil
               eldoc-echo-area-prefer-doc-buffer 'maybe))
-    ]]></verbatim>
-    <paragraph>Make the Emacs web broswer capable of rendering XSL
-    templates, implemented as a <verbatim>xsltproc</verbatim>
-    filter.</paragraph>
-    <verbatim lang="lisp" line="32"><![CDATA[
+
+(use-package epg
+  :ensure nil
+  :init (setq epg-pinentry-mode 'loopback))
+
 (use-package eww
-  :hook (eww-after-render . eww-render-xslt))
-
-(defun eww-extract-xslt ()
-  (save-excursion
-    (goto-char (point-min))
-    (when (re-search-forward "<\\?xml-stylesheet [^>]*href=['\"]\\([^'\"]+\\)['\"]" nil t)
-      (let ((xslt (match-string 1))
-            (link (url-generic-parse-url (eww-current-url))))
-        (if (file-name-absolute-p xslt)
-            (progn
-              (setf (url-filename link) xslt)
-              (url-recreate-url link))
-          (let* ((path (file-name-directory (url-filename link)))
-                 (xslt (expand-file-name xslt path)))
-            (setf (url-filename link) xslt)
-            (url-recreate-url link)))))))
-
-(defun eww-render-xslt ()
-  (when (or (string-match "\\.xml$" (eww-current-url))
-            (save-excursion
-              (goto-char (point-min))
-              (re-search-forward "<\\?xml" nil t)))
-    (when-let* ((link (eww-extract-xslt))
-                (xslt (make-temp-file "eww" nil ".xsl"))
-                (xml (make-temp-file "eww" nil ".xml"))
-                (html (make-temp-file "eww" nil ".html"))
-                (command (format "xsltproc '%s' '%s' > '%s'" xslt xml html)))
-      (url-copy-file link xslt t)
-      (append-to-file nil nil xml)
-      (call-process-shell-command command nil nil)
-      (eww-open-file html))))
-    ]]></verbatim>
-    <paragraph>Mail user agent in Emacs featuring
-    WanderLust.</paragraph>
-    <verbatim lang="lisp" line="45"><![CDATA[
-(setq user-mail-address "j18516785606@icloud.com"
-      user-full-name "RnE"
-      mail-user-agent 'wl-user-agent)
-
-(define-mail-user-agent
-  'wl-user-agent
-  'wl-user-agent-compose
-  'wl-draft-send
-  'wl-draft-kill
-  'mail-send-hook)
-
-(use-package wanderlust
-  :defer t
-  :init (setq elmo-passwd-storage-type 'auth-source
-              wl-temporary-file-directory "~/.wl"
-              wl-smtp-connection-type 'starttls
-              wl-smtp-authenticate-type "plain"
-              wl-smtp-posting-user "j18516785606@icloud.com"
-              wl-smtp-posting-server "smtp.mail.me.com"
-              wl-smtp-posting-port 587
-              wl-local-domain "icloud.com"
-              wl-summary-width nil
-              wl-summary-line-format "%n%T%P %W:%M/%D %h:%m %36(%t%[%c %f %]%) %s"
-              wl-thread-indent-level 2
-              wl-thread-have-younger-brother-str "+"
-              wl-thread-youngest-child-str "+"
-              wl-thread-vertical-str " "
-              wl-thread-horizontal-str "-"
-              wl-thread-space-str " "
-              wl-message-id-domain "smtp.mail.me.com"
-              wl-message-ignored-field-list '(".")
-              wl-message-visible-field-list
-              '("^Subject:"
-                "^\\(To\\|Cc\\):"
-                "^\\(From\\|Reply-To\\):"
-                "^\\(Posted\\|Date\\):"
-                "^Organization:"
-                "^X-Face\\(-[0-9]+\\)?:")
-              wl-message-sort-field-list
-              '("^Subject"
-                "^\\(To\\|Cc\\)"
-                "^\\(From\\|Reply-To\\)"
-                "^\\(Posted\\|Date\\)"
-                "^Organization")
-              wl-highlight-x-face-function 'x-face-decode-message-header))
-    ]]></verbatim>
-    <paragraph>Tweak the background color for the splash image, and
-    modifications for HTML mail preview using XWidget.</paragraph>
-    <verbatim lang="lisp" line="63"><![CDATA[
-(with-eval-after-load 'wl-demo
-  (set-face-background 'wl-highlight-demo-face nil))
-
-(eval-when-compile
-  (require 'xwidget))
-
-(defun xwidget-wl-window-remnant (window)
-  (when-let* ((object (next-single-property-change (point-min) 'display))
-              (total (xwidget-window-inside-pixel-height window))
-              (fringes (window-fringes))
-              (remnant 2))
+  :ensure nil
+  :hook (eww-after-render . eww-render-xslt)
+  :init
+  (defun eww-extract-xslt ()
     (save-excursion
       (goto-char (point-min))
-      (while (< (point) object)
-        (setq remnant (+ remnant (line-pixel-height)))
-        (forward-line 1))
-      (goto-char (+ object 2))
-      (while (< (point) (point-max))
-        (setq remnant (+ remnant (line-pixel-height)))
-        (forward-line 1)))
-    (- total (+ remnant (/ (+ (nth 0 fringes)
-                              (nth 1 fringes)) 2)))))
+      (when (re-search-forward "<\\?xml-stylesheet [^>]*href=['\"]\\([^'\"]+\\)['\"]" nil t)
+        (let ((xslt (match-string 1))
+              (link (url-generic-parse-url (eww-current-url))))
+          (if (file-name-absolute-p xslt)
+              (progn
+                (setf (url-filename link) xslt)
+                (url-recreate-url link))
+            (let* ((path (file-name-directory (url-filename link)))
+                   (xslt (expand-file-name xslt path)))
+              (setf (url-filename link) xslt)
+              (url-recreate-url link)))))))
+  (defun eww-render-xslt ()
+    (when (or (string-match "\\.xml$" (eww-current-url))
+              (save-excursion
+                (goto-char (point-min))
+                (re-search-forward "<\\?xml" nil t)))
+      (when-let* ((link (eww-extract-xslt))
+                  (xslt (make-temp-file "eww" nil ".xsl"))
+                  (xml (make-temp-file "eww" nil ".xml"))
+                  (html (make-temp-file "eww" nil ".html"))
+                  (command (format "xsltproc '%s' '%s' > '%s'" xslt xml html)))
+        (url-copy-file link xslt t)
+        (append-to-file nil nil xml)
+        (call-process-shell-command command nil nil)
+        (eww-open-file html)))))
 
-(defun xwidget-wl-window-realize (&optional frame)
-  (walk-windows (lambda (window)
-                  (with-current-buffer (window-buffer window)
-                    (when (eq major-mode 'mime-view-mode)
-                      (when-let* ((object (car (get-buffer-xwidgets (buffer-name))))
-                                  (width (xwidget-window-inside-pixel-width window))
-                                  (height (xwidget-wl-window-remnant window)))
-                        (xwidget-resize object width height)))) 'none frame)))
-
-(defun xwidget-wl-window-dispose ()
-  (dolist (buffer (buffer-list))
-    (unless (get-buffer-window buffer)
-      (with-current-buffer buffer
-        (when (eq major-mode 'mime-view-mode)
-          (when-let* ((object (car (get-buffer-xwidgets (buffer-name)))))
-            (kill-xwidget object)
-            (kill-buffer (current-buffer))
-            (xwidget-delete-zombies)))))))
-
-(add-to-list 'window-size-change-functions
-             'xwidget-wl-window-realize)
-
-(define-advice wl-summary-set-message-buffer-or-redisplay
-    (:after (&rest _args) xwidget-wl-window-init)
-  (xwidget-wl-window-realize)
-  (xwidget-wl-window-dispose))
-
-(define-advice mime-shr-preview-text/html
-    (:override (entity _situation) xwidget-wl-render-html)
-  (let ((inhibit-read-only t))
-    (insert ".")
-    (let* ((cursor (- (point-max) 1))
-           (source (with-temp-buffer
-                     (mime-insert-text-content entity)
-                     (buffer-string)))
-           (cookie (make-temp-file "xwidget" nil ".html"))
-           (object (xwidget-insert cursor 'webkit (buffer-name) 1 1)))
-      (set-xwidget-query-on-exit-flag object nil)
-      (with-temp-file cookie (insert source))
-      (xwidget-webkit-goto-uri object (concat "file://" cookie)))))
-    ]]></verbatim>
-    <paragraph>XML major mode with RelaxNG based schema-sensitive
-    editing abilities.</paragraph>
-    <verbatim lang="lisp" line="5"><![CDATA[
-(use-package nxml-mode
-  :ensure nil
-  :defer t
-  :config (add-to-list 'rng-schema-locating-files
-                       (expand-file-name "schema/schemas.xml" user-emacs-directory)))
-    ]]></verbatim>
-    <paragraph>Markdown mode, configured mainly for
-    <verbatim>eldoc</verbatim> and <verbatim>gptel</verbatim> as I
-    hardly ever uses this markup language.</paragraph>
-    <verbatim lang="lisp" line="6"><![CDATA[
-(use-package markdown-mode
-  :defer t
-  :init (setq markdown-enable-math t
-              markdown-fontify-code-blocks-natively t
-              markdown-hide-urls t)
-  :config (set-face-underline 'markdown-line-break-face nil))
-    ]]></verbatim>
-    <paragraph>For better TeX editing, compile and preview, requires
-    <verbatim>luatex</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="8"><![CDATA[
-(use-package auctex
-  :with "luatex"
-  :defer t
-  :init
-  (setq-default TeX-engine 'luatex)
-  (setq TeX-check-TeX nil
-        TeX-parse-self t
-        TeX-view-program-list '(("Preview" "open -a Preview.app %o"))))
-    ]]></verbatim>
-    <paragraph>Swift major mode, activated with the
-    <verbatim>swift</verbatim> executable.</paragraph>
-    <verbatim lang="lisp" line="3"><![CDATA[
-(use-package swift-mode
-  :with "swift"
-  :defer t)
-    ]]></verbatim>
-    <paragraph>OCaml major mode, activated with the
-    <verbatim>ocaml</verbatim> executable.</paragraph>
-    <verbatim lang="lisp" line="3"><![CDATA[
-(use-package tuareg
-  :with "ocaml"
-  :defer t)
-    ]]></verbatim>
-    <paragraph>Common Lisp major mode, activated with the
-    <verbatim>sbcl</verbatim> executable.</paragraph>
-    <verbatim lang="lisp" line="4"><![CDATA[
-(use-package sly
-  :with "sbcl"
-  :defer t
-  :init (setq inferior-lisp-program "sbcl"))
-    ]]></verbatim>
-    <paragraph>Coq major mode, activated with the
-    <verbatim>coqc</verbatim> executable.</paragraph>
-    <verbatim lang="lisp" line="5"><![CDATA[
-(use-package proof-general
-  :with "coqc"
-  :defer t
-  :init (setq proof-splash-enable nil
-              proof-delete-empty-windows t))
-    ]]></verbatim>
-    <paragraph>The <verbatim>git</verbatim> porcelain inside
-    Emacs.</paragraph>
-    <verbatim lang="lisp" line="3"><![CDATA[
-(use-package magit
-  :with "git"
-  :defer t)
-    ]]></verbatim>
-    <paragraph>Visualize uncommitted changes in the
-    fringle.</paragraph>
-    <verbatim lang="lisp" line="3"><![CDATA[
-(use-package diff-hl
-  :with "git"
-  :defer t)
-    ]]></verbatim>
-    <paragraph>Some basic spell-checking, activated with the
-    <verbatim>aspell</verbatim> executable.</paragraph>
-    <verbatim lang="lisp" line="3"><![CDATA[
-(use-package flyspell
-  :with "aspell"
-  :defer t
-  :init (setq ispell-program-name "aspell"))
-    ]]></verbatim>
-    <paragraph>Load <verbatim>flymake</verbatim> so that it is
-    included in the portable dump image. Then supply our own fringe
-    indicator.</paragraph>
-    <verbatim lang="lisp" line="24"><![CDATA[
 (use-package flymake
-  :defer t
+  :ensure nil
   :init (define-fringe-bitmap 'flymake-fringe-indicator
           (vector #b00000000
                   #b00000000
@@ -683,21 +342,119 @@
                 flymake-note-bitmap '(flymake-fringe-indicator compilation-info)
                 flymake-warning-bitmap '(flymake-fringe-indicator compilation-warning)
                 flymake-error-bitmap '(flymake-fringe-indicator compilation-error)))
-    ]]></verbatim>
-    <paragraph>Large language model chat client for Emacs.</paragraph>
-    <verbatim lang="lisp" line="12"><![CDATA[
-(use-package gptel
-  :defer t
-  :config (let* ((host "models.inference.ai.azure.com")
-                 (endpoint "/chat/completions")
-                 (key (funcall (plist-get (car (auth-source-search :host host)) :secret))))
-            (setq gptel-model 'gpt-4o
-                  gptel-backend (gptel-make-openai "azure"
-                                  :host host
-                                  :endpoint endpoint
-                                  :key key
-                                  :stream t
-                                  :models '(gpt-4o)))))
+
+(use-package flyspell
+  :ensure nil
+  :init (setq ispell-program-name "aspell"))
+
+(use-package magit)
+
+(use-package marginalia
+  :hook (after-init . marginalia-mode))
+
+(use-package markdown-mode
+  :init (setq markdown-enable-math t
+              markdown-fontify-code-blocks-natively t
+              markdown-hide-urls t)
+  :config (set-face-underline 'markdown-line-break-face nil))
+
+(use-package nxml-mode
+  :ensure nil
+  :config (add-to-list 'rng-schema-locating-files
+                       (expand-file-name "schema/schemas.xml" user-emacs-directory)))
+
+(use-package proof-general
+  :with "coqc"
+  :init (setq proof-splash-enable nil
+              proof-delete-empty-windows t))
+
+(use-package sly
+  :with "sbcl"
+  :init (setq inferior-lisp-program "sbcl"))
+
+(use-package swift-mode
+  :with "swift")
+
+(use-package treesit
+  :ensure nil
+  :defer nil
+  :init (setq treesit-language-unmask-alist '((c++ . cpp))
+              treesit-language-fallback-alist '((html-ts-mode . mhtml-mode))
+              treesit-language-source-alist '((bash . "https://github.com/tree-sitter/tree-sitter-bash")
+                                              (c . "https://github.com/tree-sitter/tree-sitter-c")
+                                              (cpp . "https://github.com/tree-sitter/tree-sitter-cpp")
+                                              (css . "https://github.com/tree-sitter/tree-sitter-css")
+                                              (html . "https://github.com/tree-sitter/tree-sitter-html")))
+  :config (dolist (grammar treesit-language-source-alist)
+            (let* ((language (or (car (rassq (car grammar) treesit-language-unmask-alist))
+                                 (car grammar)))
+                   (derived (intern (concat (symbol-name language) "-ts-mode")))
+                   (fallback (assq derived treesit-language-fallback-alist))
+                   (default (or (cdr fallback)
+                                (intern (concat (symbol-name language) "-mode")))))
+              (and (not (and fallback (not (cdr fallback))))
+                   (fboundp derived)
+                   (if (treesit-ready-p (car grammar) t)
+                       (add-to-list 'major-mode-remap-alist
+                                    `(,default . ,derived))
+                     (when (fboundp default)
+                       (add-to-list 'major-mode-remap-alist
+                                    `(,derived . ,default))))))))
+
+(use-package tuareg
+  :with "ocaml")
+
+(use-package vertico
+  :hook (after-init . vertico-mode))
+
+(use-package wanderlust
+  :init
+  (define-mail-user-agent
+    'wl-user-agent
+    'wl-user-agent-compose
+    'wl-draft-send
+    'wl-draft-kill
+    'mail-send-hook)
+  (setq elmo-passwd-storage-type 'auth-source
+        mail-user-agent 'wl-user-agent
+        user-mail-address "j18516785606@icloud.com"
+        user-full-name "RnE"
+        wl-local-domain "icloud.com"
+        wl-smtp-authenticate-type "plain"
+        wl-smtp-connection-type 'starttls
+        wl-smtp-posting-user "j18516785606@icloud.com"
+        wl-smtp-posting-server "smtp.mail.me.com"
+        wl-smtp-posting-port 587
+        wl-summary-width nil
+        wl-summary-line-format "%n%T%P %W:%M/%D %h:%m %36(%t%[%c %f %]%) %s"
+        wl-temporary-file-directory "~/.wl"
+        wl-thread-indent-level 2
+        wl-thread-have-younger-brother-str "+"
+        wl-thread-youngest-child-str "+"
+        wl-thread-vertical-str " "
+        wl-thread-horizontal-str "-"
+        wl-thread-space-str " "
+        wl-message-id-domain "smtp.mail.me.com"
+        wl-message-ignored-field-list '(".")
+        wl-message-visible-field-list
+        '("^Subject:"
+          "^\\(To\\|Cc\\):"
+          "^\\(From\\|Reply-To\\):"
+          "^\\(Posted\\|Date\\):"
+          "^Organization:"
+          "^X-Face\\(-[0-9]+\\)?:")
+        wl-message-sort-field-list
+        '("^Subject"
+          "^\\(To\\|Cc\\)"
+          "^\\(From\\|Reply-To\\)"
+          "^\\(Posted\\|Date\\)"
+          "^Organization")
+        wl-highlight-x-face-function 'x-face-decode-message-header)
+  (with-eval-after-load 'wl-demo
+    (set-face-background 'wl-highlight-demo-face nil)))
+
+(use-package yasnippet
+  :hook (prog-mode . yas-minor-mode))
     ]]></verbatim>
   </unit>
 
@@ -711,8 +468,8 @@
     <verbatim lang="lisp" line="25"><![CDATA[
 (package-initialize)
 
+(defconst dumped-load-mask nil)
 (defconst dumped-load-path load-path)
-(defconst dumped-load-mask '(gptel))
 
 (with-temp-buffer
   (insert-file-contents (concat user-emacs-directory "init.el"))
@@ -725,7 +482,7 @@
              (require package nil t)))))
     (end-of-file nil)))
 
-(load-theme 'railgun-light t t)
+(load (concat user-emacs-directory "init.el"))
 
 (defun dumped-init ()
   (global-font-lock-mode t)
