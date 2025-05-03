@@ -80,7 +80,7 @@
       <verbatim>luaotfload</verbatim>, a font loader adapted from
       ConTeXt for plainTeX. This is bundled in the
       <verbatim>dist.tar.gz</verbatim> which is released with
-      <term>aplTeX</term>.</paragraph>
+      aplTeX.</paragraph>
       <paragraph>The default format is plainTeX, which has been
       patched in a way to utilize the extensions of eTeX, pdfTeX, and
       LuaTeX. It is also Unicode-aware. Additionally, I<apostrophe/>ve
