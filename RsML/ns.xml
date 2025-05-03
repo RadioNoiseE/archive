@@ -12,51 +12,67 @@
       <month>--01</month>
       <day>---21</day>
     </date>
-    <abstract>This page describes the namespace for <term>RsML</term>, an XML schema for writing
-    technical or non-technical documents. At the present time <term>RsML</term> can be transformed
-    into clean and semantically rich HTML5, while TeX output support is on the roadmap<footnote>Which
-    involves converting Content MathML into TeX.</footnote>.</abstract>
+    <abstract>This page describes the namespace for RsML, an XML
+    schema for writing technical or non-technical documents. At the
+    present time RsML can be transformed into clean and semantically
+    rich HTML5, while TeX output support is on the
+    roadmap<footnote>Which involves converting Content MathML into
+    TeX.</footnote>.</abstract>
   </meta>
 
   <unit role="chapter">
     <heading>RelaxNG Compact Schema</heading>
-    <paragraph>This is non-normative schema, and can be used for manuscript validating by
-    <verbatim>jing.jar</verbatim> or Emacs <verbatim>nXML</verbatim> mode. It can be converted to
-    the XML syntax using <link literal="Trang">https://relaxng.org/jclark/trang.html</link>.</paragraph>
+    <paragraph>This is non-normative schema, and can be used for
+    manuscript validating by <verbatim>jing.jar</verbatim> or Emacs
+    <verbatim>nXML</verbatim> mode. It can be converted to the XML
+    syntax using <link
+    literal="Trang">https://relaxng.org/jclark/trang.html</link>.</paragraph>
   </unit>
 
   <unit role="chapter">
     <heading>XSLT 1.0 Style Sheet</heading>
-    <paragraph>This is the transformation sheet for <term>RsML</term> written in XSLT 1.0
-    with compatibility in mind. Thus most implementations for instance <verbatim>libxslt</verbatim>
-    and most web browsers should be able to handle it.</paragraph>
-    <message type="note">The idea for the current implementation of program listings is
-    <emphasize>borrowed</emphasize> from LdBeth which renders line numbers correctly in text-based
-    web browsers like <verbatim>w3m</verbatim>. However it has poor performance when processing very
-    large listings as recursive templates are inevitably used.</message>
+    <paragraph>This is the transformation sheet for RsML written in
+    XSLT 1.0 with compatibility in mind. Thus most implementations for
+    instance <verbatim>libxslt</verbatim> and most web browsers should
+    be able to handle it.</paragraph>
+    <message type="note">The idea for the current implementation of
+    program listings is <emphasize>borrowed</emphasize> from LdBeth
+    which renders line numbers correctly in text-based web browsers
+    like <verbatim>w3m</verbatim>. However it has poor performance
+    when processing very large listings as recursive templates are
+    inevitably used.</message>
 
     <unit role="section">
       <heading>External Math Support</heading>
-      <paragraph><term>RsML</term> supports inline and display equations. You can express any equations in
-      TeX or Content MathML, and use BlahTeXML or the modified version of David Carlisle<apostrophe/>s
-      <verbatim>c2p.xsl</verbatim> to convert it to Presentational MathML.</paragraph>
-      <paragraph>The <verbatim>web.xsl</verbatim> style sheet processes <verbatim>math</verbatim> elements by simply
-      stripping any XML namespaces and extracting their <verbatim>local-name()</verbatim>. This allows equations to be
-      written in theoretically any form, and they will still work with an appropriate preprocesser.</paragraph>
+      <paragraph>RsML supports inline and display equations. You can
+      express any equations in TeX or Content MathML, and use
+      BlahTeXML or the modified version of David
+      Carlisle<apostrophe/>s <verbatim>c2p.xsl</verbatim> to convert
+      it to Presentational MathML.</paragraph>
+      <paragraph>The <verbatim>web.xsl</verbatim> style sheet
+      processes <verbatim>math</verbatim> elements by simply stripping
+      any XML namespaces and extracting their
+      <verbatim>local-name()</verbatim>. This allows equations to be
+      written in theoretically any form, and they will still work with
+      an appropriate preprocesser.</paragraph>
     </unit>
   </unit>
 
   <unit role="chapter">
     <heading>Cascading Style Sheet</heading>
-    <paragraph>This CSS style sheet is suitable for online presentation and for producing print output. Note that
-    this contains vendor specific CSS attributes. The web browser I used for testing is Safari.</paragraph>
+    <paragraph>This CSS style sheet is suitable for online
+    presentation and for producing print output. Note that this
+    contains vendor specific CSS attributes. The web browser I used
+    for testing is Safari.</paragraph>
   </unit>
 
   <unit role="chapter">
     <heading>Other Resources</heading>
-    <paragraph><term>RsML</term> is continuously maintained and developed at <link>https://github.com/RadioNoiseE/rsml</link>.
-    You can download the latest source there.</paragraph>
-    <paragraph>This page is written with <term>RsML</term>, with <verbatim>web.xsl</verbatim> style sheet applied by the
-    browser you are currently using.</paragraph>
+    <paragraph>RsML is continuously maintained and developed at <link
+    literal="GitHub">https://github.com/RadioNoiseE/rsml</link>. You
+    can download the latest source there.</paragraph>
+    <paragraph>This page is written with RsML, with
+    <verbatim>web.xsl</verbatim> style sheet applied by the browser
+    you are currently using.</paragraph>
   </unit>
 </rsml>
