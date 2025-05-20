@@ -14,7 +14,20 @@
   <logo>https://kekkan.org/static/images/minami.jpg</logo>
 
   <rights>Copyright 2024-2025 Jing Huang</rights>
-  <updated>2025-05-02T00:01:00Z</updated>
+  <updated>2025-05-20T00:01:00Z</updated>
+
+  <entry>
+    <id>tag:kekkan.org,2025:article#11</id>
+    <link rel="alternate" href="https://kekkan.org/article/qmk-bssk.xml"/>
+    <title>Updated article on adapting QMK for BSSK R1</title>
+    <published>2025-05-20T00:01:00Z</published>
+    <updated>2025-05-20T00:01:00Z</updated>
+    <summary type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">Porting the latest QMK
+      firmware to the IBM Beam Spring Space Saver keyboard, bypassing
+      Vial&#8217;s limitations and unlocking advanced features.</div>
+    </summary>
+  </entry>
 
   <entry>
     <id>tag:kekkan.org,2025:article#10</id>

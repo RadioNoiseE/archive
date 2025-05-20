@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type='text/xsl' href='/build/web.xsl'?>
+
+<rsml version="1.0" language="en"
+      xmlns="https://kekkan.org/RsML">
+  <meta>
+    <title>Porting the Latest QMK to BSSK R1</title>
+    <subtitle>With Atmel AVR Controller from Model F Labs</subtitle>
+    <author>Jing Huang</author>
+    <date>
+      <year>2025</year>
+      <month>--05</month>
+      <day>---20</day>
+    </date>
+  </meta>
+
+  <unit role="chapter">
+    <heading>Background</heading>
+    <paragraph>After roughly 2 months wait, my IBM Beam Spring
+    keyboard reproduction from Model F Labs finally arrived. I opted
+    for the Round 1 version because I like the Space Saver compact
+    case which is not available in the Round 2 products, though they
+    have arguably better QC and a press fit top which eliminates quiet
+    a few minor issues when tuning each module.</paragraph>
+    <paragraph>Satisfied with the hardware, I was eager to see what I
+    could do to reveal the true power of its built-in controller, and
+    that<apostrophe/>s exactly where this article begins.</paragraph>
+    <message type="tip">Don<apostrophe/>t forget to check out <link
+    literal="this article">https://ldbeth.sdf.org/articles/qmk</link>
+    written by LdBeth. The author is also grateful for his invaluable
+    guidance in addressing numerous issues encountered.</message>
+  </unit>
+
+  <unit role="chapter">
+    <heading>Vial or QMK</heading>
+    <paragraph>The keyboard comes with the pre-flashed Vial firmware,
+    which is a QMK fork for <quote>configuring your keyboard in real
+    time</quote>. Sounds good, but what are the costs? It stores all
+    configurable options into the 1kb EEPROM, including your keyboard
+    layout. This makes the storage rather limited, restricting you to
+    just 3 layers and 10 macros.</paragraph>
+    <paragraph>Despite that, you miss out on those fancy features that
+    are only available in the latest QMK, like dynamic macros,
+    deferred execution, and more. If you want more granularity, QMK is
+    the clear choice. Anyway, there<apostrophe/>s not much to gain
+    from the real-time configuring capabilities, especially when your
+    configuration is settled.</paragraph>
+  </unit>
+
+  <unit role="chapter">
+    <heading>Where to Start</heading>
+
+    <unit role="section">
+      <heading>QMK Environment</heading>
+      <paragraph>In the best situations, your package manager might
+      have packaged QMK for you. However, for me on Darwin using
+      pkgsrc, things started to get a bit more complicated. For this
+      specific keyboard, I needed <verbatim>avr-gcc</verbatim> which
+      is part of the AVR MCU toolchain available on
+      Microchip<apostrophe/>s website<footnote>The one pkgsrc provides
+      lacks the link-time optimization feature.</footnote> and
+      <verbatim>dfu-programmer</verbatim> for flashing
+      firmware.</paragraph>
+    </unit>
+
+    <unit role="section">
+      <heading>Obtaining Patches</heading>
+      <paragraph>Fortunately, Purdea Andrei has worked on an old QMK
+      fork which provides support for wcass<footnote>Modified xwhatsit
+      controller for capacitive keyboard produced by Model F
+      Labs.</footnote> controllers. We should use the
+      <verbatim>9e92bbf</verbatim> commit. Essentially, these patches
+      override the default matrix initialize and scan function for
+      capacitive sensing.</paragraph>
+    </unit>
+  </unit>
+
+  <unit role="chapter">
+    <heading>Customization</heading>
+    <paragraph>After successfully building your very first QMK
+    firmware, you should assign a key for
+    <verbatim>QK_BOOT</verbatim>. This will save you from having to
+    unscrew 12 screws and open the back-lid just to short
+    <verbatim>PROG</verbatim> to enter the bootloader for
+    flashing.</paragraph>
+    <paragraph>In fact, no substantial modification to the patch or to
+    the QMK side is required, though the userspace for QMK has changed
+    a lot. <verbatim>qmk lint</verbatim> will guide you through
+    updating the legacy <verbatim>config.h</verbatim> and
+    <verbatim>rules.mk</verbatim>. When incorporating the new features
+    like boot magic, keep SRAM usage in mind or you will soft-brick
+    your controller.</paragraph>
+    <paragraph>The only thing that doesn<apostrophe/>t work is the raw
+    hid, which I chose to drop. Thus, to squeeze space for those more
+    useful features, some global variables solely used by it can be
+    declared local. Note that the Pandrew utility can no longer be
+    used, so make sure your keyboard is detecting the signals
+    beforehand.</paragraph>
+  </unit>
+</rsml>
