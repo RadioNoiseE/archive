@@ -15,7 +15,21 @@
   <logo>https://kekkan.org/static/images/minami.jpg</logo>
 
   <rights>Copyright 2024-2025 Jing Huang</rights>
-  <updated>2025-05-03T18:31:10Z</updated>
+  <updated>2025-06-03T16:54:46Z</updated>
+
+  <entry>
+    <id>tag:kekkan.org,2025:memoir#8</id>
+    <title>Emacs color theme</title>
+    <published>2025-06-03T16:54:46Z</published>
+    <updated>2025-06-03T16:54:46Z</updated>
+    <content type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        <p>Want to design a new Emacs color theme inspired by the
+        color palette from the anime <i>Jinrui wa Suitai
+        Shimashita</i>.</p>
+      </div>
+    </content>
+  </entry>
 
   <entry>
     <id>tag:kekkan.org,2025:memoir#7</id>
