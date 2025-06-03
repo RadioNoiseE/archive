@@ -68,13 +68,15 @@
                (expand-file-name site user-emacs-directory)))
     ]]></verbatim>
     <paragraph>Tell Emacs not to litter on the file system, prevent
-    <verbatim>custom.el</verbatim> from writing
-    <verbatim>init.el</verbatim>, use short answers, and enable
-    refined CJK line-break, with respect to kinsoku.</paragraph>
-    <verbatim lang="lisp" line="5"><![CDATA[
+    <verbatim>custom.el</verbatim> from modifying
+    <verbatim>init.el</verbatim>, unlock disabled commands, use short
+    answers, and enable refined CJK line-break which respects
+    kinsoku.</paragraph>
+    <verbatim lang="lisp" line="6"><![CDATA[
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
       backup-directory-alist `((".*" . ,temporary-file-directory))
       custom-file (make-temp-file "custom" nil ".el")
+      disabled-command-function nil
       use-short-answers t
       word-wrap-by-category t)
     ]]></verbatim>
