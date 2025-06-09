@@ -285,7 +285,7 @@
       <heading>Simple Types</heading>
       <paragraph>We first define an infinite set of type
       <emphasize>variables</emphasize>
-      <math>\mathbb{V}=\{\alpha,\beta,\gamma,\ldots\}.</math> and then
+      <math>\mathbb{V}=\{\alpha,\beta,\gamma,\ldots\}</math> and then
       define the set of simple types
       <math>\mathbb{T}</math>:</paragraph>
       <list type="enumerate">
