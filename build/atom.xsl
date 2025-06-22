@@ -28,7 +28,7 @@
       <head>
         <meta content="charset=utf-8"/>
         <title>Memoir RnE -- Feed</title>
-        <link rel="stylesheet" href="/style/mem.css"/>
+        <link rel="stylesheet" href="/style/memoir.css"/>
       </head>
       <body>
         <div class="meta">

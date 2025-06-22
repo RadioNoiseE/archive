@@ -172,7 +172,7 @@
     </title>
     <link href="/favicon.ico" rel="icon"/>
     <link href="/static/images/minami.jpg" rel="apple-touch-icon"/>
-    <link href="/style/art.css" rel="stylesheet"/>
+    <link href="/style/article.css" rel="stylesheet"/>
     <script src="/script/math.js"/>
     <script src="/script/listing.js" type="module"/>
   </xsl:template>
