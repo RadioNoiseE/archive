@@ -24,10 +24,8 @@
     is loaded. This toggles off the defaults that might cause clutter
     or affect performance, and disables unnecessary components for the
     interface.</paragraph>
-    <verbatim lang="lisp" line="15"><![CDATA[
-(setq default-frame-alist '((horizontal-scroll-bar . nil)
-                            (vertical-scroll-bar . nil))
-      frame-inhibit-implied-resize t
+    <verbatim lang="elisp" line="11"><![CDATA[
+(setq frame-inhibit-implied-resize t
       frame-resize-pixelwise t
       window-resize-pixelwise t
       inhibit-startup-screen t
@@ -48,7 +46,7 @@
     <paragraph>Set the <verbatim>load-path</verbatim> explicitly when
     portable dumped. Portable dump related details are documented in
     <refer type="chapter" label="5"/>.</paragraph>
-    <verbatim lang="lisp" line="4"><![CDATA[
+    <verbatim lang="elisp" line="4"><![CDATA[
 (defvar dumped-load-path)
 
 (when (boundp 'dumped-load-path)
@@ -56,13 +54,13 @@
     ]]></verbatim>
     <paragraph>The handlers for file names are stripped locally during
     the very early stages.</paragraph>
-    <verbatim lang="lisp" line="1"><![CDATA[
+    <verbatim lang="elisp" line="1"><![CDATA[
 (setq-local file-name-handler-alist nil)
     ]]></verbatim>
     <paragraph>Then add <verbatim>core</verbatim> to the load
     path. The <verbatim>dolist</verbatim> is intended for more
     fine-grained division of load paths in the future.</paragraph>
-    <verbatim lang="lisp" line="3"><![CDATA[
+    <verbatim lang="elisp" line="3"><![CDATA[
 (dolist (site '("core"))
   (add-to-list 'load-path
                (expand-file-name site user-emacs-directory)))
@@ -72,7 +70,7 @@
     <verbatim>init.el</verbatim>, unlock disabled commands, use short
     answers, and enable refined CJK line-break which respects
     kinsoku.</paragraph>
-    <verbatim lang="lisp" line="6"><![CDATA[
+    <verbatim lang="elisp" line="6"><![CDATA[
 (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
       backup-directory-alist `((".*" . ,temporary-file-directory))
       custom-file (make-temp-file "custom" nil ".el")
@@ -85,7 +83,7 @@
     don<apostrophe/>t actually use any sans serif fonts, we
     should<apostrophe/>t scale the
     <verbatim>variable-pitch-text</verbatim> face as well.</paragraph>
-    <verbatim lang="lisp" line="5"><![CDATA[
+    <verbatim lang="elisp" line="5"><![CDATA[
 (when (display-graphic-p)
   (dolist (face '(default fixed-pitch fixed-pitch-serif variable-pitch))
     (set-face-attribute face nil :family "SF Mono")))
@@ -94,7 +92,7 @@
     ]]></verbatim>
     <paragraph>Optimizations for large files, based on
     LdBeth<apostrophe/>s approach.</paragraph>
-    <verbatim lang="lisp" line="5"><![CDATA[
+    <verbatim lang="elisp" line="5"><![CDATA[
 (setq bidi-display-reordering nil
       bidi-inhibit-bpa t
       large-hscroll-threshold 1000
@@ -104,20 +102,18 @@
     <paragraph>Unbind the annoying key binding to
     <verbatim>mouse-wheel-text-scale</verbatim>, to prevent accidental
     unintended text scaling.</paragraph>
-    <verbatim lang="lisp" line="2"><![CDATA[
+    <verbatim lang="elisp" line="2"><![CDATA[
 (keymap-global-set "C-<wheel-up>" 'ignore)
 (keymap-global-set "C-<wheel-down>" 'ignore)
     ]]></verbatim>
     <paragraph>Supply our own mode line, which is by design robust,
     with only necessary elements displayed. The lighter for minor
     modes are replaced with condensed Unicode glyphs.</paragraph>
-    <verbatim lang="lisp" line="27"><![CDATA[
+    <verbatim lang="elisp" line="25"><![CDATA[
 (setq mode-line-right-align-edge 'right-margin
       mode-line-space (propertize " " 'display '(space :height 1.4))
       mode-line-minor-mode '("ⓐ")
-      mode-line-minor-mode-lighter '((corfu-mode . "ⓒ")
-                                     (diff-hl-mode . "ⓗ")
-                                     (eldoc-mode . "ⓔ")
+      mode-line-minor-mode-lighter '((eldoc-mode . "ⓔ")
                                      (flymake-mode . "ⓜ")
                                      (flyspell-mode . "ⓢ")
                                      (visual-line-mode . "ⓥ")
@@ -145,7 +141,7 @@
     better than numbers preceded by mode name as functions. Note that
     <verbatim>indent-tabs-mode</verbatim> is disabled, meaning that
     spaces will be used instead.</paragraph>
-    <verbatim lang="lisp" line="12"><![CDATA[
+    <verbatim lang="elisp" line="12"><![CDATA[
 (setq pixel-scroll-precision-use-momentum t
       pixel-scroll-precision-interpolate-page t
       window-divider-default-right-width 1)
@@ -160,7 +156,7 @@
         window-divider-mode t)
     ]]></verbatim>
     <paragraph>Way to insert backslashs on JIS keyboard.</paragraph>
-    <verbatim lang="lisp" line="1"><![CDATA[
+    <verbatim lang="elisp" line="1"><![CDATA[
 (keymap-global-set "M-¥" "\\")
     ]]></verbatim>
   </unit>
@@ -171,7 +167,7 @@
     inside Emacs. Without this, our wrapper around
     <verbatim>use-package</verbatim> which checks for appropriate
     executables won<apostrophe/>t work right.</paragraph>
-    <verbatim lang="lisp" line="11"><![CDATA[
+    <verbatim lang="elisp" line="11"><![CDATA[
 (defun environment-flush ()
   (with-temp-buffer
     (call-process-shell-command
@@ -189,7 +185,7 @@
     and process them. The heavy lifting of generating autoloads is
     taken care of by
     <verbatim>loaddefs-generate</verbatim>.</paragraph>
-    <verbatim lang="lisp" line="5"><![CDATA[
+    <verbatim lang="elisp" line="5"><![CDATA[
 (let* ((site (expand-file-name "core" user-emacs-directory))
        (cookie (expand-file-name "core-autoloads.el" site)))
   (loaddefs-generate site cookie))
@@ -199,7 +195,7 @@
     <paragraph>Set up Milkypostman<apostrophe/>s Emacs Lisp package
     archive. I<apostrophe/>m happy with the bleeding-edge
     repository.</paragraph>
-    <verbatim lang="lisp" line="3"><![CDATA[
+    <verbatim lang="elisp" line="3"><![CDATA[
 (with-eval-after-load 'package
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/")))
@@ -208,7 +204,7 @@
     abstraction layer for configuration and loading of packages. It is
     further extended with the ability to conceal package declarations
     unless specific binary exists.</paragraph>
-    <verbatim lang="lisp" line="16"><![CDATA[
+    <verbatim lang="elisp" line="16"><![CDATA[
 (setq use-package-always-defer t
       use-package-always-ensure t)
 
@@ -236,7 +232,7 @@
     alphabetical order, which is not generally recommended considering
     loading priorities, etc. However it<apostrophe/>s applicable here
     since I dump all of them.</message>
-    <verbatim lang="lisp" line="220"><![CDATA[
+    <verbatim lang="elisp" line="220"><![CDATA[
 (use-package auctex
   :with "luatex"
   :init
@@ -467,7 +463,7 @@
     Emacs pre-loaded with Lisp code and data. This
     <emphasize>significantly</emphasize> improves Emacs startup and
     response time.</paragraph>
-    <verbatim lang="lisp" line="25"><![CDATA[
+    <verbatim lang="elisp" line="25"><![CDATA[
 (package-initialize)
 
 (defconst dumped-load-mask nil)
