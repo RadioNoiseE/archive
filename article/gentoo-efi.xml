@@ -32,7 +32,7 @@
       <heading>Configuration</heading>
       <paragraph>You should enable native EFI support and EFI stub
       support for the kernel.</paragraph>
-      <verbatim lang="kernel" line="4"><![CDATA[
+      <verbatim lang="plain" line="4"><![CDATA[
 Processor type and features --->
    [*] EFI runtime service support
    [*]   EFI stub support
@@ -40,7 +40,7 @@ Processor type and features --->
       ]]></verbatim>
       <paragraph>You are also recommended to embed the root partition
       information into the kernel.</paragraph>
-      <verbatim lang="kernel" line="3"><![CDATA[
+      <verbatim lang="plain" line="3"><![CDATA[
 Processor type and features --->
    [*] Built-in kernel command line
        (root=/dev/nvme0n1p3)
@@ -70,7 +70,7 @@ make -j && make modules_install
     have one. This ESP should then be mounted at
     <verbatim>/efi</verbatim>. Then make the below directory
     structure:</paragraph>
-    <verbatim lang="dir" line="5"><![CDATA[
+    <verbatim lang="plain" line="5"><![CDATA[
 /efi
 └── EFI
     └── Gentoo
