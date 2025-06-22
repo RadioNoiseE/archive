@@ -1,23 +1,19 @@
-const loadScript = source => new Promise((resolve, reject) =>
-    Object.assign(document.head.appendChild(
-        Object.assign(document.createElement('script'), { src: source })
-    ), { onload: resolve, onerror: reject }));
+import { codeToHtml } from 'https://esm.sh/shiki@3.0.0';
 
-const processListing = listing => {
-    const raw = [...listing.querySelectorAll('code')];
-    const lang = raw[0].className.match(/lang-(\w+)/)?.[1];
-    const list = raw.map(line => line.textContent).join('\n');
-    loadScript(`https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-${lang}.min.js`)
-        .then(() => {
-            const lines = Prism.highlight(list, Prism.languages[lang], lang).split('\n');
-            raw.forEach((line, index) => {
-                const parent = line.parentNode;
-                parent.innerHTML = parent.innerHTML.replace(line.outerHTML, `<code>${lines[index]}</code>`);
-            });
-        });
+const highlight = async listing => {
+    const line = Array.from(listing.querySelectorAll('code') || []);
+    const wrap = Object.assign(document.createElement('div'), {
+        innerHTML: await codeToHtml(line.map(line => line.textContent).join('\n'), {
+            lang: listing.className.trim(),
+            theme: 'github-light'
+        })
+    }).querySelector('code').innerHTML.split('\n');
+
+    line.forEach((line, offset) => {
+        line.replaceChildren(...Object.assign(document.createElement('template'), {
+            innerHTML: wrap[offset]
+        }).content.childNodes);
+    });
 };
 
-(async () => {
-    await loadScript('https://cdn.jsdelivr.net/npm/prismjs@1.30.0/prism.min.js');
-    document.querySelectorAll('pre').forEach(processListing);
-})();
+document.addEventListener('DOMContentLoaded', () => document.querySelectorAll('pre').forEach(highlight));

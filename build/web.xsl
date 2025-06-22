@@ -12,7 +12,7 @@
 
     2024-2025        RsML1 for WEB
     2025             Modify for MathJax
-    2025             Add Prism Highlight
+    2025             Add Shiki Highlighter
 
   -->
 
@@ -30,7 +30,6 @@
   </xsl:template>
 
   <xsl:template name="listing">
-    <xsl:param name="language"/>
     <xsl:param name="previous"/>
     <xsl:param name="current"/>
     <xsl:param name="capacity"/>
@@ -70,9 +69,6 @@
             <span class="nsep">|</span>
           </span>
           <span class="ld"><code>
-            <xsl:attribute name="class">
-              <xsl:value-of select="$language"/>
-            </xsl:attribute>
             <xsl:choose>
               <xsl:when test="normalize-space($before)=''">
                 <xsl:text>&#8203;</xsl:text>
@@ -88,7 +84,6 @@
         </xsl:if>
       </xsl:if>
       <xsl:call-template name="listing">
-        <xsl:with-param name="language" select="$language"/>
         <xsl:with-param name="previous" select="$before"/>
         <xsl:with-param name="current" select="$after"/>
         <xsl:with-param name="capacity" select="$capacity"/>
@@ -179,7 +174,7 @@
     <link href="/static/images/minami.jpg" rel="apple-touch-icon"/>
     <link href="/style/art.css" rel="stylesheet"/>
     <script src="/script/math.js"/>
-    <script src="/script/listing.js"/>
+    <script src="/script/listing.js" type="module"/>
   </xsl:template>
 
   <xsl:template mode="initial" match="rsml:meta">
@@ -625,6 +620,9 @@
 
   <xsl:template mode="vertical" match="rsml:verbatim">
     <div class="prewrap"><pre>
+      <xsl:attribute name="class">
+        <xsl:value-of select="@lang"/>
+      </xsl:attribute>
       <xsl:if test="@label">
         <xsl:variable name="xref">
           <xsl:number level="multiple" count="rsml:unit[@role='chapter']|rsml:verbatim" format="1-1"/>
@@ -634,7 +632,6 @@
         </xsl:attribute>
       </xsl:if>
       <xsl:call-template name="listing">
-        <xsl:with-param name="language" select="concat('lang-',@lang)"/>
         <xsl:with-param name="current" select="text()"/>
         <xsl:with-param name="capacity" select="string-length(@line)"/>
         <xsl:with-param name="pointer" select="1"/>
