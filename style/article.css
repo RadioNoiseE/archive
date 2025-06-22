@@ -214,6 +214,7 @@ div.math {
 }
 
 .prewrap {
+    margin-block-end: .83em;
     overflow-x: auto;
 }
 
@@ -313,6 +314,7 @@ cite.year {
 
 .footnotes {
     font-size: 90%;
+    margin-block-end: .83em;
     margin-left: -.85em;
     margin-top: 1.6em;
 }
