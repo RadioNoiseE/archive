@@ -1,13 +1,13 @@
 import { codeToHtml } from 'https://esm.sh/shiki@3.0.0';
 
 const highlight = async listing => {
-    const line = Array.from(listing.querySelectorAll('code') || []);
-    const wrap = Object.assign(document.createElement('div'), {
+    const line = Array.from(listing.querySelectorAll('code'));
+    const wrap = Array.from(Object.assign(document.createElement('div'), {
         innerHTML: await codeToHtml(line.map(line => line.textContent).join('\n'), {
             lang: listing.className.trim(),
             theme: 'github-light'
         })
-    }).querySelector('code').innerHTML.split('\n');
+    }).querySelectorAll('.line')).map(span => span.innerHTML);
 
     line.forEach((line, offset) => {
         line.replaceChildren(...Object.assign(document.createElement('template'), {
