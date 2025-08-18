@@ -21,6 +21,6 @@ window.MathJax = {
 };
 
 document.head.appendChild(Object.assign(document.createElement('script'), {
-    src: 'https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-svg-nofont.js',
+    src: 'https://cdn.jsdelivr.net/npm/mathjax/tex-svg-nofont.js',
     async: true
 }));
