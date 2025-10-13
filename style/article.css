@@ -329,12 +329,12 @@ cite.year {
 }
 
 .footnote {
+    display: flex;
     margin: .2em 0;
 }
 
 .footno {
-    display: inline-block;
-    width: .65em;
+    flex: 0 0 1.2em;
 }
 
 .footbody {
