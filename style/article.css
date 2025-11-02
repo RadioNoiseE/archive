@@ -90,6 +90,10 @@ body {
         margin-left: 1em;
     }
 
+    .toc > li:first-child {
+        margin-top: .1em;
+    }
+
     .toc > li:not(:first-child) {
         margin-top: 0;
     }
