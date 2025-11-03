@@ -2,6 +2,7 @@
 
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Archive RnE</title>
+  <subtitle>开擺すればいいんだよ</subtitle>
   <author>
     <name>Jing Huang</name>
     <email>radionoisee@gmail.com</email>
@@ -14,7 +15,21 @@
   <logo>https://kekkan.org/static/images/minami.jpg</logo>
 
   <rights>Copyright 2024-2025 Jing Huang</rights>
-  <updated>2025-05-20T00:01:00Z</updated>
+  <updated>2025-11-03T00:01:00Z</updated>
+
+  <entry>
+    <id>tag:kekkan.org,2025:article#12</id>
+    <link rel="alternate" href="https://kekkan.org/article/fairplay-drm.xml"/>
+    <title>New article about FairPlay DRM</title>
+    <published>2025-11-03T00:01:00Z</published>
+    <updated>2025-11-03T00:01:00Z</updated>
+    <summary type="xhtml">
+      <div xmlns="http://www.w3.org/1999/xhtml">Decrypting Mach-O
+      images protected by FairPlay DRM for security research
+      purposes. C implementation with MobileSubstrate-based injection
+      method.</div>
+    </summary>
+  </entry>
 
   <entry>
     <id>tag:kekkan.org,2025:article#11</id>
