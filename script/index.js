@@ -1,28 +1,34 @@
-const trigger = document.getElementById('toggle');
+const triggers = document.querySelectorAll('.toggle');
 const overlay = document.getElementById('overlay');
-const memoir = document.getElementById('memoir');
+const buffer = document.getElementById('buffer');
 
 const toggle = show => {
     overlay.style.display = show ? 'block' : 'none';
-    memoir.style.display = show ? 'block' : 'none';
+    buffer.style.display = show ? 'block' : 'none';
     document.body.classList.toggle('idle', show);
 };
 
-const transform = () => {
+const transform = file => {
     Promise.all([
-        fetch('/memoir.xml').then(response => response.text()),
+        fetch(file).then(response => response.text()),
         fetch('/build/atom.xsl').then(response => response.text())
     ]).then(([xml, xsl]) => {
         const proc = new DOMParser();
         const xslt = new XSLTProcessor();
         xslt.importStylesheet(proc.parseFromString(xsl, 'application/xml'));
-        document.getElementById("memoir").srcdoc =
+        buffer.srcdoc =
             new XMLSerializer().serializeToString(
                 xslt.transformToDocument(proc.parseFromString(xml, 'application/xml'))
             );
     });
 };
 
-trigger.addEventListener('click', (event) => { event.preventDefault(); toggle(true); });
-overlay.addEventListener('click', (event) => { event.preventDefault(); toggle(false); });
-document.addEventListener('DOMContentLoaded', transform);
+triggers.forEach(trigger => {
+    trigger.addEventListener('click', event => {
+        event.preventDefault();
+        transform(trigger.getAttribute('href'));
+        toggle(true);
+    });
+});
+
+overlay.addEventListener('click', event => toggle(false));
