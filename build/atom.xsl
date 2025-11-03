@@ -48,8 +48,11 @@
                 <xsl:when test="atom:content/@type='xhtml'">
                   <xsl:copy-of select="atom:content/xhtml:div/*"/>
                 </xsl:when>
+                <xsl:when test="atom:summary/@type='xhtml'">
+                  <xsl:copy-of select="atom:summary/xhtml:div/*"/>
+                </xsl:when>
                 <xsl:otherwise>
-                  <p><xsl:value-of select="atom:content"/></p>
+                  <p><xsl:value-of select="atom:content|atom:summary"/></p>
                 </xsl:otherwise>
               </xsl:choose>
             </div>
