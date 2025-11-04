@@ -11,9 +11,12 @@ let match = ruleSet.map(rule => {
 }).find(Boolean);
 
 if (!(match && match.version >= match.min && match.version <= match.max)) {
-        const log = document.getElementById('warning');
-        log.textContent = `Warning: ${match ? match.vendor + ' ' + match.version : 'unknown browser'} has known issues with XSLT.` +
+        document.getElementById('warning').textContent =
+                `Warning: ${match ? match.vendor + ' ' + match.version : 'unknown browser'} has known issues with XSLT.` +
                 '\n\nLinks to articles have been redirected to their HTML mirrored versions.';
+
+        document.documentElement.style.setProperty('--warning-left-offset', '-6%');
+        document.documentElement.style.setProperty('--warning-right-offset', '.6em')
 
         document.querySelectorAll('a[href$=".xml"]').forEach(link => {
                 const url = new URL(link.href, location.origin);
