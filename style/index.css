@@ -19,6 +19,21 @@ body.idle {
     overflow: hidden;
 }
 
+#warning {
+    font-family: LAT-MS, monospace;
+    margin: 2em .6em 0 -6%;
+    max-width: 14em;
+    user-select: none;
+    -webkit-user-select: none;
+    white-space: pre-wrap;
+}
+
+@media only screen and (max-width: 86em) {
+    #warning {
+        margin-left: 0;
+    }
+}
+
 .frame {
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
