@@ -14,7 +14,8 @@
     </date>
     <abstract>For reasons that felt arbitrary at the time, I decided
     to document my Emacs configuration, written specifically for the
-    NeXTStep Cocoa implementation. Refactored in May 2025.</abstract>
+    NeXTStep Cocoa implementation. Refactored in May 2025, with major
+    update in November 2025.</abstract>
   </meta>
 
   <unit role="chapter">
@@ -24,12 +25,11 @@
     is loaded. This toggles off the defaults that might cause clutter
     or affect performance, and disables unnecessary components for the
     interface.</paragraph>
-    <verbatim lang="elisp" line="11"><![CDATA[
+    <verbatim lang="elisp" line="10"><![CDATA[
 (setq frame-inhibit-implied-resize t
       frame-resize-pixelwise t
       window-resize-pixelwise t
       inhibit-startup-screen t
-      inhibit-startup-echo-area-message user-login-name
       use-dialog-box nil)
 
 (setopt menu-bar-mode nil
@@ -37,8 +37,8 @@
         tool-bar-mode nil
         tooltip-mode nil)
     ]]></verbatim>
-    <paragraph>As you can see, there are no redundant GC
-    tweaks.</paragraph>
+    <paragraph>There are no redundant GC tweaks, as I compile Emacs
+    with the incremental garbage collector.</paragraph>
   </unit>
 
   <unit role="chapter">
@@ -157,7 +157,7 @@
     ]]></verbatim>
     <paragraph>Way to insert backslashs on JIS keyboard.</paragraph>
     <verbatim lang="elisp" line="1"><![CDATA[
-(keymap-global-set "M-¥" "\\")
+(define-key key-translation-map (kbd "¥") (kbd "\\"))
     ]]></verbatim>
   </unit>
 
@@ -179,6 +179,11 @@
         (when (string= name "PATH")
           (setenv name value)
           (setq exec-path (split-string value path-separator)))))))
+    ]]></verbatim>
+    <paragraph>Macro for revealing my deepest secrets.</paragraph>
+    <verbatim lang="elisp" line="2"><![CDATA[
+(defmacro secret-get (host)
+  `(funcall (plist-get (car (auth-source-search :host ,host)) :secret)))
     ]]></verbatim>
     <paragraph>We then gather the cookies in third-party extension
     packages that are not managed by <verbatim>package.el</verbatim>
@@ -232,14 +237,14 @@
     alphabetical order, which is not generally recommended considering
     loading priorities, etc. However it<apostrophe/>s applicable here
     since I dump all of them.</message>
-    <verbatim lang="elisp" line="220"><![CDATA[
+    <verbatim lang="elisp" line="207"><![CDATA[
 (use-package auctex
   :with "luatex"
   :init
   (setq-default TeX-engine 'luatex)
   (setq TeX-check-TeX nil
         TeX-parse-self t
-        TeX-view-program-list '(("Preview" "open -a Preview.app %o"))))
+        TeX-view-program-list '(("Preview" "open -a Preview %o"))))
 
 (use-package avy
   :bind (("C-: c" . avy-goto-char)
@@ -258,30 +263,37 @@
               ([return] . corfu-send)
               ([escape] . corfu-quit)))
 
-(use-package diff-hl)
-
 (use-package dired
   :ensure nil
   :init (setq dired-use-ls-dired nil))
 
 (use-package ef-themes
   :defer nil
-  :config (ef-themes-select 'ef-owl))
+  :config (ef-themes-select 'ef-kassio))
 
 (use-package eglot
   :ensure nil
-  :init (setq eglot-code-action-indications '(eldoc-hint)))
+  :init
+  (setq eglot-code-action-indications '(eldoc-hint))
+  (defun eglot-for-tab-command ()
+    (interactive)
+    (cond ((yas-active-snippets)
+           (yas-next-field-or-maybe-expand))
+          ((save-excursion
+             (beginning-of-line)
+             (looking-at-p "[ \t]*$"))
+           (indent-for-tab-command))
+          (t (eglot-format)
+             (when (use-region-p)
+               (deactivate-mark)))))
+  :bind (:map eglot-mode-map
+              ([tab] . eglot-for-tab-command)))
 
 (use-package eldoc
   :ensure nil
-  :hook (after-init . global-eldoc-mode)
   :init (setq eldoc-echo-area-display-truncation-message nil
               eldoc-echo-area-use-multiline-p nil
               eldoc-echo-area-prefer-doc-buffer 'maybe))
-
-(use-package epg
-  :ensure nil
-  :init (setq epg-pinentry-mode 'loopback))
 
 (use-package eww
   :ensure nil
@@ -345,6 +357,11 @@
   :ensure nil
   :init (setq ispell-program-name "aspell"))
 
+(use-package gptel
+  :config (setq gptel-backend (gptel-make-anthropic "claude"
+                                :stream t
+                                :key (secret-get "console.anthropic.com"))))
+
 (use-package magit)
 
 (use-package marginalia
@@ -354,12 +371,20 @@
   :init (setq markdown-enable-math t
               markdown-fontify-code-blocks-natively t
               markdown-hide-urls t)
-  :config (set-face-underline 'markdown-line-break-face nil))
+  :config
+  (set-face-background 'markdown-code-face nil)
+  (set-face-underline 'markdown-line-break-face nil))
 
 (use-package nxml-mode
   :ensure nil
   :config (add-to-list 'rng-schema-locating-files
                        (expand-file-name "schema/schemas.xml" user-emacs-directory)))
+
+(use-package orderless
+  :init (setq completion-styles '(orderless basic)
+              orderless-matching-styles '(orderless-literal
+                                          orderless-prefixes
+                                          orderless-regexp)))
 
 (use-package proof-general
   :with "coqc"
@@ -378,11 +403,12 @@
   :defer nil
   :init (setq treesit-language-unmask-alist '((c++ . cpp))
               treesit-language-fallback-alist '((html-ts-mode . mhtml-mode))
-              treesit-language-source-alist '((bash . "https://github.com/tree-sitter/tree-sitter-bash")
-                                              (c . "https://github.com/tree-sitter/tree-sitter-c")
-                                              (cpp . "https://github.com/tree-sitter/tree-sitter-cpp")
-                                              (css . "https://github.com/tree-sitter/tree-sitter-css")
-                                              (html . "https://github.com/tree-sitter/tree-sitter-html")))
+              treesit-language-source-alist '((bash . ("https://github.com/tree-sitter/tree-sitter-bash"))
+                                              (c . ("https://github.com/tree-sitter/tree-sitter-c"))
+                                              (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp"))
+                                              (css . ("https://github.com/tree-sitter/tree-sitter-css"))
+                                              (html . ("https://github.com/tree-sitter/tree-sitter-html"))
+                                              (rnc . ("https://github.com/ldbeth/tree-sitter-rnc"))))
   :config (dolist (grammar treesit-language-source-alist)
             (let* ((language (or (car (rassq (car grammar) treesit-language-unmask-alist))
                                  (car grammar)))
@@ -413,46 +439,71 @@
     'wl-draft-send
     'wl-draft-kill
     'mail-send-hook)
-  (setq elmo-passwd-storage-type 'auth-source
-        mail-user-agent 'wl-user-agent
-        user-mail-address "j18516785606@icloud.com"
-        user-full-name "RnE"
-        wl-local-domain "icloud.com"
-        wl-smtp-authenticate-type "plain"
-        wl-smtp-connection-type 'starttls
-        wl-smtp-posting-user "j18516785606@icloud.com"
-        wl-smtp-posting-server "smtp.mail.me.com"
-        wl-smtp-posting-port 587
-        wl-summary-width nil
-        wl-summary-line-format "%n%T%P %W:%M/%D %h:%m %36(%t%[%c %f %]%) %s"
-        wl-temporary-file-directory "~/.wl"
-        wl-thread-indent-level 2
-        wl-thread-have-younger-brother-str "+"
-        wl-thread-youngest-child-str "+"
-        wl-thread-vertical-str " "
-        wl-thread-horizontal-str "-"
-        wl-thread-space-str " "
-        wl-message-id-domain "smtp.mail.me.com"
-        wl-message-ignored-field-list '(".")
-        wl-message-visible-field-list
-        '("^Subject:"
-          "^\\(To\\|Cc\\):"
-          "^\\(From\\|Reply-To\\):"
-          "^\\(Posted\\|Date\\):"
-          "^Organization:"
-          "^X-Face\\(-[0-9]+\\)?:")
-        wl-message-sort-field-list
-        '("^Subject"
-          "^\\(To\\|Cc\\)"
-          "^\\(From\\|Reply-To\\)"
-          "^\\(Posted\\|Date\\)"
-          "^Organization")
-        wl-highlight-x-face-function 'x-face-decode-message-header)
+  (setq mail-user-agent 'wl-user-agent)
   (with-eval-after-load 'wl-demo
     (set-face-background 'wl-highlight-demo-face nil)))
 
 (use-package yasnippet
   :hook (prog-mode . yas-minor-mode))
+    ]]></verbatim>
+  </unit>
+
+  <unit role="chapter">
+    <heading>Mail Management</heading>
+    <paragraph>Wanderlust-specific settings are isolated in
+    <verbatim>~/.wl</verbatim>, which is automatically loaded during
+    its start up. The behavior of <verbatim>Mail.app</verbatim> is
+    replicated, and the default summary interface is refined. To get
+    X-Face display working, you need to have
+    <verbatim>x-face-e21.el</verbatim> installed and patched so it
+    works on recent Emacs versions.</paragraph>
+    <verbatim lang="elisp" line="46"><![CDATA[
+(setq user-mail-address "rne.kou@icloud.com"
+      user-full-name "Huang Jing")
+
+(setq elmo-imap4-default-user user-mail-address
+      elmo-imap4-default-authenticate-type 'clear
+      elmo-imap4-default-server "imap.mail.me.com"
+      elmo-imap4-default-port 993
+      elmo-imap4-default-stream-type 'ssl
+      elmo-passwd-storage-type 'auth-source)
+
+(setq wl-expire-alist '(("^\\+trash$" (date 7) remove))
+      wl-from "Huang Jing <rne.kou@icloud.com>"
+      wl-fcc "%Sent Messages"
+      wl-fcc-force-as-read t
+      wl-local-domain "icloud.com"
+      wl-smtp-authenticate-type "plain"
+      wl-smtp-connection-type 'starttls
+      wl-smtp-posting-user user-mail-address
+      wl-smtp-posting-server "smtp.mail.me.com"
+      wl-smtp-posting-port 587
+      wl-temporary-file-directory "~/.wlt"
+      wl-summary-width nil
+      wl-summary-line-format "%n%T%P %W:%M/%D %h:%m %36(%t%[%c %f %]%) %s"
+      wl-thread-indent-level 2
+      wl-thread-have-younger-brother-str "+"
+      wl-thread-youngest-child-str "+"
+      wl-thread-vertical-str " "
+      wl-thread-horizontal-str "-"
+      wl-thread-space-str " "
+      wl-message-id-domain "smtp.mail.me.com"
+      wl-message-ignored-field-list '(".")
+      wl-message-visible-field-list
+      '("^Subject:"
+        "^\\(To\\|Cc\\):"
+        "^\\(From\\|Reply-To\\):"
+        "^\\(Posted\\|Date\\):"
+        "^Organization:"
+        "^X-Face\\(-[0-9]+\\)?:")
+      wl-message-sort-field-list
+      '("^Subject"
+        "^\\(To\\|Cc\\)"
+        "^\\(From\\|Reply-To\\)"
+        "^\\(Posted\\|Date\\)"
+        "^Organization"
+        "^X-Face\\(-[0-9]+\\)?:")
+      wl-highlight-x-face-function 'x-face-decode-message-header)
     ]]></verbatim>
   </unit>
 
