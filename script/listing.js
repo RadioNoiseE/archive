@@ -5,7 +5,7 @@ const highlight = async listing => {
         const wrap = Array.from(Object.assign(document.createElement('div'), {
                 innerHTML: await codeToHtml(line.map(line => line.textContent).join('\n'), {
                         lang: listing.className.trim(),
-                        theme: 'min-light'
+                        theme: 'gruvbox-light-soft'
                 })
         }).querySelectorAll('.line')).map(span => span.innerHTML);
 
